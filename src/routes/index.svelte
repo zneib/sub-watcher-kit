@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import { onMount } from 'svelte';
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
@@ -17,6 +18,7 @@
 
 <main>
   <p>Main Sub Watcher Area</p>
+  <AddPlayerDialog />
   <button class="add" on:click={showModal} >
     Add Player
   </button>
