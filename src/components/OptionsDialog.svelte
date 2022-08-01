@@ -13,6 +13,16 @@ import AddPlayerDialog from './AddPlayerDialog.svelte';
   const closeDialog = () => {
     optionsDialog.close();
   }
+
+  const handleMaxPlayerChange = (event: Event) => {
+    const target = event.target as HTMLSelectElement;
+    maxActivePlayers = +target?.value;
+  }
+
+  const handlePlayTimeChange = (event: Event) => {
+    const target = event.target as HTMLSelectElement;
+    playTimeLimit = target?.value;
+  }
 </script>
 
 <dialog id="optionsDialog" on:click={(e) => handleClickOutside(e, optionsDialog)}>
@@ -21,7 +31,7 @@ import AddPlayerDialog from './AddPlayerDialog.svelte';
     <form>
       <div>
         <label for="activePlayerLimit">Active Players Limit</label>
-        <select name="activePlayerLimit" on:change={(e) => maxActivePlayers = e?.target?.value} value={maxActivePlayers}>
+        <select name="activePlayerLimit" on:change={handleMaxPlayerChange} value={maxActivePlayers}>
           <option value={1}>1</option>
           <option value={2}>2</option>
           <option value={3}>3</option>
@@ -36,7 +46,7 @@ import AddPlayerDialog from './AddPlayerDialog.svelte';
       </div>
       <div>
         <label for="playTimeLimit">Player Time Limit - MM:SS</label>
-        <select name="playTimeLimit" on:change={(e) => playTimeLimit = e?.target?.value} value={playTimeLimit}>
+        <select name="playTimeLimit" on:change={handlePlayTimeChange} value={playTimeLimit}>
           <option value="01:00">01:00</option>
           <option value="03:00">03:00</option>
           <option value="05:00" selected>05:00</option>
