@@ -7,7 +7,6 @@
   let seconds: number = 0;
   let minutes: number = 0;
   let timesUp: boolean = false;
-  $: maxPlayers = 0;
 
   const timerTracker = setInterval(() => {
     if (seconds === 59) {
