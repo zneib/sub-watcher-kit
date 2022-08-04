@@ -1,6 +1,8 @@
 <script lang="ts">
-  import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import { onMount } from 'svelte';
+  import { browser } from '$app/env';
+
+  import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
   import OptionsDialog from '../components/OptionsDialog.svelte';
   import Person from '../components/Person.svelte';
@@ -13,8 +15,10 @@
   let playTimeLimit: string = '05:00';
   let personToDelete: string = '';
 
-  let people = JSON.parse(localStorage.getItem('people') || '{}') ?? [];
-  let activePlayers = JSON.parse(localStorage.getItem('activePlayers') || '{}') ?? [];
+  console.log(browser);
+
+  let people: string[] = browser ? JSON.parse(localStorage.getItem('people') || '{}') : [];
+  let activePlayers: string[] = browser ? JSON.parse(localStorage.getItem('activePlayers') || '{}') : [];
 
   $: showMaxLimitMessage = maxActivePlayers - activePlayers?.length <= 0;
 
@@ -98,16 +102,18 @@
     <h2>Inactive Players</h2>
     <Helper text="inactive" title="Inactive Players Features" features={helperFeaturesOne} />
     <div class:collapsed={!isInactiveOpen} class="person-container">
-      {#each people as person}
-        <Person 
-          name={person} 
-          addActivePlayer={addActivePlayer} 
-          showDialogElement={showDialogElement} 
-          maxActivePlayers={maxActivePlayers} 
-          activePlayers={activePlayers?.length}
-          limitMessageShowing={showMaxLimitMessage}
-        />
-      {/each}
+      {#if people.length > 0}
+        {#each people as person}
+          <Person 
+            name={person} 
+            addActivePlayer={addActivePlayer} 
+            showDialogElement={showDialogElement} 
+            maxActivePlayers={maxActivePlayers} 
+            activePlayers={activePlayers?.length}
+            limitMessageShowing={showMaxLimitMessage}
+          />
+        {/each}
+      {/if}
     </div>
     <button class="options" on:click={optionsDialog.showModal()}>
       Options
@@ -132,9 +138,11 @@
       </div>
     {/if}
     <div class:collapsed={!isActiveOpen}>
-      {#each activePlayers as player, index}
-        <Player index={index} name={player} removeActivePlayer={removeActivePlayer} playTimeLimit={playTimeLimit} />
-      {/each}
+      {#if activePlayers.length > 0}
+        {#each activePlayers as player, index}
+          <Player index={index} name={player} removeActivePlayer={removeActivePlayer} playTimeLimit={playTimeLimit} />
+        {/each}
+      {/if}
     </div>
     {#if maxActivePlayers - activePlayers?.length !== 0}
       <p class="limit-message">
