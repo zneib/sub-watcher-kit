@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { handleClickOutside } from '../helpers';
   export let personToDelete: string = '';
-  export let deletePerson: () => {};
+  export let deletePerson: () => void;
 
   let deleteDialog: HTMLDialogElement;
   onMount(() => {

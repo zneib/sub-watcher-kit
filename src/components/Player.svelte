@@ -2,7 +2,7 @@
   import { afterUpdate } from "svelte";
   export let index: number;
   export let name: string;
-  export let removeActivePlayer: (name: string) => {};
+  export let removeActivePlayer: (name: string) => void;
   export let playTimeLimit: string;
   let seconds: number = 0;
   let minutes: number = 0;
@@ -30,13 +30,9 @@
       timesUp = true;
     }
   });
-
-  const removePlayer = () => {
-    console.log('Use context to remove an active player here.');
-  }
 </script>
 
-<div class:danger={timesUp} class="name" on:click={removePlayer}>
+<div class:danger={timesUp} class="name" on:click={removeActivePlayer(name)}>
   <span class:danger={timesUp} class="index">{index + 1}</span>
   <span class="name">{name}</span>
   <span class="timer">{timer}</span>

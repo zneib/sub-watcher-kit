@@ -1,7 +1,7 @@
 <script lang="ts">
   export let name: string;
   export let addActivePlayer: (name: string) => void;
-  export let showDialogElement: (name: string) => {};
+  export let showDialogElement: (name: string) => void;
   export let maxActivePlayers: number;
   export let activePlayers: number;
   export let limitMessageShowing: boolean;
