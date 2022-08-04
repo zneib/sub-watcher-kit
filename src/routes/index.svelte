@@ -1,12 +1,12 @@
 <script lang="ts">
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import { onMount } from 'svelte';
-  import DeleteDialog from 'src/components/DeleteDialog.svelte';
-  import OptionsDialog from 'src/components/OptionsDialog.svelte';
-  import Person from 'src/components/Person.svelte';
-import Collapse from 'src/components/Collapse.svelte';
-import Helper from 'src/components/Helper.svelte';
-import Player from 'src/components/Player.svelte';
+  import DeleteDialog from '../components/DeleteDialog.svelte';
+  import OptionsDialog from '../components/OptionsDialog.svelte';
+  import Person from '../components/Person.svelte';
+  import Collapse from '../components/Collapse.svelte';
+  import Helper from '../components/Helper.svelte';
+  import Player from '../components/Player.svelte';
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
   let maxActivePlayers: number = 7;
