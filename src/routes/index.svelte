@@ -9,16 +9,15 @@
   import Collapse from '../components/Collapse.svelte';
   import Helper from '../components/Helper.svelte';
   import Player from '../components/Player.svelte';
+
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
   let maxActivePlayers: number = 7;
   let playTimeLimit: string = '05:00';
   let personToDelete: string = '';
 
-  console.log(browser);
-
-  let people: string[] = browser ? JSON.parse(localStorage.getItem('people') || '{}') : [];
-  let activePlayers: string[] = browser ? JSON.parse(localStorage.getItem('activePlayers') || '{}') : [];
+  let people: string[] = browser && JSON.parse(localStorage.getItem('people') || '[]');
+  let activePlayers: string[] = browser && JSON.parse(localStorage.getItem('activePlayers') || '[]');
 
   $: showMaxLimitMessage = maxActivePlayers - activePlayers?.length <= 0;
 
@@ -53,6 +52,8 @@
   }
 
   const deletePerson = () => {
+    people = people.filter((name) => name !== personToDelete);
+    localStorage.setItem('people', JSON.stringify(people));
     deleteDialog.close();
   }
 
