@@ -92,6 +92,14 @@
     localStorage.removeItem('activePlayers');
     localStorage.setItem('people', JSON.stringify(people));
   }
+
+  const saveTeam = (teamName: string) => {
+    localStorage.setItem(`${teamName}`, JSON.stringify(people));
+  }
+
+  const loadTeam = (teamName: string) => {
+    localStorage.getItem(`${teamName}`);
+  }
 </script>
 
 <main>
