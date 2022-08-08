@@ -88,6 +88,10 @@ import AddPlayerDialog from './AddPlayerDialog.svelte';
     width: 100%;
   }
 
+  label {
+    font-size: 12px;
+  }
+
   h3 {
     margin-top: 0;
     text-align: center;

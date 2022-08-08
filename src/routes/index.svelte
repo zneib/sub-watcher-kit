@@ -9,6 +9,7 @@
   import Collapse from '../components/Collapse.svelte';
   import Helper from '../components/Helper.svelte';
   import Player from '../components/Player.svelte';
+import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
 
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
@@ -41,10 +42,12 @@
   let deleteDialog: HTMLDialogElement;
   let addPlayerDialog: HTMLDialogElement;
   let optionsDialog: HTMLDialogElement;
+  let saveTeamDialog: HTMLDialogElement;
   onMount(() => {
     deleteDialog = document.getElementById('deleteDialog') as HTMLDialogElement;
     addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
     optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
+    saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
   })
 
   const showModal = () => {
@@ -95,6 +98,7 @@
 
   const saveTeam = (teamName: string) => {
     localStorage.setItem(`${teamName}`, JSON.stringify(people));
+    saveTeamDialog.close();
   }
 
   const loadTeam = (teamName: string) => {
@@ -106,6 +110,8 @@
   <DeleteDialog personToDelete={personToDelete} deletePerson={deletePerson} />
   <AddPlayerDialog addPlayer={addPlayer} />
   <OptionsDialog bind:maxActivePlayers={maxActivePlayers} bind:playTimeLimit={playTimeLimit} />
+  <SaveTeamDialog saveTeam={saveTeam} />
+  <button on:click={saveTeamDialog.showModal()}>Save Team</button>
   <article>
     <Collapse onChange={value => isInactiveOpen = value} />
     <h2>Inactive Players</h2>

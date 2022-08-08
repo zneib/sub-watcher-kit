@@ -1,28 +1,28 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { handleClickOutside } from '../helpers';
-  export let addPlayer: (e: EventTarget) => void;
+  export let saveTeam: (teamName: string) => void;
 
-  let addPlayerDialog: HTMLDialogElement;
+  let saveTeamDialog: HTMLDialogElement;
   onMount(() => {
-    addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
+    saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
   });
 
   const closeDialog = () => {
-    addPlayerDialog.close()
+    saveTeamDialog.close()
   }
 </script>
 
-<dialog id="addPlayerDialog" on:click={(e) => handleClickOutside(e, addPlayerDialog)}>
+<dialog id="saveTeamDialog" on:click={(e) => handleClickOutside(e, saveTeamDialog)}>
   <div class="wrapper">
-    <form on:submit|preventDefault={addPlayer}>
-      <h3>Add Another Player</h3>
+    <form on:submit|preventDefault={saveTeam}>
+      <h3>Save Team</h3>
       <div>
-        <label for="firstName">Name</label>
-        <input type="text" name="firstName">
+        <label for="teamName">Team Name</label>
+        <input type="text" name="teamName">
       </div>
       <div class="button-wrapper">
-        <button type="submit">Add</button>
+        <button type="submit">Save</button>
         <button value="cancel" on:click={closeDialog}>Close</button>
       </div>
     </form>
