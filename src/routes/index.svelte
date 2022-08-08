@@ -97,6 +97,7 @@ import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   }
 
   const saveTeam = (teamName: string) => {
+    console.log(teamName);
     localStorage.setItem(`${teamName}`, JSON.stringify(people));
     saveTeamDialog.close();
   }
@@ -110,7 +111,7 @@ import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   <DeleteDialog personToDelete={personToDelete} deletePerson={deletePerson} />
   <AddPlayerDialog addPlayer={addPlayer} />
   <OptionsDialog bind:maxActivePlayers={maxActivePlayers} bind:playTimeLimit={playTimeLimit} />
-  <SaveTeamDialog saveTeam={saveTeam} />
+  <SaveTeamDialog activePlayers={activePlayers} people={people} />
   <button on:click={saveTeamDialog.showModal()}>Save Team</button>
   <article>
     <Collapse onChange={value => isInactiveOpen = value} />

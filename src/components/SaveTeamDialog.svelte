@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { handleClickOutside } from '../helpers';
-  export let saveTeam: (teamName: string) => void;
+  export let activePlayers: string[];
+  export let people: string[];
+  let teamName: string = '';
 
   let saveTeamDialog: HTMLDialogElement;
   onMount(() => {
@@ -11,6 +13,12 @@
   const closeDialog = () => {
     saveTeamDialog.close()
   }
+
+  const saveTeam = () => {
+    const team = [...activePlayers, ...people].sort((a, b) => a.localeCompare(b));
+    localStorage.setItem(`${teamName}`, JSON.stringify(team));
+    saveTeamDialog.close();
+  }
 </script>
 
 <dialog id="saveTeamDialog" on:click={(e) => handleClickOutside(e, saveTeamDialog)}>
@@ -19,7 +27,7 @@
       <h3>Save Team</h3>
       <div>
         <label for="teamName">Team Name</label>
-        <input type="text" name="teamName">
+        <input bind:value={teamName} type="text" name="teamName">
       </div>
       <div class="button-wrapper">
         <button type="submit">Save</button>
