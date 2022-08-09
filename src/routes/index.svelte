@@ -9,7 +9,8 @@
   import Collapse from '../components/Collapse.svelte';
   import Helper from '../components/Helper.svelte';
   import Player from '../components/Player.svelte';
-import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
+  import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
+  import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
 
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
@@ -43,11 +44,13 @@ import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   let addPlayerDialog: HTMLDialogElement;
   let optionsDialog: HTMLDialogElement;
   let saveTeamDialog: HTMLDialogElement;
+  let loadTeamDialog: HTMLDialogElement;
   onMount(() => {
     deleteDialog = document.getElementById('deleteDialog') as HTMLDialogElement;
     addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
     optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
     saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
+    loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
 
   const showModal = () => {
@@ -95,16 +98,6 @@ import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
     localStorage.removeItem('activePlayers');
     localStorage.setItem('people', JSON.stringify(people));
   }
-
-  const saveTeam = (teamName: string) => {
-    console.log(teamName);
-    localStorage.setItem(`${teamName}`, JSON.stringify(people));
-    saveTeamDialog.close();
-  }
-
-  const loadTeam = (teamName: string) => {
-    localStorage.getItem(`${teamName}`);
-  }
 </script>
 
 <main>
@@ -112,7 +105,9 @@ import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   <AddPlayerDialog addPlayer={addPlayer} />
   <OptionsDialog bind:maxActivePlayers={maxActivePlayers} bind:playTimeLimit={playTimeLimit} />
   <SaveTeamDialog activePlayers={activePlayers} people={people} />
+  <LoadTeamDialog />
   <button on:click={saveTeamDialog.showModal()}>Save Team</button>
+  <button on:click={loadTeamDialog.showModal()}>Load Team</button>
   <article>
     <Collapse onChange={value => isInactiveOpen = value} />
     <h2>Inactive Players</h2>

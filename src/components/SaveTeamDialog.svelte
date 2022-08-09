@@ -16,7 +16,7 @@
 
   const saveTeam = () => {
     const team = [...activePlayers, ...people].sort((a, b) => a.localeCompare(b));
-    localStorage.setItem(`${teamName}`, JSON.stringify(team));
+    localStorage.setItem(`${teamName}-team`, JSON.stringify(team));
     saveTeamDialog.close();
   }
 </script>
