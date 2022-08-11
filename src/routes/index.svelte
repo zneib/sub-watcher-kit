@@ -7,6 +7,7 @@
   import OptionsDialog from '../components/OptionsDialog.svelte';
   import Person from '../components/Person.svelte';
   import Collapse from '../components/Collapse.svelte';
+  import DeleteAll from '../components/DeleteAll.svelte';
   import Helper from '../components/Helper.svelte';
   import Player from '../components/Player.svelte';
   import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
@@ -105,11 +106,13 @@
   <AddPlayerDialog addPlayer={addPlayer} />
   <OptionsDialog bind:maxActivePlayers={maxActivePlayers} bind:playTimeLimit={playTimeLimit} />
   <SaveTeamDialog activePlayers={activePlayers} people={people} />
-  <LoadTeamDialog />
+  <LoadTeamDialog bind:people bind:activePlayers />
   <button on:click={saveTeamDialog.showModal()}>Save Team</button>
   <button on:click={loadTeamDialog.showModal()}>Load Team</button>
+  <button>Edit Teams</button>
   <article>
     <Collapse onChange={value => isInactiveOpen = value} />
+    <DeleteAll bind:people bind:activePlayers />
     <h2>Inactive Players</h2>
     <Helper text="inactive" title="Inactive Players Features" features={helperFeaturesOne} />
     <div class:collapsed={!isInactiveOpen} class="person-container">

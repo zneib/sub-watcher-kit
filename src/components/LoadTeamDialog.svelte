@@ -2,8 +2,11 @@
   import { onMount } from 'svelte';
   import { browser } from '$app/env';
   import { handleClickOutside } from '../helpers';
+  export let people;
+  export let activePlayers;
 
   let teams: Array<string | null> = [];
+  let teamToLoad: string | null = '';
 
   let loadTeamDialog: HTMLDialogElement;
   onMount(() => {
@@ -15,8 +18,6 @@
           }
         }
       }
-
-    console.log(teams);
   });
 
   const closeDialog = () => {
@@ -24,7 +25,14 @@
   }
 
   const loadTeam = () => {
-
+    if (browser) {
+      const savedPlayers: string[] = browser && JSON.parse(localStorage.getItem(`${teamToLoad}`) || '[]');
+      people = [...savedPlayers];
+      activePlayers = [];
+      localStorage.setItem('activePlayers', '[]');
+      localStorage.setItem('people', JSON.stringify(savedPlayers));
+      loadTeamDialog.close();
+    }
   }
 </script>
 
@@ -35,7 +43,7 @@
       <div>
         <label for="teamName">Team Name</label>
         {#each teams as team}
-          <button class="wrapper">{team?.slice(0, -5)}</button>
+          <button class="wrapper" on:click|preventDefault={() => teamToLoad = team}>{team?.slice(0, -5)}</button>
         {/each}
       </div>
       <div class="button-wrapper">
@@ -156,14 +164,6 @@
 
     label {
       color: var(--grey-nine);
-    }
-
-    input {
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-      padding: 5px 10px;
-      width: 100%;
     }
   }
 </style>
