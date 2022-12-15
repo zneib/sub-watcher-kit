@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { handleClickOutside } from '../helpers';
-import AddPlayerDialog from './AddPlayerDialog.svelte';
   export let maxActivePlayers: number;
   export let playTimeLimit: string;
 
