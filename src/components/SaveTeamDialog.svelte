@@ -4,6 +4,7 @@
   export let activePlayers: string[];
   export let people: string[];
   let teamName: string = '';
+  let hasError = false;
 
   let saveTeamDialog: HTMLDialogElement;
   onMount(() => {
@@ -16,12 +17,16 @@
 
   const saveTeam = () => {
     const team = [...activePlayers, ...people].sort((a, b) => a.localeCompare(b));
-    localStorage.setItem(`${teamName}-team`, JSON.stringify(team));
-    saveTeamDialog.close();
+    if (teamName !== '') {
+      localStorage.setItem(`${teamName}-team`, JSON.stringify(team));
+      saveTeamDialog.close();
+    } else {
+      hasError = true;
+    }
   }
 </script>
 
-<dialog id="saveTeamDialog" on:click={(e) => handleClickOutside(e, saveTeamDialog)}>
+<dialog id="saveTeamDialog" on:click={(e) => handleClickOutside(e, saveTeamDialog)} on:keyup={() => console.log('Save Team Dialog')}>
   <div class="wrapper">
     <form on:submit|preventDefault={saveTeam}>
       <h3>Save Team</h3>
@@ -29,6 +34,9 @@
         <label for="teamName">Team Name</label>
         <input bind:value={teamName} type="text" name="teamName">
       </div>
+      {#if hasError}
+        <p class="error">Team name cannot be blank.</p>
+      {/if}
       <div class="button-wrapper">
         <button type="submit">Save</button>
         <button value="cancel" on:click={closeDialog}>Close</button>
@@ -67,6 +75,7 @@
 
   input {
     width: 100%;
+    margin-top: 2px;
   }
 
   h3 {
@@ -92,6 +101,11 @@
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
+  }
+
+  .error {
+    font-size: 10px;
+    color: var(--danger);
   }
   @media (prefers-color-scheme: dark) {
 

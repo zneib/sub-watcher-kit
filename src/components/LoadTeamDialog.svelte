@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, afterUpdate } from 'svelte';
   import { browser } from '$app/environment';
   import { handleClickOutside } from '../helpers';
   export let people;
@@ -12,12 +12,13 @@
   onMount(() => {
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
     if (browser) {
-        for (let i = 0; i < localStorage.length; i++) {
-          if (localStorage.key(i)?.includes('-team')) {
-            teams = [...teams, localStorage.key(i)];
-          }
+      for (let i = 0; i < localStorage.length; i++) {
+        console.log(localStorage.key(i));
+        if (localStorage.key(i)?.includes('-team')) {
+          teams = [...teams, localStorage.key(i)];
         }
       }
+    }
   });
 
   const closeDialog = () => {
@@ -36,7 +37,7 @@
   }
 </script>
 
-<dialog id="loadTeamDialog" on:click={(e) => handleClickOutside(e, loadTeamDialog)}>
+<dialog id="loadTeamDialog" on:click={(e) => handleClickOutside(e, loadTeamDialog)} on:keyup={() => console.log('Do something')}>
   <div class="wrapper">
     <form on:submit|preventDefault={loadTeam}>
       <h3>Load Team</h3>
