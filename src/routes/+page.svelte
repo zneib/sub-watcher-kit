@@ -111,8 +111,10 @@
   <button on:click={loadTeamDialog.showModal()}>Load Team</button>
   <button>Edit Teams</button>
   <article>
-    <Collapse onChange={value => isInactiveOpen = value} />
-    <DeleteAll bind:people bind:activePlayers />
+    {#if people?.length > 0}
+      <Collapse onChange={value => isInactiveOpen = value} />
+      <DeleteAll bind:people bind:activePlayers />
+    {/if}
     <h2>Inactive Players</h2>
     <Helper text="inactive" title="Inactive Players Features" features={helperFeaturesOne} />
     <div class:collapsed={!isInactiveOpen} class="person-container">
