@@ -32,7 +32,7 @@
   });
 </script>
 
-<div class:danger={timesUp} class="name" on:click={removeActivePlayer(name)}>
+<div class:danger={timesUp} class="name" on:click={removeActivePlayer(name)} on:keyup={() => console.log('Player')}>
   <span class:danger={timesUp} class="index">{index + 1}</span>
   <span class="name">{name}</span>
   <span class="timer">{timer}</span>
