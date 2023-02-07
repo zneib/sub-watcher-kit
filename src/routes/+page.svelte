@@ -107,8 +107,8 @@
   <OptionsDialog bind:maxActivePlayers={maxActivePlayers} bind:playTimeLimit={playTimeLimit} />
   <SaveTeamDialog activePlayers={activePlayers} people={people} />
   <LoadTeamDialog bind:people bind:activePlayers />
-  <button on:click={saveTeamDialog.showModal()}>Save Team</button>
-  <button on:click={loadTeamDialog.showModal()}>Load Team</button>
+  <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
+  <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
   <button>Edit Teams</button>
   <article>
     {#if people?.length > 0}
@@ -131,13 +131,13 @@
         {/each}
       {/if}
     </div>
-    <button class="options" on:click={optionsDialog.showModal()}>
+    <button class="options" on:click={() => optionsDialog.showModal()}>
       Options
     </button>
     {#if showMaxLimitMessage}
       <p class="limit-message">Active Player Limit Reached</p>
     {/if}
-    <button class="add" on:click={addPlayerDialog.showModal()}>
+    <button class="add" on:click={() => addPlayerDialog.showModal()}>
       Add Player
     </button>
   </article>
