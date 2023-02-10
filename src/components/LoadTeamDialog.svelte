@@ -13,7 +13,6 @@
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
     if (browser) {
       for (let i = 0; i < localStorage.length; i++) {
-        console.log(localStorage.key(i));
         if (localStorage.key(i)?.includes('-team')) {
           teams = [...teams, localStorage.key(i)];
         }
