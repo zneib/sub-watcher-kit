@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
-  import globalStore from "../global-store";
 
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
@@ -13,7 +12,6 @@
   import Player from '../components/Player.svelte';
   import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
-  import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
@@ -64,12 +62,6 @@
     people = people.filter((name) => name !== personToDelete);
     localStorage.setItem('people', JSON.stringify(people));
     deleteDialog.close();
-    globalStore.update(data => {
-      return {
-        ...data,
-        players: people
-      }
-    })
   }
 
   const addPlayer = (e: EventTarget) => {
@@ -180,7 +172,6 @@
       <p class="message-text">No Players Selected</p>
     {/if}
   </article>
-  <ActivePlayersContainer />
 </main>
 
 <style>
@@ -314,7 +305,7 @@
     :global(body) {
       background-color: var(--grey-one);
     }
-    article {
+    :global(article) {
       background-color: var(--grey-three);
     }
 
@@ -330,7 +321,7 @@
       color: var(--grey-nine);
     }
 
-    p.message-text {
+    :global(p.message-text) {
       color: var(--grey-nine);
     }
 
@@ -341,7 +332,7 @@
     }
   }
   @media (prefers-color-scheme: light) {
-    article {
+    :global(article) {
       background-color: #eee;
     }
   }

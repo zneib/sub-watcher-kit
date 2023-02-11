@@ -3,17 +3,6 @@
   import Collapse from "./Collapse.svelte";
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
-  
-  let activePlayers: string[];
-  let isActiveOpen: false;
-  let playTimeLimit: string;
-  let maxActivePlayers: number;
-  globalStore.subscribe(({activePlayers: people, isActiveOpen, timeLimit, activePlayerLimit}) => {
-    activePlayers = people;
-    isActiveOpen = isActiveOpen;
-    playTimeLimit = timeLimit;
-    maxActivePlayers = activePlayerLimit;
-  });
 
   let helperFeaturesTwo = [
     "Players will start their time as soon as they're added to the list.",
@@ -23,36 +12,96 @@
     "All players can be sent back to the inactive list by clicking on the Remove All Players button.",
     'Collapse and expland the card by clicking on the top left plus and minus buttons.'
   ]
+  
+  globalStore.subscribe(() => {});
+  console.log($globalStore.activePlayers);
+
+  const removeActivePlayerFn = (player: string) => {
+    const currentActivePlayers = $globalStore.activePlayers.filter((name: string) => name !== player);
+    const people = [...$globalStore.players, player];
+    localStorage.setItem('activePlayers', JSON.stringify(currentActivePlayers));
+    localStorage.setItem('people', JSON.stringify(people));
+    globalStore.update((data) => {
+      return {
+        ...data,
+        players: people,
+        activePlayers: currentActivePlayers
+      }
+    })
+  }
+
+  // const removeAllActivePlayers = () => {
+  //   people = [people, ...activePlayers].flat();
+  //   activePlayers = [];
+  //   localStorage.removeItem('activePlayers');
+  //   localStorage.setItem('people', JSON.stringify(people));
+  // }
 </script>
 
-<!-- <article>
-  {#if activePlayers?.length > 0}
-    <Collapse onChange={value => isActiveOpen = value} />
+<article>
+  {#if $globalStore.activePlayers?.length > 0}
+    <Collapse onChange={value => $globalStore.isActiveOpen = value} />
   {/if}
   <h2>Active Players</h2>
   <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
-  {#if activePlayers?.length > 0 && isActiveOpen}
+  {#if $globalStore.activePlayers?.length > 0 && $globalStore.isActiveOpen}
     <div class="labels">
       <span>Name</span>
-      <span>({playTimeLimit}) MM:SS</span>
+      <span>({$globalStore.playTimeLimit}) MM:SS</span>
     </div>
   {/if}
-  <div class:collapsed={!isActiveOpen}>
-    {#if activePlayers.length > 0}
-      {#each activePlayers as player, index}
-        <Player index={index} name={player} removeActivePlayer={removeActivePlayer} playTimeLimit={playTimeLimit} />
+  <div class:collapsed={!$globalStore.isActiveOpen}>
+    {#if $globalStore.activePlayers.length > 0}
+      {#each $globalStore.activePlayers as player, index}
+        <Player index={index} name={player} removeActivePlayer={() => removeActivePlayerFn} playTimeLimit={$globalStore.playTimeLimit} />
       {/each}
     {/if}
   </div>
-  {#if maxActivePlayers - activePlayers?.length !== 0}
+  {#if $globalStore.maxActivePlayers - $globalStore.activePlayers?.length !== 0}
     <p class="limit-message">
-      <span>{maxActivePlayers - activePlayers?.length}</span> spots open
+      <span>{$globalStore.maxActivePlayers - $globalStore.activePlayers?.length}</span> spots open
     </p>
   {/if}
-  {#if activePlayers?.length > 1 && isActiveOpen}
-    <button class="remove-all" on:click={removeAllActivePlayers}>Remove All Players</button>
+  {#if $globalStore.activePlayers?.length > 1 && $globalStore.isActiveOpen}
+    <!-- <button class="remove-all" on:click={() => $globalStore.removeAllActivePlayers}>Remove All Players</button> -->
   {/if}
-  {#if activePlayers?.length === 0}
+  {#if $globalStore.activePlayers?.length === 0}
     <p class="message-text">No Players Selected</p>
   {/if}
-</article> -->
+</article>
+
+<style>
+  article {
+    position: relative;
+    padding: 15px 15px 30px;
+    margin: 25px;
+    max-width: 500px;
+    border-radius: 5px;
+    flex: 1;
+  }
+  h2 {
+    margin-top: 0;
+    text-align: center;
+  }
+  div.collapsed {
+    display: none;
+  }
+  p.limit-message {
+    text-align: center; 
+    font-size: 12px; 
+    margin: 2px auto
+  }
+  p.limit-message > span {
+    font-weight: bold;
+  }
+  p.message-text {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    p.limit-message {
+      color: var(--grey-nine);
+    }
+  }
+</style>
