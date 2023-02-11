@@ -12,6 +12,8 @@
   import Player from '../components/Player.svelte';
   import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
+  // import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
+	// import PlayersContainer from '../components/PlayersContainer.svelte';
 
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
@@ -172,6 +174,8 @@
       <p class="message-text">No Players Selected</p>
     {/if}
   </article>
+  <!-- <PlayersContainer /> -->
+  <!-- <ActivePlayersContainer /> -->
 </main>
 
 <style>

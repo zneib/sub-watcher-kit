@@ -1,5 +1,6 @@
 <script lang="ts">
-  import globalStore from "../global-store";
+  import { afterUpdate, onDestroy } from 'svelte';
+  import { playerStore, activePlayerStore } from "../global-store";
   import Collapse from "./Collapse.svelte";
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
@@ -13,62 +14,67 @@
     'Collapse and expland the card by clicking on the top left plus and minus buttons.'
   ]
   
-  globalStore.subscribe(() => {});
-  console.log($globalStore.activePlayers);
+  let activePlayerData: string[] = [];
+  const activePlayerSubscription = activePlayerStore.subscribe((data) => {
+    activePlayerData = data;
+  });
+
+  afterUpdate(() => {
+    console.log(activePlayerData);
+  })
+
+  onDestroy(() => {
+    activePlayerSubscription();
+  });
 
   const removeActivePlayerFn = (player: string) => {
-    const currentActivePlayers = $globalStore.activePlayers.filter((name: string) => name !== player);
-    const people = [...$globalStore.players, player];
-    localStorage.setItem('activePlayers', JSON.stringify(currentActivePlayers));
-    localStorage.setItem('people', JSON.stringify(people));
-    globalStore.update((data) => {
-      return {
-        ...data,
-        players: people,
-        activePlayers: currentActivePlayers
-      }
-    })
+    const currentActivePlayers = activePlayerData.filter((name: string) => name !== player);
+    activePlayerStore.update(() => [...currentActivePlayers]);
+    playerStore.update((data) => [...data, player])
   }
-
-  // const removeAllActivePlayers = () => {
-  //   people = [people, ...activePlayers].flat();
-  //   activePlayers = [];
-  //   localStorage.removeItem('activePlayers');
-  //   localStorage.setItem('people', JSON.stringify(people));
-  // }
 </script>
 
 <article>
-  {#if $globalStore.activePlayers?.length > 0}
-    <Collapse onChange={value => $globalStore.isActiveOpen = value} />
+  <h2>Active Players</h2>
+  <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
+  {#if activePlayerData.length > 0}
+    {#each activePlayerData as player, index}
+      <Player index={index} name={player} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit="05:00" />
+    {/each}
+  {/if}
+</article>
+
+<!-- <article>
+  {#if playerData.activePlayers?.length > 0}
+    <Collapse onChange={value => playerData.isActiveOpen = value} />
   {/if}
   <h2>Active Players</h2>
   <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
-  {#if $globalStore.activePlayers?.length > 0 && $globalStore.isActiveOpen}
+  {#if playerData.activePlayers?.length > 0 && playerData.isActiveOpen}
     <div class="labels">
       <span>Name</span>
-      <span>({$globalStore.playTimeLimit}) MM:SS</span>
+      <span>({playerData.playTimeLimit}) MM:SS</span>
     </div>
   {/if}
-  <div class:collapsed={!$globalStore.isActiveOpen}>
-    {#if $globalStore.activePlayers.length > 0}
-      {#each $globalStore.activePlayers as player, index}
-        <Player index={index} name={player} removeActivePlayer={() => removeActivePlayerFn} playTimeLimit={$globalStore.playTimeLimit} />
+  <div class:collapsed={!playerData.isActiveOpen}>
+    {#if playerData.activePlayers.length > 0}
+      {#each playerData.activePlayers as player, index}
+        <Player index={index} name={player} removeActivePlayer={() => console.log('Remove player...')} playTimeLimit={playerData.playTimeLimit} />
       {/each}
     {/if}
   </div>
-  {#if $globalStore.maxActivePlayers - $globalStore.activePlayers?.length !== 0}
+  {#if playerData.maxActivePlayers - playerData.activePlayers?.length !== 0}
     <p class="limit-message">
-      <span>{$globalStore.maxActivePlayers - $globalStore.activePlayers?.length}</span> spots open
+      <span>{playerData.maxActivePlayers - playerData.activePlayers?.length}</span> spots open
     </p>
   {/if}
-  {#if $globalStore.activePlayers?.length > 1 && $globalStore.isActiveOpen}
-    <!-- <button class="remove-all" on:click={() => $globalStore.removeAllActivePlayers}>Remove All Players</button> -->
+  {#if playerData.activePlayers?.length > 1 && playerData.isActiveOpen}
+    <button class="remove-all" on:click={() => playerData.removeAllActivePlayers}>Remove All Players</button>
   {/if}
   {#if $globalStore.activePlayers?.length === 0}
     <p class="message-text">No Players Selected</p>
   {/if}
-</article>
+</article> -->
 
 <style>
   article {
@@ -93,6 +99,9 @@
   }
   p.limit-message > span {
     font-weight: bold;
+  }
+  h2 {
+    color: var(--grey-nine);
   }
   p.message-text {
     font-size: 12px;
