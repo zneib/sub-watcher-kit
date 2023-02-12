@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { afterUpdate, onDestroy } from 'svelte';
-  import { playerStore, activePlayerStore } from "../global-store";
+  import { onDestroy } from 'svelte';
+  import { playerStore, activePlayerStore, optionsStore } from "../global-store";
+	import type { OptionsType } from '../global-types';
   import Collapse from "./Collapse.svelte";
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
@@ -14,17 +15,19 @@
     'Collapse and expland the card by clicking on the top left plus and minus buttons.'
   ]
   
+  let playerData: string[] = [];
+  const playerStoreSub = playerStore.subscribe((data) => {
+    playerData = data;
+  });
+
   let activePlayerData: string[] = [];
-  const activePlayerSubscription = activePlayerStore.subscribe((data) => {
+  const activePlayerStoreSub = activePlayerStore.subscribe((data) => {
     activePlayerData = data;
   });
 
-  afterUpdate(() => {
-    console.log(activePlayerData);
-  })
-
-  onDestroy(() => {
-    activePlayerSubscription();
+  let optionsData: OptionsType;
+  const optionsStoreSub = optionsStore.subscribe((data) => {
+    optionsData = data;
   });
 
   const removeActivePlayerFn = (player: string) => {
@@ -32,9 +35,16 @@
     activePlayerStore.update(() => [...currentActivePlayers]);
     playerStore.update((data) => [...data, player])
   }
+
+  onDestroy(() => {
+    playerStoreSub();
+    activePlayerStoreSub();
+    optionsStoreSub();
+  });
+
 </script>
 
-<article>
+<!-- <article>
   <h2>Active Players</h2>
   <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
   {#if activePlayerData.length > 0}
@@ -42,39 +52,39 @@
       <Player index={index} name={player} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit="05:00" />
     {/each}
   {/if}
-</article>
+</article> -->
 
-<!-- <article>
-  {#if playerData.activePlayers?.length > 0}
-    <Collapse onChange={value => playerData.isActiveOpen = value} />
-  {/if}
+<article>
+  <!-- {#if activePlayerData?.length > 0}
+    <Collapse onChange={value => optionsData.isActiveOpen = value} />
+  {/if} -->
   <h2>Active Players</h2>
   <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
-  {#if playerData.activePlayers?.length > 0 && playerData.isActiveOpen}
+  {#if activePlayerData?.length > 0 && optionsData.isActiveOpen}
     <div class="labels">
       <span>Name</span>
-      <span>({playerData.playTimeLimit}) MM:SS</span>
+      <span>({optionsData.playTimeLimit}) MM:SS</span>
     </div>
   {/if}
-  <div class:collapsed={!playerData.isActiveOpen}>
-    {#if playerData.activePlayers.length > 0}
-      {#each playerData.activePlayers as player, index}
-        <Player index={index} name={player} removeActivePlayer={() => console.log('Remove player...')} playTimeLimit={playerData.playTimeLimit} />
+  <div class:collapsed={!optionsData.isActiveOpen}>
+    {#if activePlayerData.length > 0}
+      {#each activePlayerData as player, index}
+        <Player index={index} name={player} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} />
       {/each}
     {/if}
   </div>
-  {#if playerData.maxActivePlayers - playerData.activePlayers?.length !== 0}
+  {#if optionsData.maxActivePlayers - activePlayerData?.length !== 0}
     <p class="limit-message">
-      <span>{playerData.maxActivePlayers - playerData.activePlayers?.length}</span> spots open
+      <span>{optionsData.maxActivePlayers - activePlayerData?.length}</span> spots open
     </p>
   {/if}
-  {#if playerData.activePlayers?.length > 1 && playerData.isActiveOpen}
+  <!-- {#if activePlayerData?.length > 1 && optionsData.isActiveOpen}
     <button class="remove-all" on:click={() => playerData.removeAllActivePlayers}>Remove All Players</button>
-  {/if}
-  {#if $globalStore.activePlayers?.length === 0}
+  {/if} -->
+  {#if activePlayerData?.length === 0}
     <p class="message-text">No Players Selected</p>
   {/if}
-</article> -->
+</article>
 
 <style>
   article {
@@ -99,9 +109,6 @@
   }
   p.limit-message > span {
     font-weight: bold;
-  }
-  h2 {
-    color: var(--grey-nine);
   }
   p.message-text {
     font-size: 12px;

@@ -12,8 +12,8 @@
   import Player from '../components/Player.svelte';
   import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
-  // import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
-	// import PlayersContainer from '../components/PlayersContainer.svelte';
+	import PlayersContainer from '../components/PlayersContainer.svelte';
+  import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 
   let isInactiveOpen: boolean = true;
   let isActiveOpen: boolean = true;
@@ -81,6 +81,10 @@
     deleteDialog.showModal();
   }
 
+  const showOptionsDialog = () => {
+    optionsDialog.showModal();
+  }
+
   const addActivePlayer = (player: string) => {
     activePlayers = [...activePlayers, player];
     people = people.filter((name: string) => name !== player);
@@ -112,7 +116,7 @@
   <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
   <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
   <button>Edit Teams</button>
-  <article>
+  <!-- <article>
     {#if people?.length > 0}
       <Collapse onChange={value => isInactiveOpen = value} />
       <DeleteAll bind:people bind:activePlayers />
@@ -173,9 +177,9 @@
     {#if activePlayers?.length === 0}
       <p class="message-text">No Players Selected</p>
     {/if}
-  </article>
-  <!-- <PlayersContainer /> -->
-  <!-- <ActivePlayersContainer /> -->
+  </article> -->
+  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} showDialogElement={showDialogElement}  />
+  <ActivePlayersContainer />
 </main>
 
 <style>

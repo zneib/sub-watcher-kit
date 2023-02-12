@@ -1,22 +1,54 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
+  import { playerStore, activePlayerStore, optionsStore } from '../global-store';
+  import type { OptionsType } from '../global-types';
   export let name: string;
   export let addActivePlayer: (name: string) => void;
   export let showDialogElement: (name: string) => void;
-  export let maxActivePlayers: number;
-  export let activePlayers: number;
-  export let limitMessageShowing: boolean;
+  // export let maxActivePlayers: number;
+  // export let activePlayers: number;
+  // export let limitMessageShowing: boolean;
   let showConfirmation = false;
 
+  let playerData: string[] = [];
+  const playerStoreSub = playerStore.subscribe((data) => {
+    playerData = data;
+  });
+
+  let activePlayerData: string[] = [];
+  const activePlayerStoreSub = playerStore.subscribe((data) => {
+    activePlayerData = data;
+  });
+
+  let optionsData: OptionsType;
+  const optionsStoreSub = optionsStore.subscribe((data) => {
+    optionsData = data;
+  });
+
   const handleClick = (name: string) => {
-    if (maxActivePlayers - activePlayers >= 0) {
+    if (optionsData.maxActivePlayers - activePlayerData.length >= 0) {
       addActivePlayer(name);
     } else {
       return;
     }
   }
+
+  // const handleClick = (name: string) => {
+  //   if (maxActivePlayers - activePlayers >= 0) {
+  //     addActivePlayer(name);
+  //   } else {
+  //     return;
+  //   }
+  // }
+
+  onDestroy(() => {
+    playerStoreSub();
+    activePlayerStoreSub();
+    optionsStoreSub();
+  });
 </script>
 
-<button disabled={limitMessageShowing} class="wrapper" on:click={() => handleClick(name)}>
+<button disabled={optionsData.maxActivePlayers - activePlayerData?.length <= 0} class="wrapper" on:click={() => handleClick(name)}>
   {name}
   {#if !showConfirmation}
     <svg xmlns="http://www.w3.org/2000/svg" on:click={(e) => {showDialogElement(name); e.stopPropagation()}} width="15px" height="15px" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

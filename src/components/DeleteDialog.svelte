@@ -1,17 +1,31 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  import { playerStore } from '../global-store';
   import { handleClickOutside } from '../helpers';
   export let personToDelete: string = '';
-  export let deletePerson: () => void;
+  // export let deletePerson: () => void;
 
   let deleteDialog: HTMLDialogElement;
   onMount(() => {
     deleteDialog = document.getElementById('deleteDialog') as HTMLDialogElement;
   });
 
+  let playerData: string[] = [];
+  const playerStoreSub = playerStore.subscribe((data) => {
+    playerData = data;
+  });
+
+  const deletePerson = () => {
+    const people: string[] = playerData.filter((name) => name !== personToDelete);
+    playerStore.update(() => [...people])
+    deleteDialog.close();
+  }
+
   const closeDialog = () => {
     deleteDialog.close();
   }
+
+  onDestroy(playerStoreSub);
 </script>
 
 <dialog id="deleteDialog" on:click={(e) => handleClickOutside(e, deleteDialog)}>
