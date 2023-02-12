@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  // import { playerStore } from "../global-store";
   import { handleClickOutside } from '../helpers';
   export let addPlayer: (e: EventTarget) => void;
 
@@ -8,9 +9,25 @@
     addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
   });
 
+  // let playerData: string[] = [];
+  // const unsubscribe = playerStore.subscribe((data) => {
+  //   playerData = data;
+  // });
+
   const closeDialog = () => {
     addPlayerDialog.close()
   }
+
+  // const addPlayer = (e: EventTarget) => {
+  //   for (const field of e?.target) {
+  //     if (field?.type !== 'submit') {
+  //      playerStore.update((data) => [...data, field?.value]);
+  //      field.value = '';
+  //     }
+  //   }
+  // }
+
+  // onDestroy(unsubscribe);
 </script>
 
 <dialog id="addPlayerDialog" on:click={(e) => handleClickOutside(e, addPlayerDialog)}>

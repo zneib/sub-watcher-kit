@@ -1,6 +1,7 @@
 <script lang="ts">
   import { afterUpdate, onDestroy } from 'svelte';
   import { playerStore, activePlayerStore } from "../global-store";
+  export let addPlayerDialog: () => void;
   import Collapse from "./Collapse.svelte";
   // import DeleteAll from "./DeleteAll.svelte";
   import Helper from "./Helper.svelte";
@@ -29,7 +30,6 @@
   }
 
   onDestroy(unsubscribe);
-  
 </script>
 
 <article>
@@ -43,6 +43,9 @@
     <button on:click={() => addActivePlayer('Chris')} on:keyup={() => addActivePlayer('Chris')}>Chris</button>
     <button on:click={() => addActivePlayer('Bill')} on:keyup={() => addActivePlayer('Bill')}>Bill</button>
     <button on:click={() => addActivePlayer('Natalie')} on:keyup={() => addActivePlayer('Natalie')}>Natalie</button>
+    {#each playerData as player}
+      <p>{player}</p>
+    {/each}
     <!-- {#if $globalStore.players.length > 0}
       {#each $globalStore.players as person}
         <Person 
@@ -62,9 +65,9 @@
   <!-- {#if showMaxLimitMessage}
     <p class="limit-message">Active Player Limit Reached</p>
   {/if} -->
-  <!-- <button class="add" on:click={() => addPlayerDialog.showModal()}>
+  <button class="add" on:click={addPlayerDialog}>
     Add Player
-  </button> -->
+  </button>
 </article>
 
 <style>
