@@ -127,8 +127,16 @@
   }
 
   @media (prefers-color-scheme: dark) {
+    h2 {
+      color: var(--grey-nine);
+    }
     p.limit-message {
       color: var(--grey-nine);
+    }
+    button {
+      color: var(--grey-nine);
+      background-color: var(--grey-four);
+      border: 2px solid var(--grey-six);
     }
   }
 </style>
