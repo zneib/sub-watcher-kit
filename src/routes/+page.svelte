@@ -5,26 +5,19 @@
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
   import OptionsDialog from '../components/OptionsDialog.svelte';
-  import Person from '../components/Person.svelte';
   import Collapse from '../components/Collapse.svelte';
   import DeleteAll from '../components/DeleteAll.svelte';
-  import Helper from '../components/Helper.svelte';
-  import Player from '../components/Player.svelte';
   import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
 	import PlayersContainer from '../components/PlayersContainer.svelte';
   import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 
-  let isInactiveOpen: boolean = true;
-  let isActiveOpen: boolean = true;
   let maxActivePlayers: number = 7;
   let playTimeLimit: string = '05:00';
   let personToDelete: string = '';
 
   let people: string[] = browser && JSON.parse(localStorage.getItem('people') || '[]');
   let activePlayers: string[] = browser && JSON.parse(localStorage.getItem('activePlayers') || '[]');
-
-  $: showMaxLimitMessage = maxActivePlayers - activePlayers?.length <= 0;
 
   let deleteDialog: HTMLDialogElement;
   let addPlayerDialog: HTMLDialogElement;
@@ -39,9 +32,9 @@
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
 
-  const showModal = () => {
-    addPlayerDialog.showModal();
-  }
+  // const showModal = () => {
+  //   addPlayerDialog.showModal();
+  // }
 
   const deletePerson = () => {
     people = people.filter((name) => name !== personToDelete);
@@ -68,26 +61,26 @@
     optionsDialog.showModal();
   }
 
-  const addActivePlayer = (player: string) => {
-    activePlayers = [...activePlayers, player];
-    people = people.filter((name: string) => name !== player);
-    localStorage.setItem('activePlayers', JSON.stringify(activePlayers));
-    localStorage.setItem('people', JSON.stringify(people));
-  }
+  // const addActivePlayer = (player: string) => {
+  //   activePlayers = [...activePlayers, player];
+  //   people = people.filter((name: string) => name !== player);
+  //   localStorage.setItem('activePlayers', JSON.stringify(activePlayers));
+  //   localStorage.setItem('people', JSON.stringify(people));
+  // }
 
-  const removeActivePlayer = (player: string) => {
-    activePlayers = activePlayers.filter((name: string) => name !== player);
-    people = [...people, player];
-    localStorage.setItem('activePlayers', JSON.stringify(activePlayers));
-    localStorage.setItem('people', JSON.stringify(people));
-  }
+  // const removeActivePlayer = (player: string) => {
+  //   activePlayers = activePlayers.filter((name: string) => name !== player);
+  //   people = [...people, player];
+  //   localStorage.setItem('activePlayers', JSON.stringify(activePlayers));
+  //   localStorage.setItem('people', JSON.stringify(people));
+  // }
 
-  const removeAllActivePlayers = () => {
-    people = [people, ...activePlayers].flat();
-    activePlayers = [];
-    localStorage.removeItem('activePlayers');
-    localStorage.setItem('people', JSON.stringify(people));
-  }
+  // const removeAllActivePlayers = () => {
+  //   people = [people, ...activePlayers].flat();
+  //   activePlayers = [];
+  //   localStorage.removeItem('activePlayers');
+  //   localStorage.setItem('people', JSON.stringify(people));
+  // }
 </script>
 
 <main>
@@ -99,68 +92,6 @@
   <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
   <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
   <button>Edit Teams</button>
-  <!-- <article>
-    {#if people?.length > 0}
-      <Collapse onChange={value => isInactiveOpen = value} />
-      <DeleteAll bind:people bind:activePlayers />
-    {/if}
-    <h2>Inactive Players</h2>
-    <Helper text="inactive" title="Inactive Players Features" features={helperFeaturesOne} />
-    <div class:collapsed={!isInactiveOpen} class="person-container">
-      {#if people.length > 0}
-        {#each people as person}
-          <Person 
-            name={person} 
-            addActivePlayer={addActivePlayer} 
-            showDialogElement={showDialogElement} 
-            maxActivePlayers={maxActivePlayers} 
-            activePlayers={activePlayers?.length}
-            limitMessageShowing={showMaxLimitMessage}
-          />
-        {/each}
-      {/if}
-    </div>
-    <button class="options" on:click={() => optionsDialog.showModal()}>
-      Options
-    </button>
-    {#if showMaxLimitMessage}
-      <p class="limit-message">Active Player Limit Reached</p>
-    {/if}
-    <button class="add" on:click={() => addPlayerDialog.showModal()}>
-      Add Player
-    </button>
-  </article>
-  <article>
-    {#if activePlayers?.length > 0}
-      <Collapse onChange={value => isActiveOpen = value} />
-    {/if}
-    <h2>Active Players</h2>
-    <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
-    {#if activePlayers?.length > 0 && isActiveOpen}
-      <div class="labels">
-        <span>Name</span>
-        <span>({playTimeLimit}) MM:SS</span>
-      </div>
-    {/if}
-    <div class:collapsed={!isActiveOpen}>
-      {#if activePlayers.length > 0}
-        {#each activePlayers as player, index}
-          <Player index={index} name={player} removeActivePlayer={removeActivePlayer} playTimeLimit={playTimeLimit} />
-        {/each}
-      {/if}
-    </div>
-    {#if maxActivePlayers - activePlayers?.length !== 0}
-      <p class="limit-message">
-        <span>{maxActivePlayers - activePlayers?.length}</span> spots open
-      </p>
-    {/if}
-    {#if activePlayers?.length > 1 && isActiveOpen}
-      <button class="remove-all" on:click={removeAllActivePlayers}>Remove All Players</button>
-    {/if}
-    {#if activePlayers?.length === 0}
-      <p class="message-text">No Players Selected</p>
-    {/if}
-  </article> -->
   <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} showDialogElement={showDialogElement}  />
   <ActivePlayersContainer />
 </main>
