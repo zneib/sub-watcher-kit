@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  import { optionsStore } from '../global-store';
   import { handleClickOutside } from '../helpers';
   export let maxActivePlayers: number;
   export let playTimeLimit: string;
@@ -15,12 +16,16 @@
 
   const handleMaxPlayerChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
-    maxActivePlayers = +target?.value;
+    optionsStore.update((data) => { 
+      return { ...data, maxActivePlayers: +target?.value }
+    })
   }
 
   const handlePlayTimeChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
-    playTimeLimit = target?.value;
+    optionsStore.update((data) => {
+      return { ...data, playTimeLimit: target?.value }
+    })
   }
 </script>
 
