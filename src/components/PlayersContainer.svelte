@@ -25,7 +25,7 @@
   });
 
   let activePlayerData: string[] = [];
-  const activePlayerStoreSub = playerStore.subscribe((data) => {
+  const activePlayerStoreSub = activePlayerStore.subscribe((data) => {
     activePlayerData = data;
   });
 
@@ -41,9 +41,8 @@
     const people: string[] = playerData.filter((name) => name !== player);
     playerStore.update(() => [...people])
 
-    // Keep localStorage values in sync
     localStorage.setItem('activePlayers', JSON.stringify(activePlayerData));
-    localStorage.setItem('players', JSON.stringify(playerData));
+    localStorage.setItem('players', JSON.stringify(people));
   }
 
   onDestroy(() => {
