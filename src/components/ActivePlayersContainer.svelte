@@ -33,12 +33,20 @@
   const removeActivePlayerFn = (player: string) => {
     const currentActivePlayers = activePlayerData.filter((name: string) => name !== player);
     activePlayerStore.update(() => [...currentActivePlayers]);
-    playerStore.update((data) => [...data, player])
+    playerStore.update((data) => [...data, player]);
+
+    // Keep localStorage in sync
+    localStorage.setItem('activePlayers', JSON.stringify(currentActivePlayers));
+    localStorage.setItem('players', JSON.stringify(playerData));
   }
 
   const removeAllActivePlayersFn = () => {
     playerStore.update(() => [...playerData, ...activePlayerData].flat())
     activePlayerStore.update(() => []);
+
+    // Keep localStorage in sync.
+    localStorage.removeItem('activePlayers');
+    localStorage.setItem('players', JSON.stringify(playerData));
   }
 
   onDestroy(() => {
