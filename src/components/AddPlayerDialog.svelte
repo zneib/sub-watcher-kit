@@ -2,7 +2,6 @@
   import { onMount, onDestroy } from 'svelte';
   import { playerStore } from "../global-store";
   import { handleClickOutside } from '../helpers';
-  // export let addPlayer: (e: EventTarget) => void;
 
   let addPlayerDialog: HTMLDialogElement;
   onMount(() => {

@@ -1,14 +1,23 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { optionsStore } from '../global-store';
+	import type { OptionsType } from '../global-types';
   import { handleClickOutside } from '../helpers';
-  export let maxActivePlayers: number;
-  export let playTimeLimit: string;
-
+  
   let optionsDialog: HTMLDialogElement;
   onMount(() => {
     optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
   });
+
+  let optionsData: OptionsType;
+  const optionsStoreSub = optionsStore.subscribe((data) => {
+    optionsData = {
+      isInactiveOpen: data.isInactiveOpen,
+      isActiveOpen: data.isActiveOpen,
+      maxActivePlayers: data.maxActivePlayers,
+      playTimeLimit: data.playTimeLimit
+    }
+  })
 
   const closeDialog = () => {
     optionsDialog.close();
@@ -27,6 +36,8 @@
       return { ...data, playTimeLimit: target?.value }
     })
   }
+
+  onDestroy(optionsStoreSub);
 </script>
 
 <dialog id="optionsDialog" on:click={(e) => handleClickOutside(e, optionsDialog)}>
@@ -35,7 +46,7 @@
     <form>
       <div>
         <label for="activePlayerLimit">Active Players Limit</label>
-        <select name="activePlayerLimit" on:change={handleMaxPlayerChange} value={maxActivePlayers}>
+        <select name="activePlayerLimit" on:change={handleMaxPlayerChange} value={optionsData.maxActivePlayers}>
           <option value={1}>1</option>
           <option value={2}>2</option>
           <option value={3}>3</option>
@@ -50,7 +61,7 @@
       </div>
       <div>
         <label for="playTimeLimit">Player Time Limit - MM:SS</label>
-        <select name="playTimeLimit" on:change={handlePlayTimeChange} value={playTimeLimit}>
+        <select name="playTimeLimit" on:change={handlePlayTimeChange} value={optionsData.playTimeLimit}>
           <option value="01:00">01:00</option>
           <option value="03:00">03:00</option>
           <option value="05:00" selected>05:00</option>

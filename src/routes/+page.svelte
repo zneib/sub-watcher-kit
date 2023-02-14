@@ -10,12 +10,7 @@
 	import PlayersContainer from '../components/PlayersContainer.svelte';
   import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 
-  let maxActivePlayers: number = 7;
-  let playTimeLimit: string = '05:00';
   let personToDelete: string = '';
-
-  let people: string[] = browser && JSON.parse(localStorage.getItem('people') || '[]');
-  let activePlayers: string[] = browser && JSON.parse(localStorage.getItem('activePlayers') || '[]');
 
   let deleteDialog: HTMLDialogElement;
   let addPlayerDialog: HTMLDialogElement;
@@ -30,22 +25,6 @@
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
 
-  const deletePerson = () => {
-    people = people.filter((name) => name !== personToDelete);
-    localStorage.setItem('people', JSON.stringify(people));
-    deleteDialog.close();
-  }
-
-  const addPlayer = (e: EventTarget) => {
-    for (const field of e?.target) {
-      if (field?.type !== 'submit') {
-       people = [...people, field?.value];
-       field.value = '';
-       localStorage.setItem('people', JSON.stringify(people));
-      }
-    }
-  }
-
   const showDialogElement = (person: string) => {
     personToDelete = person;
     deleteDialog.showModal();
@@ -57,11 +36,11 @@
 </script>
 
 <main>
-  <DeleteDialog personToDelete={personToDelete} deletePerson={deletePerson} />
-  <AddPlayerDialog addPlayer={addPlayer} />
-  <OptionsDialog bind:maxActivePlayers={maxActivePlayers} bind:playTimeLimit={playTimeLimit} />
-  <SaveTeamDialog activePlayers={activePlayers} people={people} />
-  <LoadTeamDialog bind:people bind:activePlayers />
+  <DeleteDialog personToDelete={personToDelete} />
+  <AddPlayerDialog />
+  <OptionsDialog />
+  <!-- <SaveTeamDialog activePlayers={activePlayers} people={people} />
+  <LoadTeamDialog bind:people bind:activePlayers /> -->
   <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
   <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
   <button>Edit Teams</button>

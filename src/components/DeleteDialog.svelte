@@ -3,7 +3,6 @@
   import { playerStore } from '../global-store';
   import { handleClickOutside } from '../helpers';
   export let personToDelete: string = '';
-  // export let deletePerson: () => void;
 
   let deleteDialog: HTMLDialogElement;
   onMount(() => {
