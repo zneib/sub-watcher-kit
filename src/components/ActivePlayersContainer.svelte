@@ -6,6 +6,8 @@
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
 
+  let isOpen = true;
+
   let helperFeaturesTwo = [
     "Players will start their time as soon as they're added to the list.",
     "Players will reach their max playing time as set by you in Options.",
@@ -58,9 +60,9 @@
 </script>
 
 <article>
-  <!-- {#if activePlayerData?.length > 0}
-    <Collapse onChange={value => optionsData.isActiveOpen = value} />
-  {/if} -->
+  {#if activePlayerData?.length > 0}
+    <Collapse bind:isOpen />
+  {/if}
   <h2>Active Players</h2>
   <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
   {#if activePlayerData?.length > 0 && optionsData.isActiveOpen}
@@ -69,7 +71,7 @@
       <span>({optionsData.playTimeLimit}) MM:SS</span>
     </div>
   {/if}
-  <div class:collapsed={!optionsData.isActiveOpen}>
+  <div class:collapsed={!isOpen}>
     {#if activePlayerData.length > 0}
       {#each activePlayerData as player, index}
         <Player index={index} name={player} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} />
@@ -101,6 +103,9 @@
   h2 {
     margin-top: 0;
     text-align: center;
+  }
+  div.collapsed {
+    display: none;
   }
   button {
     color: black;

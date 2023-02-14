@@ -11,6 +11,8 @@
   export let showOptionsDialog: () => void;
   export let showDialogElement: (name: string) => void;
 
+  let isOpen = true;
+
   let helperFeaturesOne = [
     'Add new players by clicking on the "Add Player" button.',
     'Configure the max active player limit and play time limits by clicking the Options button.',
@@ -53,13 +55,13 @@
 </script>
 
 <article>
-  <!-- {#if playerData?.length > 0}
-    <Collapse onChange={value => optionsData.isInactiveOpen = value} />
-    <DeleteAll bind:players bind:activePlayers />
-  {/if} -->
+  {#if playerData?.length > 0}
+    <Collapse bind:isOpen />
+    <!-- <DeleteAll bind:players bind:activePlayers /> -->
+  {/if}
   <h2>Inactive Players</h2>
   <Helper text="inactive" title="Inactive Players Features" features={helperFeaturesOne} />
-  <div class="person-container">
+  <div class:collapsed={!isOpen} class="person-container">
     {#if playerData.length > 0}
       {#each playerData as person}
         <Person 
@@ -93,7 +95,10 @@
   h2 {
     margin-top: 0;
     text-align: center;
-  }              
+  }  
+  div.collapsed {
+    display: none;
+  }            
   p.limit-message {
     text-align: center; 
     font-size: 12px; 

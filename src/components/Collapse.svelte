@@ -1,7 +1,5 @@
 <script lang="ts">
-  export let onChange: (value: boolean) => boolean;
-  let isOpen = true;
-  $: onChange(isOpen);
+  export let isOpen = true;
 
   const toggleCollapse = () => {
     isOpen = !isOpen;
