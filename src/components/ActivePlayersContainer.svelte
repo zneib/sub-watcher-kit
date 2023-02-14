@@ -125,6 +125,12 @@
     justify-content: space-between;
     font-size: 12px;
   }
+  div.labels > span:nth-child(1) {
+    margin-left: 40px;
+  }
+  div.labels > span:nth-child(2) {
+    margin-right: 10px;
+  }
   div.collapsed {
     display: none;
   }
@@ -162,6 +168,9 @@
       color: var(--grey-eight);
     }
     p.limit-message {
+      color: var(--grey-nine);
+    }
+    p.message-text {
       color: var(--grey-nine);
     }
   }

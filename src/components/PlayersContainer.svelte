@@ -95,7 +95,12 @@
   h2 {
     margin-top: 0;
     text-align: center;
-  }  
+  }
+  div.person-container {
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 5px;
+  }
   div.collapsed {
     display: none;
   }            

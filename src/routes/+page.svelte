@@ -5,8 +5,6 @@
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
   import OptionsDialog from '../components/OptionsDialog.svelte';
-  import Collapse from '../components/Collapse.svelte';
-  import DeleteAll from '../components/DeleteAll.svelte';
   import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
   import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
 	import PlayersContainer from '../components/PlayersContainer.svelte';
@@ -32,10 +30,6 @@
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
 
-  // const showModal = () => {
-  //   addPlayerDialog.showModal();
-  // }
-
   const deletePerson = () => {
     people = people.filter((name) => name !== personToDelete);
     localStorage.setItem('people', JSON.stringify(people));
@@ -60,27 +54,6 @@
   const showOptionsDialog = () => {
     optionsDialog.showModal();
   }
-
-  // const addActivePlayer = (player: string) => {
-  //   activePlayers = [...activePlayers, player];
-  //   people = people.filter((name: string) => name !== player);
-  //   localStorage.setItem('activePlayers', JSON.stringify(activePlayers));
-  //   localStorage.setItem('people', JSON.stringify(people));
-  // }
-
-  // const removeActivePlayer = (player: string) => {
-  //   activePlayers = activePlayers.filter((name: string) => name !== player);
-  //   people = [...people, player];
-  //   localStorage.setItem('activePlayers', JSON.stringify(activePlayers));
-  //   localStorage.setItem('people', JSON.stringify(people));
-  // }
-
-  // const removeAllActivePlayers = () => {
-  //   people = [people, ...activePlayers].flat();
-  //   activePlayers = [];
-  //   localStorage.removeItem('activePlayers');
-  //   localStorage.setItem('people', JSON.stringify(people));
-  // }
 </script>
 
 <main>
@@ -117,76 +90,6 @@
     box-sizing: border-box;
   }
 
-  article {
-    position: relative;
-    padding: 15px 15px 30px;
-    margin: 25px;
-    max-width: 500px;
-    border-radius: 5px;
-    flex: 1;
-  }
-
-  div.collapsed {
-    display: none;
-  }
-
-  div.person-container {
-    max-height: 220px;
-    overflow-y: auto;
-    padding-right: 5px;
-  }
-
-  div.labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-  }
-  div.labels > span:nth-child(1) {
-    margin-left: 40px;
-  }
-  div.labels > span:nth-child(2) {
-    margin-right: 10px;
-  }
-
-  .options {
-    width: 100px;
-    position: absolute;
-    left: 35px;
-    bottom: -15px;
-  }
-
-  .add {
-    width: 100px;
-    position: absolute;
-    right: 35px;
-    bottom: -15px;
-    margin: auto;
-  }
-
-  p.limit-message {
-    text-align: center; 
-    font-size: 12px; 
-    margin: 2px auto
-  }
-
-  p.limit-message > span {
-    font-weight: bold;
-  }
-  
-  .remove-all {
-    width: 150px;
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: -15px;
-    margin: auto;
-  }
-
-  h2 {
-    margin-top: 0;
-    text-align: center;
-  }
-
   button {
     color: black;
     font-weight: normal;
@@ -201,11 +104,6 @@
     border: 2px solid rgb(129, 129, 129);
   }
 
-  p.message-text {
-    font-size: 12px;
-    text-align: center;
-  }
-
   main {
     display: flex;
     justify-content: space-evenly;
@@ -216,11 +114,6 @@
     main {
       flex-direction: column;
     }
-
-    article {
-      width: 90%;
-      margin-top: 25px;
-    }
   }
 
   @media (prefers-color-scheme: dark) {
@@ -229,14 +122,6 @@
     }
     :global(article) {
       background-color: var(--grey-three);
-    }
-
-    div.labels {
-      color: var(--grey-eight);
-    }
-
-    p.limit-message {
-      color: var(--grey-nine);
     }
 
     :global(p.message-text) {
