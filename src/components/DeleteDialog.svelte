@@ -18,6 +18,7 @@
   const deletePerson = () => {
     const people: string[] = playerData.filter((name) => name !== personToDelete);
     playerStore.update(() => [...people])
+    localStorage.setItem('players', JSON.stringify(people));
     deleteDialog.close();
   }
 

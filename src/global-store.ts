@@ -1,7 +1,8 @@
+import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
-const players: string[] = []
-const activePlayers: string[] = [];
+const players: string[] = browser && JSON.parse(localStorage.getItem('players') || '[]');
+const activePlayers: string[] = browser && JSON.parse(localStorage.getItem('activePlayers') || '[]');
 const options = {
   isInactiveOpen: true,
   isActiveOpen: true,

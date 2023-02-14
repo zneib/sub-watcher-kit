@@ -40,6 +40,10 @@
     // Remove the player from the inactive player list
     const people: string[] = playerData.filter((name) => name !== player);
     playerStore.update(() => [...people])
+
+    // Keep localStorage values in sync
+    localStorage.setItem('activePlayers', JSON.stringify(activePlayerData));
+    localStorage.setItem('players', JSON.stringify(playerData));
   }
 
   onDestroy(() => {

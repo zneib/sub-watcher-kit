@@ -23,6 +23,7 @@
       if (field?.type !== 'submit') {
        playerStore.update((data) => [...data, field?.value]);
        field.value = '';
+       localStorage.setItem('players', JSON.stringify(playerData));
       }
     }
   }
