@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { teamStore } from '../global-store';
+  import pinPals from '$lib/assets/pin-pals.jpg';
 
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
@@ -36,7 +37,10 @@
 </script>
 
 <header>
-  <h1>{$teamStore.teamName}</h1>
+  <div>
+    <img src={pinPals} alt="Avatar">
+    <h1>{$teamStore.teamName}</h1>
+  </div>
   <hr>
 </header>
 <main>
@@ -71,6 +75,26 @@
 
   :global(*) {
     box-sizing: border-box;
+  }
+
+  :global(body) {
+    padding: 5px 15px;
+  }
+
+  header > div {
+    display: flex;
+    place-items: center;
+  }
+
+  header > div > img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+  }
+  header > div > h1 {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 10px;
   }
 
   /* button {
@@ -108,6 +132,10 @@
     }
 
     :global(p.message-text) {
+      color: var(--grey-nine);
+    }
+
+    header > div > h1 {
       color: var(--grey-nine);
     }
 
