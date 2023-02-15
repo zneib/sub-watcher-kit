@@ -144,6 +144,7 @@
     border: 2px solid #ccc;
     border-radius: 5px;
     padding: 5px 10px;
+    margin-top: 2px;
     margin-bottom: 15px;
     font-size: 16px;
   }
@@ -154,6 +155,7 @@
     border: 2px solid #ccc;
     border-radius: 5px;
     padding: 5px 10px;
+    margin-top: 2px;
     margin-bottom: 15px;
     font-size: 16px;
   }

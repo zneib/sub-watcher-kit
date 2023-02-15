@@ -1,50 +1,36 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-  import { playerStore } from "../global-store";
-	import type { PlayerType } from '../global-types';
+  import { onMount } from 'svelte';
   import { handleClickOutside } from '../helpers';
+  let player: string = '';
+  let hasError = false;
 
-  let addPlayerDialog: HTMLDialogElement;
+  let editPlayerDialog: HTMLDialogElement;
   onMount(() => {
-    addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
-  });
-
-  let playerName: string;
-  let playerNumber: number;
-
-  let playerData: PlayerType[] = [];
-  const unsubscribe = playerStore.subscribe((data) => {
-    playerData = data;
+    editPlayerDialog = document.getElementById('editPlayerDialog') as HTMLDialogElement;
   });
 
   const closeDialog = () => {
-    addPlayerDialog.close()
+    editPlayerDialog.close()
   }
 
-  // Come back and fix the lazy any type here...
-  const addPlayer = (e: any) => {
-    playerStore.update((data) => [...data, { playerName, playerNumber }]);
-    e.target?.reset();
-    localStorage.setItem('players', JSON.stringify(playerData));
+  const savePlayer = () => {
+    console.log('Do some stuff')
   }
-
-  onDestroy(unsubscribe);
 </script>
 
-<dialog id="addPlayerDialog" on:click={(e) => handleClickOutside(e, addPlayerDialog)}>
+<dialog id="editPlayerDialog" on:click={(e) => handleClickOutside(e, editPlayerDialog)} on:keyup={() => console.log('Save Team Dialog')}>
   <div class="wrapper">
-    <form on:submit|preventDefault={addPlayer}>
-      <h3>Add Another Player</h3>
+    <form on:submit|preventDefault={savePlayer}>
+      <h3>Save Team</h3>
       <div>
-        <label for="firstName">Name</label>
-        <input type="text" name="firstName" bind:value={playerName}>
+        <label for="playerName">Name</label>
+        <input bind:value={player} type="text" name="teamName">
       </div>
-      <div>
-        <label for="playerNumber">Number</label>
-        <input type="number" name="playerNumber" bind:value={playerNumber} minlength="1" maxlength="2">
-      </div>
+      {#if hasError}
+        <p class="error">Team name cannot be blank.</p>
+      {/if}
       <div class="button-wrapper">
-        <button type="submit">Add</button>
+        <button type="submit">Save</button>
         <button value="cancel" on:click={closeDialog}>Close</button>
       </div>
     </form>
@@ -82,11 +68,6 @@
   input {
     width: 100%;
     margin-top: 2px;
-    margin-bottom: 15px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 16px;
   }
 
   h3 {
@@ -112,6 +93,11 @@
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
+  }
+
+  .error {
+    font-size: 10px;
+    color: var(--danger);
   }
   @media (prefers-color-scheme: dark) {
 
