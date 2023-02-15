@@ -56,7 +56,6 @@
     activePlayerStoreSub();
     optionsStoreSub();
   });
-
 </script>
 
 <article>

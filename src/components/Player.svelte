@@ -63,6 +63,7 @@
     width: 30px;
     height: 30px;
     font-size: 12px;
+    font-style: italic;
     border-radius: 5px;
     padding: 5px 10px;
     top: 0;

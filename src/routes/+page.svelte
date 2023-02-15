@@ -35,15 +35,19 @@
   }
 </script>
 
+<header>
+  <h1>Team Title</h1>
+  <hr>
+</header>
 <main>
   <DeleteDialog personToDelete={personToDelete} />
   <AddPlayerDialog />
   <OptionsDialog />
   <!-- <SaveTeamDialog activePlayers={activePlayers} people={people} />
   <LoadTeamDialog bind:people bind:activePlayers /> -->
-  <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
+  <!-- <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
   <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
-  <button>Edit Teams</button>
+  <button>Edit Teams</button> -->
   <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} showDialogElement={showDialogElement}  />
   <ActivePlayersContainer />
 </main>
@@ -69,7 +73,7 @@
     box-sizing: border-box;
   }
 
-  button {
+  /* button {
     color: black;
     font-weight: normal;
     background-color: #fff;
@@ -81,7 +85,7 @@
   }
   button:hover {
     border: 2px solid rgb(129, 129, 129);
-  }
+  } */
 
   main {
     display: flex;
@@ -107,11 +111,11 @@
       color: var(--grey-nine);
     }
 
-    button {
+    /* button {
       color: var(--grey-nine);
       background-color: var(--grey-four);
       border: 2px solid var(--grey-six);
-    }
+    } */
   }
   @media (prefers-color-scheme: light) {
     :global(article) {
