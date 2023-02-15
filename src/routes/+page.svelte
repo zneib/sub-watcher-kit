@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { browser } from '$app/environment';
+  import { teamStore } from '../global-store';
 
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
@@ -36,7 +36,7 @@
 </script>
 
 <header>
-  <h1>Team Title</h1>
+  <h1>{$teamStore.teamName}</h1>
   <hr>
 </header>
 <main>

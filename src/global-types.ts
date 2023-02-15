@@ -3,6 +3,12 @@ export type PlayerType = {
   playerNumber: number
 }
 
+export type TeamType = {
+  teamName: string,
+  rosterSize: number,
+  sport: string
+}
+
 export type OptionsType = {
   isInactiveOpen: boolean,
   isActiveOpen: boolean,

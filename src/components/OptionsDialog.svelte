@@ -1,8 +1,10 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { optionsStore } from '../global-store';
-	import type { OptionsType } from '../global-types';
+  import { optionsStore, teamStore } from '../global-store';
+	import type { OptionsType, TeamType } from '../global-types';
   import { handleClickOutside } from '../helpers';
+
+  let name: string;
   
   let optionsDialog: HTMLDialogElement;
   onMount(() => {
@@ -17,10 +19,28 @@
       maxActivePlayers: data.maxActivePlayers,
       playTimeLimit: data.playTimeLimit
     }
-  })
+  });
+
+  let teamData: TeamType;
+  const teamStoreSub = teamStore.subscribe((data) => {
+    teamData = {
+      teamName: data.teamName,
+      rosterSize: data.rosterSize,
+      sport: data.sport
+    }
+  });
 
   const closeDialog = () => {
     optionsDialog.close();
+  }
+
+  const handleTeamNameChange = () => {
+    if (name) {
+      teamStore.update((data) => {
+        return { ...data, teamName: name}
+      });
+      localStorage.setItem('team', name);
+    }
   }
 
   const handleMaxPlayerChange = (event: Event) => {
@@ -37,13 +57,20 @@
     })
   }
 
-  onDestroy(optionsStoreSub);
+  onDestroy(() => {
+    optionsStoreSub();
+    teamStoreSub();
+  });
 </script>
 
 <dialog id="optionsDialog" on:click={(e) => handleClickOutside(e, optionsDialog)}>
   <div class="wrapper">
     <h3>Player Options</h3>
     <form>
+      <div>
+        <label for="teamName">Team Name</label>
+        <input type="text" name="teamName" bind:value={name} on:blur={handleTeamNameChange}>
+      </div>
       <div>
         <label for="activePlayerLimit">Active Players Limit</label>
         <select name="activePlayerLimit" on:change={handleMaxPlayerChange} value={optionsData.maxActivePlayers}>

@@ -2,10 +2,12 @@ import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 import type { PlayerType } from './global-types';
 
+const name: string = browser && localStorage.getItem('team') || 'Team Name';
+
 const players: PlayerType[] = browser && JSON.parse(localStorage.getItem('players') || '[]');
 const activePlayers: PlayerType[] = browser && JSON.parse(localStorage.getItem('activePlayers') || '[]');
 const teamInfo = {
-  teamName: '',
+  teamName: name,
   rosterSize: 7,
   sport: ''
 }
