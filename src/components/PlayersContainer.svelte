@@ -139,6 +139,13 @@
     border: 2px solid rgb(129, 129, 129);
   }
 
+  @media (max-width: 768px) {
+    article {
+      width: 90%;
+      margin-top: 25px;
+    }
+  }
+
   @media (prefers-color-scheme: dark) {
     h2 {
       color: var(--grey-nine);
