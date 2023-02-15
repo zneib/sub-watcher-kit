@@ -3,8 +3,6 @@
   import { optionsStore, teamStore } from '../global-store';
 	import type { OptionsType, TeamType } from '../global-types';
   import { handleClickOutside } from '../helpers';
-
-  let name: string;
   
   let optionsDialog: HTMLDialogElement;
   onMount(() => {
@@ -34,12 +32,14 @@
     optionsDialog.close();
   }
 
-  const handleTeamNameChange = () => {
-    if (name) {
+  // Fix the 'any' type here
+  const handleTeamNameChange = (event: any) => {
+    const target = event.target?.value;
+    if (target) {
       teamStore.update((data) => {
-        return { ...data, teamName: name}
+        return { ...data, teamName: target}
       });
-      localStorage.setItem('team', name);
+      localStorage.setItem('team', target);
     }
   }
 
@@ -69,7 +69,7 @@
     <form>
       <div>
         <label for="teamName">Team Name</label>
-        <input type="text" name="teamName" bind:value={name} on:blur={handleTeamNameChange}>
+        <input type="text" name="teamName" value={teamData.teamName} on:blur={handleTeamNameChange} placeholder="New Team Name">
       </div>
       <div>
         <label for="activePlayerLimit">Active Players Limit</label>
@@ -137,6 +137,15 @@
   h3 {
     margin-top: 0;
     text-align: center;
+  }
+
+  input {
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
   }
 
   select {
