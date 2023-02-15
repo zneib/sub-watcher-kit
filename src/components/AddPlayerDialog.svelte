@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { playerStore } from "../global-store";
+	import type { PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
 
   let addPlayerDialog: HTMLDialogElement;
@@ -8,7 +9,10 @@
     addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
   });
 
-  let playerData: string[] = [];
+  let playerName: string;
+  let playerNumber: number;
+
+  let playerData: PlayerType[] = [];
   const unsubscribe = playerStore.subscribe((data) => {
     playerData = data;
   });
@@ -17,14 +21,18 @@
     addPlayerDialog.close()
   }
 
-  const addPlayer = (e: EventTarget) => {
-    for (const field of e?.target) {
-      if (field?.type !== 'submit') {
-       playerStore.update((data) => [...data, field?.value]);
-       field.value = '';
-       localStorage.setItem('players', JSON.stringify(playerData));
-      }
-    }
+  // Come back and fix the lazy any type here...
+  const addPlayer = (e: any) => {
+    playerStore.update((data) => [...data, { playerName, playerNumber }]);
+    e.target?.reset();
+    localStorage.setItem('players', JSON.stringify(playerData));
+    // for (const field of e?.target) {
+    //   if (field?.type !== 'submit') {
+    //    playerStore.update((data) => [...data, { playerName, playerNumber }]);
+    //    field.value = '';
+    //    localStorage.setItem('players', JSON.stringify(playerData));
+    //   }
+    // }
   }
 
   onDestroy(unsubscribe);
@@ -36,7 +44,11 @@
       <h3>Add Another Player</h3>
       <div>
         <label for="firstName">Name</label>
-        <input type="text" name="firstName">
+        <input type="text" name="firstName" bind:value={playerName}>
+      </div>
+      <div>
+        <label for="playerNumber">Number</label>
+        <input type="number" name="playerNumber" bind:value={playerNumber}>
       </div>
       <div class="button-wrapper">
         <button type="submit">Add</button>
@@ -76,6 +88,7 @@
 
   input {
     width: 100%;
+    margin-top: 5px;
   }
 
   h3 {

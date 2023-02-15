@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { playerStore } from '../global-store';
+	import type { PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
   export let personToDelete: string = '';
 
@@ -9,13 +10,13 @@
     deleteDialog = document.getElementById('deleteDialog') as HTMLDialogElement;
   });
 
-  let playerData: string[] = [];
+  let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
     playerData = data;
   });
 
   const deletePerson = () => {
-    const people: string[] = playerData.filter((name) => name !== personToDelete);
+    const people: PlayerType[] = playerData.filter(({playerName}) => playerName !== personToDelete);
     playerStore.update(() => [...people])
     localStorage.setItem('players', JSON.stringify(people));
     deleteDialog.close();

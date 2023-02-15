@@ -1,6 +1,6 @@
 <script lang="ts">
   import { afterUpdate } from "svelte";
-  export let index: number;
+  export let number: number;
   export let name: string;
   export let removeActivePlayer: (name: string) => void;
   export let playTimeLimit: string;
@@ -33,7 +33,7 @@
 </script>
 
 <div class:danger={timesUp} class="name" on:click={removeActivePlayer(name)} on:keyup={() => console.log('Player')}>
-  <span class:danger={timesUp} class="index">{index + 1}</span>
+  <span class:danger={timesUp} class="index">{number}</span>
   <span class="name">{name}</span>
   <span class="timer">{timer}</span>
 </div>

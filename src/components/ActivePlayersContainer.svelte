@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { playerStore, activePlayerStore, optionsStore } from "../global-store";
-	import type { OptionsType } from '../global-types';
+	import type { OptionsType, PlayerType } from '../global-types';
   import Collapse from "./Collapse.svelte";
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
@@ -17,12 +17,12 @@
     'Collapse and expland the card by clicking on the top left plus and minus buttons.'
   ]
   
-  let playerData: string[] = [];
+  let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
     playerData = data;
   });
 
-  let activePlayerData: string[] = [];
+  let activePlayerData: PlayerType[] = [];
   const activePlayerStoreSub = activePlayerStore.subscribe((data) => {
     activePlayerData = data;
   });
@@ -32,8 +32,8 @@
     optionsData = data;
   });
 
-  const removeActivePlayerFn = (player: string) => {
-    const currentActivePlayers = activePlayerData.filter((name: string) => name !== player);
+  const removeActivePlayerFn = (player: PlayerType) => {
+    const currentActivePlayers = activePlayerData.filter(({playerName}) => playerName !== player.playerName);
     activePlayerStore.update(() => [...currentActivePlayers]);
     playerStore.update((data) => [...data, player]);
 
@@ -73,8 +73,8 @@
   {/if}
   <div class:collapsed={!isOpen}>
     {#if activePlayerData.length > 0}
-      {#each activePlayerData as player, index}
-        <Player index={index} name={player} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} />
+      {#each activePlayerData as player}
+        <Player number={player.playerNumber} name={player.playerName} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} />
       {/each}
     {/if}
   </div>

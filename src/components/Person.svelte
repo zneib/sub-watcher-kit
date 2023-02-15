@@ -1,22 +1,19 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { playerStore, activePlayerStore, optionsStore } from '../global-store';
-  import type { OptionsType } from '../global-types';
-  export let name: string;
-  export let addActivePlayer: (name: string) => void;
+  import type { OptionsType, PlayerType } from '../global-types';
+  export let person: PlayerType;
+  export let addActivePlayer: (player: PlayerType) => void;
   export let showDialogElement: (name: string) => void;
-  // export let maxActivePlayers: number;
-  // export let activePlayers: number;
-  // export let limitMessageShowing: boolean;
   let showConfirmation = false;
 
-  let playerData: string[] = [];
+  let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
     playerData = data;
   });
 
-  let activePlayerData: string[] = [];
-  const activePlayerStoreSub = playerStore.subscribe((data) => {
+  let activePlayerData: PlayerType[] = [];
+  const activePlayerStoreSub = activePlayerStore.subscribe((data) => {
     activePlayerData = data;
   });
 
@@ -25,21 +22,13 @@
     optionsData = data;
   });
 
-  const handleClick = (name: string) => {
+  const handleClick = (player: PlayerType) => {
     if (optionsData.maxActivePlayers - activePlayerData.length >= 0) {
-      addActivePlayer(name);
+      addActivePlayer(player);
     } else {
       return;
     }
   }
-
-  // const handleClick = (name: string) => {
-  //   if (maxActivePlayers - activePlayers >= 0) {
-  //     addActivePlayer(name);
-  //   } else {
-  //     return;
-  //   }
-  // }
 
   onDestroy(() => {
     playerStoreSub();
@@ -48,14 +37,17 @@
   });
 </script>
 
-<button disabled={optionsData.maxActivePlayers - activePlayerData?.length <= 0} class="wrapper" on:click={() => handleClick(name)}>
-  {name}
-  {#if !showConfirmation}
-    <svg xmlns="http://www.w3.org/2000/svg" on:click={(e) => {showDialogElement(name); e.stopPropagation()}} width="15px" height="15px" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  {/if}
-</button>
+<div>
+  <span>{person.playerNumber}</span>
+  <button disabled={optionsData.maxActivePlayers - activePlayerData?.length <= 0} class="wrapper" on:click={() => handleClick(person)}>
+    {person.playerName}
+    {#if !showConfirmation}
+      <svg xmlns="http://www.w3.org/2000/svg" on:click={(e) => {showDialogElement(person.playerName); e.stopPropagation()}} width="15px" height="15px" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    {/if}
+  </button>
+</div>
 
 <style>
   button.wrapper {
@@ -84,6 +76,17 @@
     cursor: not-allowed;
   }
 
+  div {
+    display: flex;
+    place-items: center;
+  }
+
+  span {
+    font-size: 11px;
+    font-style: italic;
+    margin-right: 10px;
+  }
+
   svg {
     cursor: pointer;
   }
@@ -92,6 +95,9 @@
     button.wrapper {
       color: var(--grey-nine);
       background-color: var(--grey-four);
+    }
+    span {
+      color: var(--grey-nine);
     }
   }
 </style>

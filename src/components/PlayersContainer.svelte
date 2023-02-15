@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { playerStore, activePlayerStore, optionsStore } from "../global-store";
-	import type { OptionsType } from '../global-types';
+	import type { OptionsType, PlayerType } from '../global-types';
   export let addPlayerDialog: () => void;
   import Collapse from "./Collapse.svelte";
   // import DeleteAll from "./DeleteAll.svelte";
@@ -21,12 +21,12 @@
     'Collapse and expland the card by clicking on the top left plus and minus buttons.'
   ];
 
-  let playerData: string[] = [];
+  let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
     playerData = data;
   });
 
-  let activePlayerData: string[] = [];
+  let activePlayerData: PlayerType[] = [];
   const activePlayerStoreSub = activePlayerStore.subscribe((data) => {
     activePlayerData = data;
   });
@@ -36,11 +36,11 @@
     optionsData = data;
   })
 
-  const addActivePlayer = (player: string) => {
+  const addActivePlayer = (player: PlayerType) => {
     activePlayerStore.update((data) => [...data, player]);
 
     // Remove the player from the inactive player list
-    const people: string[] = playerData.filter((name) => name !== player);
+    const people: PlayerType[] = playerData.filter(({playerName}) => playerName !== player.playerName);
     playerStore.update(() => [...people])
 
     localStorage.setItem('activePlayers', JSON.stringify(activePlayerData));
@@ -65,7 +65,7 @@
     {#if playerData.length > 0}
       {#each playerData as person}
         <Person 
-          name={person} 
+          person={person} 
           addActivePlayer={addActivePlayer} 
           showDialogElement={showDialogElement}
         />
