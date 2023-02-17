@@ -33,6 +33,10 @@
     deleteDialog.showModal();
   }
 
+  const showEditDialogElement = (person: string) => {
+    console.log('Show the edit player dialog...');
+  }
+
   const showOptionsDialog = () => {
     optionsDialog.showModal();
   }

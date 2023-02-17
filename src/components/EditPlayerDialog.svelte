@@ -1,36 +1,50 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+	import { playerStore } from '../global-store';
+	import type { PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
-  let player: string = '';
-  let hasError = false;
 
   let editPlayerDialog: HTMLDialogElement;
   onMount(() => {
     editPlayerDialog = document.getElementById('editPlayerDialog') as HTMLDialogElement;
   });
 
+  let playerName: string;
+  let playerNumber: number;
+
+  let playerData: PlayerType[] = [];
+  const playerStoreSub = playerStore.subscribe((data) => {
+    playerData = data;
+  });
+
   const closeDialog = () => {
     editPlayerDialog.close()
   }
 
-  const savePlayer = () => {
-    console.log('Do some stuff')
+  const updatePlayer = () => {
+    console.log('Updates go here...');
+    // playerStore.update((data) => {
+    //   return {}
+    // })
   }
+
+  onDestroy(playerStoreSub);
 </script>
 
 <dialog id="editPlayerDialog" on:click={(e) => handleClickOutside(e, editPlayerDialog)} on:keyup={() => console.log('Save Team Dialog')}>
   <div class="wrapper">
-    <form on:submit|preventDefault={savePlayer}>
-      <h3>Save Team</h3>
+    <form on:submit|preventDefault={updatePlayer}>
+      <h3>Edit Player</h3>
       <div>
-        <label for="playerName">Name</label>
-        <input bind:value={player} type="text" name="teamName">
+        <label for="firstName">Name</label>
+        <input type="text" name="firstName" bind:value={playerName}>
       </div>
-      {#if hasError}
-        <p class="error">Team name cannot be blank.</p>
-      {/if}
+      <div>
+        <label for="playerNumber">Number</label>
+        <input type="number" name="playerNumber" bind:value={playerNumber} minlength="1" maxlength="2">
+      </div>
       <div class="button-wrapper">
-        <button type="submit">Save</button>
+        <button type="submit">Add</button>
         <button value="cancel" on:click={closeDialog}>Close</button>
       </div>
     </form>
