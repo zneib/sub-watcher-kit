@@ -46,10 +46,6 @@
   <div class="auth-area">
     {#if $page.data.session}
       {#if $page.data.session.user?.image}
-        <!-- <span
-          style="background-image: url('{$page.data.session.user.image}')"
-          class="avatar"
-        /> -->
         <div style="display: flex">
           <img class="avatar" src={$page.data.session.user.image} alt="User Avatar">
           <span class="signedInText">
