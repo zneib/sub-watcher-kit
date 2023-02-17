@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { signIn, signOut } from '@auth/sveltekit/client';
+  import { page } from '$app/stores';
   import { teamStore } from '../global-store';
   import pinPals from '$lib/assets/pin-pals.jpg';
 
@@ -41,8 +43,29 @@
     <img src={pinPals} alt="Avatar">
     <h1>{$teamStore.teamName}</h1>
   </div>
-  <hr>
+  <div class="auth-area">
+    {#if $page.data.session}
+      {#if $page.data.session.user?.image}
+        <!-- <span
+          style="background-image: url('{$page.data.session.user.image}')"
+          class="avatar"
+        /> -->
+        <div style="display: flex">
+          <img class="avatar" src={$page.data.session.user.image} alt="User Avatar">
+          <span class="signedInText">
+            <small>Signed in as</small><br />
+            <strong>{$page.data.session.user?.name ?? "User"}</strong>
+          </span>
+        </div>
+      {/if}
+        <button on:click={() => signOut()} class="sign-out-btn">Sign out</button>
+      {:else}
+        <span class="notSignedInText">You are not signed in</span>
+        <button class="notSignedInBtn" on:click={() => signIn("github")}>Sign In with GitHub</button>
+    {/if}
+  </div>
 </header>
+<hr>
 <main>
   <DeleteDialog personToDelete={personToDelete} />
   <AddPlayerDialog />
@@ -81,6 +104,11 @@
     padding: 5px 15px;
   }
 
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   header > div {
     display: flex;
     place-items: center;
@@ -97,7 +125,24 @@
     margin-left: 10px;
   }
 
-  /* button {
+  .auth-area {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .avatar {
+    width: 40px;
+  }
+
+  .sign-out-btn {
+    width: 100%;
+  }
+
+  .notSignedInBtn {
+    margin-top: 15px;
+  }
+
+  button {
     color: black;
     font-weight: normal;
     background-color: #fff;
@@ -109,7 +154,7 @@
   }
   button:hover {
     border: 2px solid rgb(129, 129, 129);
-  } */
+  }
 
   main {
     display: flex;
