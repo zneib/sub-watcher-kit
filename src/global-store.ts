@@ -14,7 +14,8 @@ const options = {
   isActiveOpen: true,
   playTimeLimit: '05:00',
   maxActivePlayers: 7,
-  numOfQuarters: 4
+  numOfQuarters: 4,
+  mode: 'action'
 }
 
 export const playerStore = writable(players);

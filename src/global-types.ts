@@ -14,5 +14,6 @@ export type OptionsType = {
   isActiveOpen: boolean,
   playTimeLimit: string,
   maxActivePlayers: number,
-  numOfQuarters: number
+  numOfQuarters: number,
+  mode: string
 }

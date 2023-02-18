@@ -139,14 +139,6 @@
     width: 100%;
   }
 
-  .signedInText {
-    color: var(--grey-nine);
-  }
-
-  .notSignedInText {
-    color: var(--grey-nine);
-  }
-
   .notSignedInBtn {
     margin-top: 15px;
   }
@@ -190,6 +182,14 @@
     }
 
     header > div > h1 {
+      color: var(--grey-nine);
+    }
+
+    .signedInText {
+      color: var(--grey-nine);
+    }
+
+    .notSignedInText {
       color: var(--grey-nine);
     }
 
