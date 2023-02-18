@@ -138,6 +138,10 @@
     width: 100%;
   }
 
+  .notSignedInText {
+    color: var(--grey-nine);
+  }
+
   .notSignedInBtn {
     margin-top: 15px;
   }
