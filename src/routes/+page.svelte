@@ -132,10 +132,15 @@
 
   .avatar {
     width: 40px;
+    border-radius: 50%;
   }
 
   .sign-out-btn {
     width: 100%;
+  }
+
+  .signedInText {
+    color: var(--grey-nine);
   }
 
   .notSignedInText {
@@ -188,11 +193,11 @@
       color: var(--grey-nine);
     }
 
-    /* button {
+    button {
       color: var(--grey-nine);
       background-color: var(--grey-four);
       border: 2px solid var(--grey-six);
-    } */
+    }
   }
   @media (prefers-color-scheme: light) {
     :global(article) {
