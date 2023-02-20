@@ -12,16 +12,20 @@
   import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
 	import PlayersContainer from '../components/PlayersContainer.svelte';
   import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
+	import EditPlayerDialog from '../components/EditPlayerDialog.svelte';
 
   let personToDelete: string = '';
+  let personToEdit: string = '';
 
   let deleteDialog: HTMLDialogElement;
+  let editPlayerDialog: HTMLDialogElement;
   let addPlayerDialog: HTMLDialogElement;
   let optionsDialog: HTMLDialogElement;
   let saveTeamDialog: HTMLDialogElement;
   let loadTeamDialog: HTMLDialogElement;
   onMount(() => {
     deleteDialog = document.getElementById('deleteDialog') as HTMLDialogElement;
+    editPlayerDialog = document.getElementById('editPlayerDialog') as HTMLDialogElement;
     addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
     optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
     saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
@@ -34,7 +38,8 @@
   }
 
   const showEditDialogElement = (person: string) => {
-    console.log('Show the edit player dialog...');
+    personToEdit = person;
+    editPlayerDialog.showModal();
   }
 
   const showOptionsDialog = () => {
@@ -70,12 +75,13 @@
   <DeleteDialog personToDelete={personToDelete} />
   <AddPlayerDialog />
   <OptionsDialog />
+  <EditPlayerDialog />
   <!-- <SaveTeamDialog activePlayers={activePlayers} people={people} />
   <LoadTeamDialog bind:people bind:activePlayers /> -->
   <!-- <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
   <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
   <button>Edit Teams</button> -->
-  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} showDialogElement={showDialogElement}  />
+  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showEditDialogElement={showEditDialogElement} showOptionsDialog={showOptionsDialog} showDialogElement={showDialogElement}  />
   <ActivePlayersContainer />
 </main>
 

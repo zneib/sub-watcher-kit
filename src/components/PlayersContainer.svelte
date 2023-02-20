@@ -10,6 +10,7 @@
 	import Player from "./Player.svelte";
   export let showOptionsDialog: () => void;
   export let showDialogElement: (name: string) => void;
+  export let showEditDialogElement: (name: string) => void;
 
   let isOpen = true;
 
@@ -66,7 +67,8 @@
       {#each playerData as person}
         <Person 
           person={person} 
-          addActivePlayer={addActivePlayer} 
+          addActivePlayer={addActivePlayer}
+          showEditDialogElement={showEditDialogElement}
           showDialogElement={showDialogElement}
         />
       {/each}
