@@ -45,7 +45,7 @@
       </div>
       <div class="button-wrapper">
         <button type="submit">Add</button>
-        <button value="cancel" on:click={closeDialog}>Close</button>
+        <button value="cancel" on:click|stopPropagation={closeDialog}>Close</button>
       </div>
     </form>
   </div>
