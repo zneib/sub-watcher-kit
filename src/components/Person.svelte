@@ -6,7 +6,6 @@
   export let person: PlayerType;
   export let addActivePlayer: (player: PlayerType) => void;
   export let showDialogElement: (name: string) => void;
-  export let showEditDialogElement: (name: string) => void;
   let showConfirmation = false;
 
   let playerData: PlayerType[] = [];

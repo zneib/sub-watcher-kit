@@ -3,7 +3,6 @@
 	import { playerStore, optionsStore } from '../global-store';
 	import type { OptionsType, PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
-  export let personToEdit: string = '';
 
   let editPlayerDialog: HTMLDialogElement;
   onMount(() => {

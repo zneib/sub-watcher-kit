@@ -7,10 +7,8 @@
   // import DeleteAll from "./DeleteAll.svelte";
   import Helper from "./Helper.svelte";
   import Person from "./Person.svelte";
-	import Player from "./Player.svelte";
   export let showOptionsDialog: () => void;
   export let showDialogElement: (name: string) => void;
-  export let showEditDialogElement: (name: string) => void;
 
   let isOpen = true;
 
@@ -68,7 +66,6 @@
         <Person 
           person={person} 
           addActivePlayer={addActivePlayer}
-          showEditDialogElement={showEditDialogElement}
           showDialogElement={showDialogElement}
         />
       {/each}
