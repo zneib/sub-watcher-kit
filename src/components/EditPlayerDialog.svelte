@@ -1,12 +1,21 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-	import { playerStore } from '../global-store';
-	import type { PlayerType } from '../global-types';
+  import { onMount, afterUpdate, onDestroy } from 'svelte';
+	import { playerStore, optionsStore } from '../global-store';
+	import type { OptionsType, PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
+  export let personToEdit: string = '';
 
   let editPlayerDialog: HTMLDialogElement;
   onMount(() => {
     editPlayerDialog = document.getElementById('editPlayerDialog') as HTMLDialogElement;
+  });
+
+  let optionsData: OptionsType;
+  const optionsStoreSub = optionsStore.subscribe((data) => {
+    optionsData = data;
+    if (optionsData.showEditDialog) {
+      editPlayerDialog.showModal();
+    }
   });
 
   let playerName: string;
@@ -28,7 +37,10 @@
     // })
   }
 
-  onDestroy(playerStoreSub);
+  onDestroy(() => {
+    playerStoreSub();
+    optionsStoreSub();
+  });
 </script>
 
 <dialog id="editPlayerDialog" on:click={(e) => handleClickOutside(e, editPlayerDialog)} on:keyup={() => console.log('Save Team Dialog')}>
@@ -44,7 +56,7 @@
         <input type="number" name="playerNumber" bind:value={playerNumber} minlength="1" maxlength="2">
       </div>
       <div class="button-wrapper">
-        <button type="submit">Add</button>
+        <button type="submit">Update</button>
         <button value="cancel" on:click={closeDialog}>Close</button>
       </div>
     </form>

@@ -15,5 +15,7 @@ export type OptionsType = {
   playTimeLimit: string,
   maxActivePlayers: number,
   numOfQuarters: number,
-  mode: string
+  mode: string,
+  playerToEdit: PlayerType,
+  showEditDialog: boolean
 }

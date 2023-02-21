@@ -15,7 +15,9 @@ const options = {
   playTimeLimit: '05:00',
   maxActivePlayers: 7,
   numOfQuarters: 4,
-  mode: 'action'
+  mode: 'action',
+  playerToEdit: { playerName: '', playerNumber: 0},
+  showEditDialog: false
 }
 
 export const playerStore = writable(players);
