@@ -10,15 +10,19 @@
   });
 
   let optionsData: OptionsType;
+  let playerName: string;
+  let playerNumber: number;
   const optionsStoreSub = optionsStore.subscribe((data) => {
     optionsData = data;
     if (optionsData.showEditDialog) {
       editPlayerDialog.showModal();
     }
+    playerName = data.playerToEdit.playerName;
+    playerNumber = data.playerToEdit.playerNumber;
   });
 
-  let playerName: string;
-  let playerNumber: number;
+  console.log($optionsStore);
+  console.log(playerName, playerNumber)
 
   let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
