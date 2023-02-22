@@ -23,7 +23,7 @@
 
   // Come back and fix the lazy any type here...
   const addPlayer = (e: any) => {
-    playerStore.update((data) => [...data, { playerName, playerNumber }]);
+    playerStore.update((data) => [...data, { id: playerData.length + 1, playerName, playerNumber }]);
     e.target?.reset();
     localStorage.setItem('players', JSON.stringify(playerData));
   }

@@ -10,6 +10,7 @@
   });
 
   let optionsData: OptionsType;
+  let playerId: number;
   let playerName: string;
   let playerNumber: number;
   const optionsStoreSub = optionsStore.subscribe((data) => {
@@ -17,12 +18,10 @@
     if (optionsData.showEditDialog) {
       editPlayerDialog.showModal();
     }
+    playerId = data.playerToEdit.id;
     playerName = data.playerToEdit.playerName;
     playerNumber = data.playerToEdit.playerNumber;
   });
-
-  console.log($optionsStore);
-  console.log(playerName, playerNumber)
 
   let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
@@ -34,10 +33,15 @@
   }
 
   const updatePlayer = () => {
-    console.log('Updates go here...');
-    // playerStore.update((data) => {
-    //   return {}
-    // })
+    const playerIndex = playerData.findIndex((person) => person.id === playerId);
+    if (playerIndex !== -1) {
+      playerData[playerIndex] = { id: playerId, playerName, playerNumber }
+      playerStore.update(() => {
+        return [...playerData];
+      })
+      localStorage.setItem('players', JSON.stringify(playerData));
+    }
+    editPlayerDialog.close();
   }
 
   onDestroy(() => {

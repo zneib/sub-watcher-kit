@@ -16,7 +16,7 @@ const options = {
   maxActivePlayers: 7,
   numOfQuarters: 4,
   mode: 'action',
-  playerToEdit: { playerName: '', playerNumber: 0},
+  playerToEdit: { id: 0, playerName: '', playerNumber: 0},
   showEditDialog: false,
   showDeleteDialog: false
 }
