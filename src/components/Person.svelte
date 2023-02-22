@@ -37,6 +37,12 @@
     })
   }
 
+  const handleDeletePlayer = (player: PlayerType) => {
+    optionsStore.update((data) => {
+      return { ...data, playerToEdit: player, showDeleteDialog: true}
+    })
+  }
+
   const handlePointerEvent = (event: PointerEvent) => {
     switch(event.pointerType) {
       case 'mouse':

@@ -17,7 +17,8 @@ const options = {
   numOfQuarters: 4,
   mode: 'action',
   playerToEdit: { playerName: '', playerNumber: 0},
-  showEditDialog: false
+  showEditDialog: false,
+  showDeleteDialog: false
 }
 
 export const playerStore = writable(players);

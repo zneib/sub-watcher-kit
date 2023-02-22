@@ -17,5 +17,6 @@ export type OptionsType = {
   numOfQuarters: number,
   mode: string,
   playerToEdit: PlayerType,
-  showEditDialog: boolean
+  showEditDialog: boolean,
+  showDeleteDialog: boolean
 }
