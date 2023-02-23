@@ -3,7 +3,6 @@
   import { optionsStore, playerStore } from '../global-store';
 	import type { OptionsType, PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
-  export let personToDelete: string = '';
 
   let deleteDialog: HTMLDialogElement;
   onMount(() => {

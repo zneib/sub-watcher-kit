@@ -8,24 +8,16 @@
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
   import OptionsDialog from '../components/OptionsDialog.svelte';
-  import SaveTeamDialog from '../components/SaveTeamDialog.svelte';
-  import LoadTeamDialog from '../components/LoadTeamDialog.svelte';
 	import PlayersContainer from '../components/PlayersContainer.svelte';
   import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 	import EditPlayerDialog from '../components/EditPlayerDialog.svelte';
 
-  let personToDelete: string = '';
-  let personToEdit: string = '';
 
-  let deleteDialog: HTMLDialogElement;
-  let editPlayerDialog: HTMLDialogElement;
   let addPlayerDialog: HTMLDialogElement;
   let optionsDialog: HTMLDialogElement;
   let saveTeamDialog: HTMLDialogElement;
   let loadTeamDialog: HTMLDialogElement;
   onMount(() => {
-    deleteDialog = document.getElementById('deleteDialog') as HTMLDialogElement;
-    editPlayerDialog = document.getElementById('editPlayerDialog') as HTMLDialogElement;
     addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
     optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
     saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
@@ -62,15 +54,10 @@
 </header>
 <hr>
 <main>
-  <DeleteDialog personToDelete={personToDelete} />
+  <DeleteDialog />
   <AddPlayerDialog />
   <OptionsDialog />
   <EditPlayerDialog />
-  <!-- <SaveTeamDialog activePlayers={activePlayers} people={people} />
-  <LoadTeamDialog bind:people bind:activePlayers /> -->
-  <!-- <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
-  <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
-  <button>Edit Teams</button> -->
   <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} />
   <ActivePlayersContainer />
 </main>
