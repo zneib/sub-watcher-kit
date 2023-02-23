@@ -19,5 +19,6 @@ export type OptionsType = {
   mode: string,
   playerToEdit: PlayerType,
   showEditDialog: boolean,
-  showDeleteDialog: boolean
+  showDeleteDialog: boolean,
+  showOptionsDialog: boolean
 }

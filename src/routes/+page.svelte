@@ -14,19 +14,13 @@
 
 
   let addPlayerDialog: HTMLDialogElement;
-  let optionsDialog: HTMLDialogElement;
   let saveTeamDialog: HTMLDialogElement;
   let loadTeamDialog: HTMLDialogElement;
   onMount(() => {
     addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
-    optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
     saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
-
-  const showOptionsDialog = () => {
-    optionsDialog.showModal();
-  }
 </script>
 
 <header>
@@ -58,7 +52,7 @@
   <AddPlayerDialog />
   <OptionsDialog />
   <EditPlayerDialog />
-  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} />
+  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} />
   <ActivePlayersContainer />
 </main>
 

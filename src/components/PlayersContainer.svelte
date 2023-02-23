@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { playerStore, activePlayerStore, optionsStore } from "../global-store";
 	import type { OptionsType, PlayerType } from '../global-types';
   export let addPlayerDialog: () => void;
@@ -7,7 +7,6 @@
   // import DeleteAll from "./DeleteAll.svelte";
   import Helper from "./Helper.svelte";
   import Person from "./Person.svelte";
-  export let showOptionsDialog: () => void;
 
   let isOpen = true;
 
@@ -18,6 +17,11 @@
     'Clicking on the "X" will ask you to confirm you want to remove that player.',
     'Collapse and expland the card by clicking on the top left plus and minus buttons.'
   ];
+
+  let optionsDialog: HTMLDialogElement;
+  onMount(() => {
+    optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
+  })
 
   let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
@@ -45,6 +49,12 @@
     localStorage.setItem('players', JSON.stringify(people));
   }
 
+  const handleOptionsClick = () => {
+    optionsStore.update((data) => { 
+      return {...data, showOptionsDialog: true }
+    });
+  }
+
   onDestroy(() => {
     playerStoreSub();
     activePlayerStoreSub();
@@ -69,7 +79,7 @@
       {/each}
     {/if}
   </div>
-  <button class="options" on:click={() => showOptionsDialog()}>
+  <button class="options" on:click={handleOptionsClick}>
     Options
   </button>
   {#if optionsData.maxActivePlayers - activePlayerData?.length <= 0}

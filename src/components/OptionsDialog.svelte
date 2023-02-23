@@ -11,11 +11,9 @@
 
   let optionsData: OptionsType;
   const optionsStoreSub = optionsStore.subscribe((data) => {
-    optionsData = {
-      isInactiveOpen: data.isInactiveOpen,
-      isActiveOpen: data.isActiveOpen,
-      maxActivePlayers: data.maxActivePlayers,
-      playTimeLimit: data.playTimeLimit
+    optionsData = {...data}
+    if (optionsData.showOptionsDialog) {
+      optionsDialog.showModal();
     }
   });
 
