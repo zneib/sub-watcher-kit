@@ -101,6 +101,11 @@
   input {
     width: 100%;
     margin-top: 2px;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
   }
 
   h3 {
