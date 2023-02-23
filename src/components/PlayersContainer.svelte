@@ -8,7 +8,6 @@
   import Helper from "./Helper.svelte";
   import Person from "./Person.svelte";
   export let showOptionsDialog: () => void;
-  export let showDialogElement: (name: string) => void;
 
   let isOpen = true;
 
@@ -66,7 +65,6 @@
         <Person 
           person={person} 
           addActivePlayer={addActivePlayer}
-          showDialogElement={showDialogElement}
         />
       {/each}
     {/if}

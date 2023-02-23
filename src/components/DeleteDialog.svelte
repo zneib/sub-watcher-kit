@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { playerStore } from '../global-store';
-	import type { PlayerType } from '../global-types';
+  import { optionsStore, playerStore } from '../global-store';
+	import type { OptionsType, PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
   export let personToDelete: string = '';
 
@@ -15,8 +15,16 @@
     playerData = data;
   });
 
+  let optionsData: OptionsType;
+  const optionsStoreSub = optionsStore.subscribe((data) => {
+    optionsData = data;
+    if (optionsData.showDeleteDialog) {
+      deleteDialog.showModal();
+    }
+  })
+
   const deletePerson = () => {
-    const people: PlayerType[] = playerData.filter(({playerName}) => playerName !== personToDelete);
+    const people: PlayerType[] = playerData.filter(({id}) => id !== optionsData.playerToEdit.id);
     playerStore.update(() => [...people])
     localStorage.setItem('players', JSON.stringify(people));
     deleteDialog.close();
@@ -26,13 +34,16 @@
     deleteDialog.close();
   }
 
-  onDestroy(playerStoreSub);
+  onDestroy(() => {
+    playerStoreSub();
+    optionsStoreSub();
+  });
 </script>
 
 <dialog id="deleteDialog" on:click={(e) => handleClickOutside(e, deleteDialog)}>
   <div class="wrapper">
     <form method="dialog">
-      <p>Remove <span style="font-weight: bold">{personToDelete}</span> as a player?</p>
+      <p>Remove <span style="font-weight: bold">{optionsData.playerToEdit.playerName}</span> as a player?</p>
     </form>
     <div class="button-wrapper">
       <button value="cancel" on:click={closeDialog}>Cancel</button>

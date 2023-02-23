@@ -32,11 +32,6 @@
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
 
-  const showDialogElement = (person: string) => {
-    personToDelete = person;
-    deleteDialog.showModal();
-  }
-
   const showOptionsDialog = () => {
     optionsDialog.showModal();
   }
@@ -76,7 +71,7 @@
   <!-- <button on:click={() => saveTeamDialog.showModal()}>Save Team</button>
   <button on:click={() => loadTeamDialog.showModal()}>Load Team</button>
   <button>Edit Teams</button> -->
-  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} showDialogElement={showDialogElement}  />
+  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} showOptionsDialog={showOptionsDialog} />
   <ActivePlayersContainer />
 </main>
 
