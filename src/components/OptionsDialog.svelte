@@ -19,11 +19,7 @@
 
   let teamData: TeamType;
   const teamStoreSub = teamStore.subscribe((data) => {
-    teamData = {
-      teamName: data.teamName,
-      rosterSize: data.rosterSize,
-      sport: data.sport
-    }
+    teamData = { ...data };
   });
 
   const closeDialog = () => {

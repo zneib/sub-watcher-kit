@@ -5,6 +5,7 @@ import type { PlayerType } from './global-types';
 const players: PlayerType[] = browser && JSON.parse(localStorage.getItem('players') || '[]');
 const activePlayers: PlayerType[] = browser && JSON.parse(localStorage.getItem('activePlayers') || '[]');
 const teamInfo = {
+  id: 0,
   teamName: browser && localStorage.getItem('team') || '',
   rosterSize: 7,
   sport: ''
