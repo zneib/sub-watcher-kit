@@ -95,9 +95,8 @@
     position: relative;
     padding: 15px 15px 30px;
     margin: 25px;
-    max-width: 500px;
     border-radius: 5px;
-    flex: 1;
+    flex: 2;
   }
   h2 {
     margin-top: 0;

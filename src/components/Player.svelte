@@ -35,10 +35,29 @@
 <div class:danger={timesUp} class="name" on:click={removeActivePlayer(name)} on:keyup={() => console.log('Player')}>
   <span class:danger={timesUp} class="index">{number}</span>
   <span class="name">{name}</span>
+  <div class="track">
+    <p class="total">0</p>
+    <p>PTS</p>
+  </div>
+  <div class="track">
+    <p class="total">0</p>
+    <p>ASSISTS</p>
+  </div>
+  <div class="track">
+    <p class="total">0</p>
+    <p>FOULS</p>
+  </div>
+  <div class="track">
+    <p class="total">0</p>
+    <p>BLOCKS</p>
+  </div>
   <span class="timer">{timer}</span>
 </div>
 
 <style>
+  div {
+    height: 45px;
+  }
   div.name {
     display: flex;
     justify-content: space-between;
@@ -50,6 +69,18 @@
     padding: 5px 10px;
     transition: box-shadow ease-in .2s;
     position: relative;
+  }
+  div.track {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    font-size: 9px;
+  }
+  div.track > p {
+    margin: 0;
+  }
+  div.track > p.total {
+    font-size: 18px;
   }
   div:hover {
     box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.2);

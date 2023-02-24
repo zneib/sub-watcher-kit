@@ -125,6 +125,10 @@
     cursor: pointer;
   }
 
+  button {
+    height: 45px;
+  }
+
   @media (prefers-color-scheme: dark) {
     button.wrapper {
       color: var(--grey-nine);
