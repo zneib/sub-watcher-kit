@@ -52,7 +52,7 @@
   <AddPlayerDialog />
   <OptionsDialog />
   <EditPlayerDialog />
-  <PlayersContainer addPlayerDialog={() => addPlayerDialog.showModal()} />
+  <PlayersContainer />
   <ActivePlayersContainer />
 </main>
 

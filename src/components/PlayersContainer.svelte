@@ -2,7 +2,6 @@
   import { onDestroy, onMount } from 'svelte';
   import { playerStore, activePlayerStore, optionsStore } from "../global-store";
 	import type { OptionsType, PlayerType } from '../global-types';
-  export let addPlayerDialog: () => void;
   import Collapse from "./Collapse.svelte";
   // import DeleteAll from "./DeleteAll.svelte";
   import Helper from "./Helper.svelte";
@@ -19,8 +18,10 @@
   ];
 
   let optionsDialog: HTMLDialogElement;
+  let addPlayerDialog: HTMLDialogElement;
   onMount(() => {
     optionsDialog = document.getElementById('optionsDialog') as HTMLDialogElement;
+    addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
   })
 
   let playerData: PlayerType[] = [];
@@ -85,7 +86,7 @@
   {#if optionsData.maxActivePlayers - activePlayerData?.length <= 0}
     <p class="limit-message">Active Player Limit Reached</p>
   {/if}
-  <button class="add" on:click={addPlayerDialog}>
+  <button class="add" on:click={() => addPlayerDialog.showModal()}>
     Add Player
   </button>
 </article>
