@@ -41,18 +41,42 @@
     <div class="track">
       <p class="total">0</p>
       <p>PTS</p>
+      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+      </svg>      
+      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+      </svg> 
     </div>
     <div class="track">
       <p class="total">0</p>
       <p>ASSISTS</p>
+      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+      </svg>      
+      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+      </svg>      
     </div>
     <div class="track">
       <p class="total">0</p>
       <p>FOULS</p>
+      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+      </svg>      
+      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+      </svg> 
     </div>
     <div class="track">
       <p class="total">0</p>
       <p>BLOCKS</p>
+      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+      </svg>      
+      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+      </svg> 
     </div>
   </div>
   <span class="timer">{timer}</span>
@@ -93,12 +117,27 @@
     font-size: 9px;
     margin: 8px 20px 0 20px;
     text-align: center;
+    position: relative;
   }
   div.track > p {
     margin: 0;
   }
   div.track > p.total {
     font-size: 18px;
+  }
+  svg.minusSign {
+    position: absolute;
+    top: -20px;
+    bottom: 0;
+    left: -20px;
+    margin: auto 0;
+  }
+  svg.plusSign {
+    position: absolute;
+    top: -20px;
+    bottom: 0;
+    right: -20px;
+    margin: auto 0;
   }
   div:hover {
     box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.2);
