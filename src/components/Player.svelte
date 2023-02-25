@@ -33,23 +33,27 @@
 </script>
 
 <div class:danger={timesUp} class="name" on:click={removeActivePlayer(name)} on:keyup={() => console.log('Player')}>
-  <span class:danger={timesUp} class="index">{number}</span>
-  <span class="name">{name}</span>
-  <div class="track">
-    <p class="total">0</p>
-    <p>PTS</p>
+  <div class="nameAndNumber">
+    <span class:danger={timesUp} class="index">{number}</span>
+    <span class="name">{name}</span>
   </div>
-  <div class="track">
-    <p class="total">0</p>
-    <p>ASSISTS</p>
-  </div>
-  <div class="track">
-    <p class="total">0</p>
-    <p>FOULS</p>
-  </div>
-  <div class="track">
-    <p class="total">0</p>
-    <p>BLOCKS</p>
+  <div class="stats">
+    <div class="track">
+      <p class="total">0</p>
+      <p>PTS</p>
+    </div>
+    <div class="track">
+      <p class="total">0</p>
+      <p>ASSISTS</p>
+    </div>
+    <div class="track">
+      <p class="total">0</p>
+      <p>FOULS</p>
+    </div>
+    <div class="track">
+      <p class="total">0</p>
+      <p>BLOCKS</p>
+    </div>
   </div>
   <span class="timer">{timer}</span>
 </div>
@@ -70,11 +74,25 @@
     transition: box-shadow ease-in .2s;
     position: relative;
   }
-  div.track {
+  div.nameAndNumber {
     display: flex;
-    flex-direction: column;
+    place-items: center;
+    width: 20%;
+  }
+  div.stats {
+    width: 75%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  span.timer {
+    width: 5%;
+  }
+  div.track {
+    display: inline-block;
     place-items: center;
     font-size: 9px;
+    margin: 8px 20px 0 20px;
+    text-align: center;
   }
   div.track > p {
     margin: 0;
