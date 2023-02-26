@@ -154,9 +154,15 @@
     right: -20px;
     margin: auto 0;
   }
-  div:hover {
+  div.name:hover {
     box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.2);
     cursor: pointer;
+  }
+  div.isActivated {
+    border: 2px solid #ccc;
+  }
+  div.isActivated:hover {
+    box-shadow: none;
   }
   span.index {
     position: absolute;
