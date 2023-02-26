@@ -1,11 +1,10 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-	import { dataset_dev } from 'svelte/internal';
   import { playerStore, activePlayerStore, optionsStore } from '../global-store';
   import type { OptionsType, PlayerType } from '../global-types';
   export let person: PlayerType;
   export let addActivePlayer: (player: PlayerType) => void;
-  let showConfirmation = false;
+  let isActivated = false;
 
   let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
@@ -22,7 +21,7 @@
     optionsData = data;
   });
 
-  const handleClick = (player: PlayerType) => {
+  const activatePlayer = (player: PlayerType) => {
     if (optionsData.maxActivePlayers - activePlayerData.length >= 0) {
       addActivePlayer(player);
     } else {
@@ -63,20 +62,28 @@
 </script>
 
 <div>
-  <span>{person.playerNumber}</span>
-  <button disabled={optionsData.maxActivePlayers - activePlayerData?.length <= 0} class="wrapper" on:click={() => handleClick(person)} on:pointerdown={handlePointerEvent}>
+  {#if !isActivated}
+    <span>{person.playerNumber}</span>
+  {:else}
+    <svg xmlns="http://www.w3.org/2000/svg" on:click|stopPropagation={() => handleDeletePlayer(person)} on:keyup|stopPropagation={(e) => handleDeletePlayer(person)} width="20px" height="20px" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  {/if}
+  <button disabled={optionsData.maxActivePlayers - activePlayerData?.length <= 0} class="wrapper" class:isActivated on:click={() => isActivated = !isActivated} on:pointerdown={handlePointerEvent}>
     {person.playerName}
     <div>
-      <svg xmlns="http://www.w3.org/2000/svg" on:click|stopPropagation={(e) => handleEditPlayer(person)} on:keyup|stopPropagation={(e) => handleEditPlayer(person)} fill="none" width="12px" height="12px" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-      </svg>
-      {#if !showConfirmation}
-        <svg xmlns="http://www.w3.org/2000/svg" on:click|stopPropagation={(e) => handleDeletePlayer(person)} on:keyup|stopPropagation={(e) => handleDeletePlayer(person)} width="15px" height="15px" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      {#if isActivated}
+        <svg xmlns="http://www.w3.org/2000/svg" on:click|stopPropagation={() => handleEditPlayer(person)} on:keyup|stopPropagation={(e) => handleEditPlayer(person)} width="12px" height="12px" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
         </svg>
       {/if}
     </div>
   </button>
+  {#if isActivated}
+    <svg xmlns="http://www.w3.org/2000/svg" on:click|stopPropagation={() => activatePlayer(person)} on:keyup|stopPropagation={(e) => activatePlayer(person)} width="25px" height="25px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  {/if}
 </div>
 
 <style>
@@ -91,7 +98,7 @@
     width: 100%;
     font-size: 16px;
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.2);
-    margin: 5px 0px;
+    margin: 5px 5px 5px 0px;
     padding: 5px 10px;
     transition: box-shadow ease-in .2s;
     cursor: pointer;
@@ -125,9 +132,16 @@
     cursor: pointer;
   }
 
-  button {
+  button.isActivated {
     height: 45px;
+    border: 2px solid #ccc;
   }
+  button.isActivated:hover {
+    box-shadow: none;
+  }
+  /* button {
+    height: 45px;
+  } */
 
   @media (prefers-color-scheme: dark) {
     button.wrapper {
