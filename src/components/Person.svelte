@@ -139,9 +139,6 @@
   button.isActivated:hover {
     box-shadow: none;
   }
-  /* button {
-    height: 45px;
-  } */
 
   @media (prefers-color-scheme: dark) {
     button.wrapper {

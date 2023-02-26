@@ -4,6 +4,7 @@
   export let name: string;
   export let removeActivePlayer: (name: string) => void;
   export let playTimeLimit: string;
+  let isActivated = false;
   let seconds: number = 0;
   let minutes: number = 0;
   let timesUp: boolean = false;
@@ -32,51 +33,65 @@
   });
 </script>
 
-<div class:danger={timesUp} class="name" on:click={removeActivePlayer(name)} on:keyup={() => console.log('Player')}>
+<div class:danger={timesUp} class="name" class:isActivated on:click={() => isActivated = !isActivated} on:keyup={() => console.log('Player')}>
   <div class="nameAndNumber">
-    <span class:danger={timesUp} class="index">{number}</span>
+    {#if !isActivated}
+      <span class:danger={timesUp} class="index">{number}</span>
+    {:else}
+      <svg xmlns="http://www.w3.org/2000/svg" class="bench" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" on:click={removeActivePlayer(name)} on:keyup={removeActivePlayer(name)}>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>    
+    {/if}
     <span class="name">{name}</span>
   </div>
   <div class="stats">
     <div class="track">
       <p class="total">0</p>
       <p>PTS</p>
-      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-      </svg>      
-      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-      </svg> 
+      {#if isActivated}
+        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+        </svg>      
+        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+        </svg> 
+      {/if}
     </div>
     <div class="track">
       <p class="total">0</p>
       <p>ASSISTS</p>
-      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-      </svg>      
-      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-      </svg>      
+      {#if isActivated}
+        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+        </svg>      
+        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+        </svg>
+      {/if} 
     </div>
     <div class="track">
       <p class="total">0</p>
       <p>FOULS</p>
-      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-      </svg>      
-      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-      </svg> 
+      {#if isActivated}
+        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+        </svg>      
+        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+        </svg> 
+      {/if}
     </div>
     <div class="track">
       <p class="total">0</p>
       <p>BLOCKS</p>
-      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-      </svg>      
-      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-      </svg> 
+      {#if isActivated}
+        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+        </svg>      
+        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+        </svg> 
+      {/if}
     </div>
   </div>
   <span class="timer">{timer}</span>
@@ -157,6 +172,20 @@
     top: 0;
     bottom: 0;
     left: -35px;
+    margin: auto;
+  }
+  svg.bench {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    top: 0;
+    bottom: 0;
+    left: -40px;
     margin: auto;
   }
 
