@@ -3,12 +3,15 @@
 	import type { PlayerType } from "../global-types";
 	import Stat from "./Stat.svelte";
   export let player: PlayerType;
+  export let selectedPlayer: PlayerType;
   export let removeActivePlayer: (name: string) => void;
   export let playTimeLimit: string;
-  let isActivated = false;
+  export let updateActivePlayer: (player: PlayerType) => void;
   let seconds: number = 0;
   let minutes: number = 0;
   let timesUp: boolean = false;
+
+  $: isActivated = player.id === selectedPlayer.id;
 
   const timerTracker = setInterval(() => {
     if (seconds === 59) {
@@ -34,7 +37,7 @@
   });
 </script>
 
-<div class:danger={timesUp} class="name" class:isActivated on:click={() => isActivated = !isActivated} on:keyup={() => console.log('Player')}>
+<div class:danger={timesUp} class="name" class:isActivated on:click={() => updateActivePlayer(player)} on:keyup={() => console.log('Player')}>
   <div class="nameAndNumber">
     {#if !isActivated}
       <span class:danger={timesUp} class="index">{player.playerNumber}</span>
@@ -46,10 +49,10 @@
     <span class="name">{player.playerName}</span>
   </div>
   <div class="stats">
-    <Stat text="PTS"/>
-    <Stat text="ASSISTS"/>
-    <Stat text="FOULS"/>
-    <Stat text="BLOCKS"/>
+    <Stat isActivated text="PTS"/>
+    <Stat isActivated text="ASSISTS"/>
+    <Stat isActivated text="FOULS"/>
+    <Stat isActivated text="BLOCKS"/>
   </div>
   <span class="timer">{timer}</span>
 </div>

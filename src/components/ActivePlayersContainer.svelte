@@ -6,6 +6,8 @@
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
 
+  let selectedPlayer: PlayerType = { id: 0, playerNumber: 0, playerName: ''};
+
   let isOpen = true;
 
   let helperFeaturesTwo = [
@@ -51,6 +53,10 @@
     localStorage.setItem('players', JSON.stringify(playerData));
   }
 
+  const updateActivePlayer = (player: PlayerType) => {
+    selectedPlayer = player;
+  }
+
   onDestroy(() => {
     playerStoreSub();
     activePlayerStoreSub();
@@ -73,7 +79,7 @@
   <div class:collapsed={!isOpen}>
     {#if activePlayerData.length > 0}
       {#each activePlayerData as player}
-        <Player player={player} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} />
+        <Player player={player} selectedPlayer={selectedPlayer} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} updateActivePlayer={updateActivePlayer} />
       {/each}
     {/if}
   </div>

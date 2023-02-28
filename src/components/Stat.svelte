@@ -1,6 +1,6 @@
 <script lang="ts">
   export let text: string;
-  let isActivated = false;
+  export let isActivated: boolean;
   let total = 0;
 
   const handlePlus = () => {
