@@ -1,7 +1,8 @@
 <script lang="ts">
   import { afterUpdate } from "svelte";
-  export let number: number;
-  export let name: string;
+	import type { PlayerType } from "../global-types";
+	import Stat from "./Stat.svelte";
+  export let player: PlayerType;
   export let removeActivePlayer: (name: string) => void;
   export let playTimeLimit: string;
   let isActivated = false;
@@ -36,63 +37,19 @@
 <div class:danger={timesUp} class="name" class:isActivated on:click={() => isActivated = !isActivated} on:keyup={() => console.log('Player')}>
   <div class="nameAndNumber">
     {#if !isActivated}
-      <span class:danger={timesUp} class="index">{number}</span>
+      <span class:danger={timesUp} class="index">{player.playerNumber}</span>
     {:else}
-      <svg xmlns="http://www.w3.org/2000/svg" class="bench" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" on:click={removeActivePlayer(name)} on:keyup={removeActivePlayer(name)}>
+      <svg xmlns="http://www.w3.org/2000/svg" class="bench" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" on:click={removeActivePlayer(player.playerName)} on:keyup={removeActivePlayer(player.playerName)}>
         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>    
     {/if}
-    <span class="name">{name}</span>
+    <span class="name">{player.playerName}</span>
   </div>
   <div class="stats">
-    <div class="track">
-      <p class="total">0</p>
-      <p>PTS</p>
-      {#if isActivated}
-        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-        </svg>      
-        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-        </svg> 
-      {/if}
-    </div>
-    <div class="track">
-      <p class="total">0</p>
-      <p>ASSISTS</p>
-      {#if isActivated}
-        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-        </svg>      
-        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-        </svg>
-      {/if} 
-    </div>
-    <div class="track">
-      <p class="total">0</p>
-      <p>FOULS</p>
-      {#if isActivated}
-        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-        </svg>      
-        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-        </svg> 
-      {/if}
-    </div>
-    <div class="track">
-      <p class="total">0</p>
-      <p>BLOCKS</p>
-      {#if isActivated}
-        <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-        </svg>      
-        <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-        </svg> 
-      {/if}
-    </div>
+    <Stat text="PTS"/>
+    <Stat text="ASSISTS"/>
+    <Stat text="FOULS"/>
+    <Stat text="BLOCKS"/>
   </div>
   <span class="timer">{timer}</span>
 </div>

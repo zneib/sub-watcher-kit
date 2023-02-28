@@ -73,7 +73,7 @@
   <div class:collapsed={!isOpen}>
     {#if activePlayerData.length > 0}
       {#each activePlayerData as player}
-        <Player number={player.playerNumber} name={player.playerName} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} />
+        <Player player={player} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} />
       {/each}
     {/if}
   </div>
