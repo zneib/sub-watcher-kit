@@ -86,34 +86,6 @@
   span.timer {
     width: 5%;
   }
-  div.track {
-    display: inline-block;
-    place-items: center;
-    font-size: 9px;
-    margin: 8px 20px 0 20px;
-    text-align: center;
-    position: relative;
-  }
-  div.track > p {
-    margin: 0;
-  }
-  div.track > p.total {
-    font-size: 18px;
-  }
-  svg.minusSign {
-    position: absolute;
-    top: -20px;
-    bottom: 0;
-    left: -20px;
-    margin: auto 0;
-  }
-  svg.plusSign {
-    position: absolute;
-    top: -20px;
-    bottom: 0;
-    right: -20px;
-    margin: auto 0;
-  }
   div.name:hover {
     box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.2);
     cursor: pointer;

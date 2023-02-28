@@ -1,6 +1,7 @@
 <script lang="ts">
   export let text: string;
-  export let isActivated: boolean;
+  export let isActivated: boolean = false;
+  console.log(isActivated);
   let total = 0;
 
   const handlePlus = () => {
@@ -17,12 +18,12 @@
   <p>{text.toUpperCase()}</p>
   {#if isActivated}
     <button class="minusSign" on:click={handleMinus}>
-      <svg class="minusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
       </svg>  
     </button>  
     <button class="plusSign" on:click={handlePlus}>
-      <svg class="plusSign" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
       </svg> 
     </button>
@@ -30,6 +31,9 @@
 </div>
 
 <style>
+  div {
+    height: 45px;
+  }
   div.track {
     display: inline-block;
     place-items: center;
@@ -44,14 +48,18 @@
   div.track > p.total {
     font-size: 18px;
   }
-  svg.minusSign {
+  button.minusSign {
+    background: transparent;
+    border: none;
     position: absolute;
     top: -20px;
     bottom: 0;
     left: -20px;
     margin: auto 0;
   }
-  svg.plusSign {
+  button.plusSign {
+    background: transparent;
+    border: none;
     position: absolute;
     top: -20px;
     bottom: 0;
