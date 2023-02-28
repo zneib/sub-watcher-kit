@@ -1,16 +1,45 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
+  import { activePlayerStore } from '../global-store';
+	import type { PlayerType } from '../global-types';
+  export let player: PlayerType;
   export let text: string;
   export let isActivated: boolean = false;
-  console.log(isActivated);
-  let total = 0;
+  export let total = 0;
 
   const handlePlus = () => {
     total = total + 1;
+    updatePlayer();
   }
 
   const handleMinus = () => {
-    total = total - 1
+    if (total === 0) {
+      return;
+    } else {
+      total = total - 1
+      updatePlayer();
+    }
   }
+
+  let activePlayerData: PlayerType[] = [];
+  const activePlayerStoreSub = activePlayerStore.subscribe((data) => {
+    activePlayerData = data;
+  });
+
+  const updatePlayer = () => {
+    const playerIndex = activePlayerData.findIndex((person) => person.id === player.id);
+    if (playerIndex !== -1) {
+      activePlayerData[playerIndex] = { id: player.id, playerName: player.playerName, playerNumber: player.playerNumber, [text]: total }
+      activePlayerStore.update(() => {
+        return [...activePlayerData];
+      })
+      localStorage.setItem('players', JSON.stringify(activePlayerData));
+    }
+  }
+
+  onDestroy(() => {
+    activePlayerStoreSub();
+  });
 </script>
 
 <div class="track">

@@ -6,7 +6,7 @@
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
 
-  let selectedPlayer: PlayerType = { id: 0, playerNumber: 0, playerName: ''};
+  let selectedPlayer: PlayerType = { id: 0, playerNumber: 0, playerName: '', points: 0};
 
   let isOpen = true;
 
@@ -44,7 +44,7 @@
     localStorage.setItem('players', JSON.stringify(playerData));
 
     // Set the active player to null state
-    selectedPlayer = { id: 0, playerNumber: 0, playerName: ''};
+    selectedPlayer = { id: 0, playerNumber: 0, playerName: '', points: 0};
   }
 
   const removeAllActivePlayersFn = () => {

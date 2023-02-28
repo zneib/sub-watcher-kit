@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, afterUpdate, onDestroy } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
 	import { playerStore, optionsStore } from '../global-store';
 	import type { OptionsType, PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
@@ -13,6 +13,7 @@
   let playerId: number;
   let playerName: string;
   let playerNumber: number;
+  let playerPoints: number;
   const optionsStoreSub = optionsStore.subscribe((data) => {
     optionsData = data;
     if (optionsData.showEditDialog) {
@@ -21,6 +22,7 @@
     playerId = data.playerToEdit.id;
     playerName = data.playerToEdit.playerName;
     playerNumber = data.playerToEdit.playerNumber;
+    playerPoints = data.playerToEdit.points;
   });
 
   let playerData: PlayerType[] = [];
@@ -35,7 +37,7 @@
   const updatePlayer = () => {
     const playerIndex = playerData.findIndex((person) => person.id === playerId);
     if (playerIndex !== -1) {
-      playerData[playerIndex] = { id: playerId, playerName, playerNumber }
+      playerData[playerIndex] = { id: playerId, playerName, playerNumber, points: playerPoints }
       playerStore.update(() => {
         return [...playerData];
       })
@@ -61,6 +63,10 @@
       <div>
         <label for="playerNumber">Number</label>
         <input type="number" name="playerNumber" bind:value={playerNumber} minlength="1" maxlength="2">
+      </div>
+      <div>
+        <label for="playerPoints">Points</label>
+        <input type="number" name="playerPoints" bind:value={playerNumber}>
       </div>
       <div class="button-wrapper">
         <button type="submit">Update</button>

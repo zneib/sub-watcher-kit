@@ -49,10 +49,10 @@
     <span class="name">{player.playerName}</span>
   </div>
   <div class="stats">
-    <Stat isActivated={isActivated} text="PTS"/>
-    <Stat isActivated={isActivated} text="ASSISTS"/>
-    <Stat isActivated={isActivated} text="FOULS"/>
-    <Stat isActivated={isActivated} text="BLOCKS"/>
+    <Stat player={player} isActivated={isActivated} text="points" total={player.points ?? 0}/>
+    <Stat player={player} isActivated={isActivated} text="assists"/>
+    <Stat player={player} isActivated={isActivated} text="fouls"/>
+    <Stat player={player} isActivated={isActivated} text="blocks"/>
   </div>
   <span class="timer">{timer}</span>
 </div>
