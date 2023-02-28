@@ -42,6 +42,9 @@
     // Keep localStorage in sync
     localStorage.setItem('activePlayers', JSON.stringify(currentActivePlayers));
     localStorage.setItem('players', JSON.stringify(playerData));
+
+    // Set the active player to null state
+    selectedPlayer = { id: 0, playerNumber: 0, playerName: ''};
   }
 
   const removeAllActivePlayersFn = () => {

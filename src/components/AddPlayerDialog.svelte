@@ -12,6 +12,7 @@
   let playerName: string;
   let playerNumber: number;
 
+
   let playerData: PlayerType[] = [];
   const unsubscribe = playerStore.subscribe((data) => {
     playerData = data;
@@ -41,10 +42,10 @@
       </div>
       <div>
         <label for="playerNumber">Number</label>
-        <input type="number" name="playerNumber" bind:value={playerNumber} minlength="1" maxlength="2">
+        <input type="tel" name="playerNumber" bind:value={playerNumber} minlength="1" maxlength="2">
       </div>
       <div class="button-wrapper">
-        <button type="submit">Add</button>
+        <button type="submit" disabled={!playerName && !playerNumber}>Add</button>
         <button value="cancel" on:click|stopPropagation|preventDefault={closeDialog}>Close</button>
       </div>
     </form>
@@ -106,6 +107,11 @@
   }
   button:hover {
     border: 2px solid rgb(129, 129, 129);
+  }
+
+  button[type=submit]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
   
   .button-wrapper {
