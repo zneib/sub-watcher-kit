@@ -148,5 +148,8 @@
     span {
       color: var(--grey-nine);
     }
+    svg {
+      color: var(--grey-nine);
+    }
   }
 </style>

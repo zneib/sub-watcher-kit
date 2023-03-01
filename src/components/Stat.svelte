@@ -95,4 +95,9 @@
     right: -20px;
     margin: auto 0;
   }
+  @media (prefers-color-scheme: dark) {
+    svg {
+      color: var(--grey-nine);
+    }
+  }
 </style>

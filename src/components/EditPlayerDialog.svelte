@@ -66,7 +66,7 @@
       </div>
       <div>
         <label for="playerPoints">Points</label>
-        <input type="number" name="playerPoints" bind:value={playerNumber}>
+        <input type="number" name="playerPoints" bind:value={playerPoints}>
       </div>
       <div class="button-wrapper">
         <button type="submit">Update</button>
