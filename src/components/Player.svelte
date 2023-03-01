@@ -51,8 +51,7 @@
   <div class="stats">
     <Stat player={player} isActivated={isActivated} text="points" total={player.points ?? 0}/>
     <Stat player={player} isActivated={isActivated} text="assists" total={player.assists ?? 0}/>
-    <Stat player={player} isActivated={isActivated} text="fouls"/>
-    <Stat player={player} isActivated={isActivated} text="blocks"/>
+    <Stat player={player} isActivated={isActivated} text="fouls" total={player.fouls ?? 0}/>
   </div>
   <span class="timer">{timer}</span>
 </div>

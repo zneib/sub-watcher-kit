@@ -6,7 +6,7 @@
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
 
-  let selectedPlayer: PlayerType = { id: 0, playerNumber: 0, playerName: '', points: 0, assists: 0};
+  let selectedPlayer: PlayerType = { id: 0, playerNumber: 0, playerName: '', points: 0, assists: 0, fouls: 0};
 
   let isOpen = true;
 

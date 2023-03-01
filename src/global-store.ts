@@ -22,7 +22,8 @@ const options = {
     playerName: '', 
     playerNumber: 0, 
     points: 0,
-    assists: 0
+    assists: 0,
+    fouls: 0
   },
   showEditDialog: false,
   showDeleteDialog: false,
