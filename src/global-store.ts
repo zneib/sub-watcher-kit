@@ -17,7 +17,13 @@ const options = {
   maxActivePlayers: 7,
   numOfQuarters: 4,
   mode: 'action',
-  playerToEdit: { id: 0, playerName: '', playerNumber: 0, points: 0},
+  playerToEdit: { 
+    id: 0, 
+    playerName: '', 
+    playerNumber: 0, 
+    points: 0,
+    assists: 0
+  },
   showEditDialog: false,
   showDeleteDialog: false,
   showOptionsDialog: false

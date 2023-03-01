@@ -2,7 +2,8 @@ export type PlayerType = {
   id: number;
   playerName: string,
   playerNumber: number,
-  points?: number
+  points?: number,
+  assists?: number
 }
 
 export type TeamType = {

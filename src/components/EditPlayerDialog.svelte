@@ -14,6 +14,7 @@
   let playerName: string;
   let playerNumber: number;
   let playerPoints: number;
+  let playerAssists: number;
   const optionsStoreSub = optionsStore.subscribe((data) => {
     optionsData = data;
     if (optionsData.showEditDialog) {
@@ -23,6 +24,7 @@
     playerName = data.playerToEdit.playerName;
     playerNumber = data.playerToEdit.playerNumber;
     playerPoints = data.playerToEdit.points;
+    playerAssists = data.playerToEdit.assists;
   });
 
   let playerData: PlayerType[] = [];
@@ -67,6 +69,10 @@
       <div>
         <label for="playerPoints">Points</label>
         <input type="number" name="playerPoints" bind:value={playerPoints}>
+      </div>
+      <div>
+        <label for="playerAssists">Assists</label>
+        <input type="number" name="playerAssists" bind:value={playerAssists}>
       </div>
       <div class="button-wrapper">
         <button type="submit">Update</button>
