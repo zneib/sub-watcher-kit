@@ -17,7 +17,7 @@
   let playerAssists: number;
   const optionsStoreSub = optionsStore.subscribe((data) => {
     optionsData = data;
-    if (optionsData.showEditDialog) {
+    if (optionsData.showEditDialog && !editPlayerDialog.open) {
       editPlayerDialog.showModal();
     }
     playerId = data.playerToEdit.id;

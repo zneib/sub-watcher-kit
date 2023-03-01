@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { playerStore, activePlayerStore, optionsStore } from "../global-store";
-	import type { OptionsType, PlayerType } from '../global-types';
+	import type { PlayerType } from '../global-types';
   import Collapse from "./Collapse.svelte";
   import Helper from "./Helper.svelte";
   import Player from "./Player.svelte";
@@ -27,11 +27,6 @@
   let activePlayerData: PlayerType[] = [];
   const activePlayerStoreSub = activePlayerStore.subscribe((data) => {
     activePlayerData = data;
-  });
-
-  let optionsData: OptionsType;
-  const optionsStoreSub = optionsStore.subscribe((data) => {
-    optionsData = data;
   });
 
   const removeActivePlayerFn = (player: PlayerType) => {
@@ -63,7 +58,6 @@
   onDestroy(() => {
     playerStoreSub();
     activePlayerStoreSub();
-    optionsStoreSub();
   });
 </script>
 
@@ -73,25 +67,25 @@
   {/if}
   <h2>Active Players</h2>
   <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
-  {#if activePlayerData?.length > 0 && optionsData.isActiveOpen}
+  {#if activePlayerData?.length > 0 && $optionsStore.isActiveOpen}
     <div class="labels">
       <span>Name</span>
-      <span>({optionsData.playTimeLimit}) MM:SS</span>
+      <span>({$optionsStore.playTimeLimit}) MM:SS</span>
     </div>
   {/if}
   <div class:collapsed={!isOpen}>
     {#if activePlayerData.length > 0}
       {#each activePlayerData as player}
-        <Player player={player} selectedPlayer={selectedPlayer} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={optionsData.playTimeLimit} updateActivePlayer={updateActivePlayer} />
+        <Player player={player} selectedPlayer={selectedPlayer} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={$optionsStore.playTimeLimit} updateActivePlayer={updateActivePlayer} />
       {/each}
     {/if}
   </div>
-  {#if optionsData.maxActivePlayers - activePlayerData?.length !== 0}
+  {#if $optionsStore.maxActivePlayers - activePlayerData?.length !== 0}
     <p class="limit-message">
-      <span>{optionsData.maxActivePlayers - activePlayerData?.length}</span> spots open
+      <span>{$optionsStore.maxActivePlayers - activePlayerData?.length}</span> spots open
     </p>
   {/if}
-  {#if activePlayerData?.length > 1 && optionsData.isActiveOpen}
+  {#if activePlayerData?.length > 1 && $optionsStore.isActiveOpen}
     <button class="remove-all" on:click={removeAllActivePlayersFn}>Remove All Players</button>
   {/if}
   {#if activePlayerData?.length === 0}
