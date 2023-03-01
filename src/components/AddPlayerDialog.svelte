@@ -11,6 +11,9 @@
 
   let playerName: string;
   let playerNumber: number;
+  let errorMessage = '';
+
+  $: hasError = !playerName || !playerNumber;
 
 
   let playerData: PlayerType[] = [];
@@ -24,9 +27,15 @@
 
   // Come back and fix the lazy any type here...
   const addPlayer = (e: any) => {
-    playerStore.update((data) => [...data, { id: playerData.length + 1, playerName, playerNumber }]);
-    e.target?.reset();
-    localStorage.setItem('players', JSON.stringify(playerData));
+    // Make sure players with the same number aren't added
+    const foundDuplicate = playerData.find((player) => player.playerNumber === playerNumber);
+    if (!foundDuplicate) {
+      playerStore.update((data) => [...data, { id: playerData.length + 1, playerName, playerNumber }]);
+      e.target?.reset();
+      localStorage.setItem('players', JSON.stringify(playerData));
+    } else {
+      return;
+    }
   }
 
   onDestroy(unsubscribe);
@@ -44,8 +53,11 @@
         <label for="playerNumber">Number</label>
         <input type="tel" name="playerNumber" bind:value={playerNumber} minlength="1" maxlength="2">
       </div>
+      <div>
+        <p>{errorMessage}</p>
+      </div>
       <div class="button-wrapper">
-        <button type="submit" disabled={!playerName && !playerNumber}>Add</button>
+        <button type="submit" disabled={hasError}>Add</button>
         <button value="cancel" on:click|stopPropagation|preventDefault={closeDialog}>Close</button>
       </div>
     </form>
@@ -93,6 +105,12 @@
   h3 {
     margin-top: 0;
     text-align: center;
+  }
+
+  div > p {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 0;
   }
 
   button {
