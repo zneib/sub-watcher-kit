@@ -173,10 +173,6 @@
       color: var(--grey-nine);
     }
 
-    svg {
-      color: var(--grey-nine);
-    }
-
     button {
       color: var(--grey-nine);
       background-color: var(--grey-four);

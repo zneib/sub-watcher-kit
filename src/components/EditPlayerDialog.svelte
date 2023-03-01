@@ -144,11 +144,6 @@
     display: flex;
     justify-content: space-between;
   }
-
-  .error {
-    font-size: 10px;
-    color: var(--danger);
-  }
   @media (prefers-color-scheme: dark) {
 
     dialog {
