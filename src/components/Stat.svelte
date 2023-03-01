@@ -29,7 +29,10 @@
   const updatePlayer = () => {
     const playerIndex = activePlayerData.findIndex((person) => person.id === player.id);
     if (playerIndex !== -1) {
-      activePlayerData[playerIndex] = { id: player.id, playerName: player.playerName, playerNumber: player.playerNumber, [text]: total }
+      activePlayerData[playerIndex] = { 
+        ...player,
+        [text]: total 
+      }
       activePlayerStore.update(() => {
         return [...activePlayerData];
       })
