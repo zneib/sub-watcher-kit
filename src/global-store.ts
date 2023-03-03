@@ -7,6 +7,7 @@ const activePlayers: PlayerType[] = browser && JSON.parse(localStorage.getItem('
 const teamInfo = {
   id: 0,
   teamName: browser && localStorage.getItem('team') || '',
+  players,
   rosterSize: 7,
   sport: ''
 }

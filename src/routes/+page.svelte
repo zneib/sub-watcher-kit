@@ -12,12 +12,19 @@
   import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 	import EditPlayerDialog from '../components/EditPlayerDialog.svelte';
 
+  async function getTeamInfo() {
+    const res = await fetch(`https://zneib-sub-watcher-api.deno.dev/api/getTeams`);
+    const data = await res.json();
+    console.log(data);
+  }
 
   let saveTeamDialog: HTMLDialogElement;
   let loadTeamDialog: HTMLDialogElement;
   onMount(() => {
     saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
+
+    getTeamInfo();
   })
 </script>
 
