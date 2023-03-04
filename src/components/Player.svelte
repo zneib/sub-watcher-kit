@@ -4,7 +4,7 @@
 	import Stat from "./Stat.svelte";
   export let player: PlayerType;
   export let selectedPlayer: PlayerType;
-  export let removeActivePlayer: (name: string) => void;
+  export let removeActivePlayer: (player: PlayerType, time: string) => void;
   export let playTimeLimit: string;
   export let updateActivePlayer: (player: PlayerType) => void;
   let seconds: number = 0;
@@ -42,7 +42,7 @@
     {#if !isActivated}
       <span class:danger={timesUp} class="index">{player.playerNumber}</span>
     {:else}
-      <svg xmlns="http://www.w3.org/2000/svg" class="bench" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" on:click={removeActivePlayer(player.playerName)} on:keyup={removeActivePlayer(player.playerName)}>
+      <svg xmlns="http://www.w3.org/2000/svg" class="bench" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" on:click={removeActivePlayer(player, timer)} on:keyup={removeActivePlayer(player, timer)}>
         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>    
     {/if}

@@ -29,7 +29,15 @@
     activePlayerData = data;
   });
 
-  const removeActivePlayerFn = (player: PlayerType) => {
+  const convertToSeconds = (time: string) => {
+    const [minutes, seconds] = time.split(":").map(Number);
+
+    const totalSeconds = minutes * 60 + seconds;
+    console.log(totalSeconds);
+  }
+
+  const removeActivePlayerFn = (player: PlayerType, time: string) => {
+    console.log(convertToSeconds(time));
     const currentActivePlayers = activePlayerData.filter(({playerName}) => playerName !== player.playerName);
     activePlayerStore.update(() => [...currentActivePlayers]);
     playerStore.update((data) => [...data, player]);
@@ -76,7 +84,7 @@
   <div class:collapsed={!isOpen}>
     {#if activePlayerData.length > 0}
       {#each activePlayerData as player}
-        <Player player={player} selectedPlayer={selectedPlayer} removeActivePlayer={() => removeActivePlayerFn(player)} playTimeLimit={$optionsStore.playTimeLimit} updateActivePlayer={updateActivePlayer} />
+        <Player player={player} selectedPlayer={selectedPlayer} removeActivePlayer={removeActivePlayerFn} playTimeLimit={$optionsStore.playTimeLimit} updateActivePlayer={updateActivePlayer} />
       {/each}
     {/if}
   </div>
