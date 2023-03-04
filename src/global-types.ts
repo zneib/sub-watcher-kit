@@ -15,6 +15,12 @@ export type TeamType = {
   sport: string
 }
 
+export type GameType = {
+  id: number;
+  players: PlayerType[],
+  date: string
+}
+
 export type OptionsType = {
   isInactiveOpen: boolean,
   isActiveOpen: boolean,

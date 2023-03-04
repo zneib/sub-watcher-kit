@@ -43,21 +43,24 @@
     const target = event.target as HTMLSelectElement;
     optionsStore.update((data) => { 
       return { ...data, maxActivePlayers: +target?.value }
-    })
+    });
+    localStorage.setItem('maxPlayers', target?.value);
   }
 
   const handlePlayTimeChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
     optionsStore.update((data) => {
       return { ...data, playTimeLimit: target?.value }
-    })
+    });
+    localStorage.setItem('maxPlayTime', target?.value);
   }
 
   const handleQuarterChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
     optionsStore.update((data) => {
       return { ...data, numOfQuarters: +target?.value }
-    })
+    });
+    localStorage.setItem('quarterTime', target?.value);
   }
 
   onDestroy(() => {
