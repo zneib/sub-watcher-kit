@@ -36,6 +36,16 @@
     console.log(totalSeconds);
   }
 
+  const convertToTime = (seconds: number) => {
+    let mm: number | string = Math.floor(seconds / 60);
+    let ss: number | string = seconds - (mm * 60);
+
+    mm = mm < 10 ? '0' + mm : mm.toString();
+    ss = ss < 10 ? '0' + ss : ss.toString();
+
+    return `${mm}:${ss}`;
+  }
+
   const removeActivePlayerFn = (player: PlayerType, time: string) => {
     console.log(convertToSeconds(time));
     const currentActivePlayers = activePlayerData.filter(({playerName}) => playerName !== player.playerName);
