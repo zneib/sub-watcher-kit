@@ -95,7 +95,7 @@
   article {
     position: relative;
     padding: 15px 15px 30px;
-    margin: 25px;
+    margin: 10px;
     max-width: 500px;
     border-radius: 5px;
     flex: 1;
@@ -103,11 +103,6 @@
   h2 {
     margin-top: 0;
     text-align: center;
-  }
-  div.person-container {
-    max-height: 220px;
-    overflow-y: auto;
-    padding-right: 5px;
   }
   div.collapsed {
     display: none;
@@ -151,6 +146,11 @@
     article {
       width: 90%;
       margin-top: 25px;
+    }
+    div.person-container {
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 5px;
     }
   }
 

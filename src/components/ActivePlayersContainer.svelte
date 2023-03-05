@@ -129,7 +129,7 @@
   article {
     position: relative;
     padding: 15px 15px 30px;
-    margin: 25px;
+    margin: 10px;
     border-radius: 5px;
     flex: 2;
   }

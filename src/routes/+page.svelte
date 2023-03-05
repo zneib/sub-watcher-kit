@@ -147,7 +147,7 @@
 
   main {
     display: flex;
-    align-items: center;
+    align-items: baseline;
   }
 
   @media (max-width: 768px) {
