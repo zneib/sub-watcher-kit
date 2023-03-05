@@ -95,7 +95,7 @@
   article {
     position: relative;
     padding: 15px 15px 30px;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     max-width: 500px;
     border-radius: 5px;
     flex: 1;

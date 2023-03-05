@@ -81,6 +81,7 @@
     font-size: 18px;
   }
   button.minusSign {
+    color: black;
     background: transparent;
     border: none;
     position: absolute;
@@ -90,6 +91,7 @@
     margin: auto 0;
   }
   button.plusSign {
+    color: black;
     background: transparent;
     border: none;
     position: absolute;
