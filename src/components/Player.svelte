@@ -9,7 +9,7 @@
   export let updateActivePlayer: (player: PlayerType) => void;
   let seconds: number = 0;
   let minutes: number = 0;
-  let timesUp: boolean = false;
+  // let timesUp: boolean = false;
 
   $: isActivated = player.id === selectedPlayer.id;
 
@@ -27,20 +27,20 @@
   afterUpdate(() => {
     if (+timer.replace(':', '') > +playTimeLimit.replace(':', '')) {
       clearInterval(timerTracker);
-      timesUp = true;
+      // timesUp = true;
     }
     // Prevent the timer from going forever.
     if (timer === playTimeLimit) {
       clearInterval(timerTracker);
-      timesUp = true;
+      // timesUp = true;
     }
   });
 </script>
 
-<div class:danger={timesUp} class="name" class:isActivated on:click={() => updateActivePlayer(player)} on:keyup={() => console.log('Player')}>
+<div class="name" class:isActivated on:click={() => updateActivePlayer(player)} on:keyup={() => console.log('Player')}>
   <div class="nameAndNumber">
     {#if !isActivated}
-      <span class:danger={timesUp} class="index">{player.playerNumber}</span>
+      <span class="index">{player.playerNumber}</span>
     {:else}
       <svg xmlns="http://www.w3.org/2000/svg" class="bench" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" on:click={removeActivePlayer(player, timer)} on:keyup={removeActivePlayer(player, timer)}>
         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -128,13 +128,13 @@
     margin: auto;
   }
 
-  div.danger {
+  /* div.danger {
     border: 2px solid var(--danger)
   }
 
   span.danger {
     color: var(--danger);
-  }
+  } */
 
   @media (prefers-color-scheme: dark) {
     div.name {
