@@ -2,10 +2,9 @@ export type PlayerType = {
   id: number;
   playerName: string,
   playerNumber: number,
-  time?: number,
-  points?: number,
-  assists?: number,
-  fouls?: number
+  points?: number | undefined,
+  assists?: number | undefined,
+  fouls?: number | undefined
 }
 
 export type TeamType = {
@@ -13,7 +12,8 @@ export type TeamType = {
   teamName: string,
   players: PlayerType[],
   rosterSize: number,
-  sport: string
+  sport: string,
+  image: string
 }
 
 export type GameType = {

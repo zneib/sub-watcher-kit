@@ -24,6 +24,7 @@
   const activatePlayer = (player: PlayerType) => {
     if (optionsData.maxActivePlayers - activePlayerData.length >= 0) {
       addActivePlayer(player);
+      isActivated = false;
     } else {
       return;
     }
@@ -41,19 +42,6 @@
     })
   }
 
-  const handlePointerEvent = (event: PointerEvent) => {
-    switch(event.pointerType) {
-      case 'mouse':
-        console.log('You used a mouse');
-        break;
-      case 'touch':
-        console.log('You used a phone or tablet');
-        break;
-      default:
-        console.log('Not sure what you are using');
-    }
-  }
-
   onDestroy(() => {
     playerStoreSub();
     activePlayerStoreSub();
@@ -69,7 +57,7 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   {/if}
-  <button disabled={optionsData.maxActivePlayers - activePlayerData?.length <= 0} class="wrapper" class:isActivated on:click={() => isActivated = !isActivated} on:pointerdown={handlePointerEvent}>
+  <button disabled={optionsData.maxActivePlayers - activePlayerData?.length <= 0} class="wrapper" class:isActivated on:click={() => isActivated = !isActivated}>
     {person.playerName}
     <div>
       {#if isActivated}

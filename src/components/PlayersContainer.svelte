@@ -144,7 +144,7 @@
 
   @media (max-width: 768px) {
     article {
-      width: 90%;
+      width: 95%;
       margin-top: 25px;
     }
     div.person-container {

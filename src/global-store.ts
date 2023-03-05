@@ -9,7 +9,8 @@ const teamInfo = {
   teamName: browser && localStorage.getItem('team') || '',
   players,
   rosterSize: 7,
-  sport: ''
+  sport: '',
+  image: ''
 }
 const options = {
   isInactiveOpen: true,
@@ -21,7 +22,7 @@ const options = {
   playerToEdit: { 
     id: 0, 
     playerName: '', 
-    playerNumber: 0, 
+    playerNumber: 0,
     points: 0,
     assists: 0,
     fouls: 0
