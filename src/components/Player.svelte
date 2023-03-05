@@ -84,6 +84,7 @@
   }
   span.timer {
     width: 5%;
+    margin-right: 5px;
   }
   div.name:hover {
     box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.2);

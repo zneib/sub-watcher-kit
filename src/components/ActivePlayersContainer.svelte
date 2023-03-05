@@ -33,7 +33,7 @@
     const [minutes, seconds] = time.split(":").map(Number);
 
     const totalSeconds = minutes * 60 + seconds;
-    console.log(totalSeconds);
+    return totalSeconds;
   }
 
   const convertToTime = (seconds: number) => {
@@ -47,7 +47,21 @@
   }
 
   const removeActivePlayerFn = (player: PlayerType, time: string) => {
-    console.log(convertToSeconds(time));
+    console.log(activePlayerData);
+    // Keep track of the time the player was active
+    const timeInSeconds = convertToSeconds(time);
+    const playerIndex = activePlayerData.findIndex((person) => person.id === player.id);
+    console.log(playerIndex)
+    if (playerIndex !== -1) {
+      activePlayerData[playerIndex] = { 
+        ...player,
+        time: timeInSeconds
+      }
+      activePlayerStore.update(() => {
+        return [...activePlayerData];
+      })
+      localStorage.setItem('players', JSON.stringify(activePlayerData));
+    }
     const currentActivePlayers = activePlayerData.filter(({playerName}) => playerName !== player.playerName);
     activePlayerStore.update(() => [...currentActivePlayers]);
     playerStore.update((data) => [...data, player]);

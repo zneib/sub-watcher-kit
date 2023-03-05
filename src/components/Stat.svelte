@@ -70,7 +70,7 @@
     display: inline-block;
     place-items: center;
     font-size: 9px;
-    margin: 8px 20px 0 20px;
+    margin: 5px 20px 0 20px;
     text-align: center;
     position: relative;
   }
