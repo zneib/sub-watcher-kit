@@ -78,16 +78,16 @@
 <style>
   :global(:root) {
     --danger: #d64545;
-    --grey-one: #102A43;
-    --grey-two: #243B53;
-    --grey-three: #334E68;
-    --grey-four: #486581;
-    --grey-five: #627D98;
-    --grey-six: #829AB1;
-    --grey-seven: #9FB3C8;
-    --grey-eight: #BCCCDC;
-    --grey-nine: #D9E2EC;
-    --grey-ten: #F0F4F8;
+    --grey-one: #1F2933;
+    --grey-two: #323F4B;
+    --grey-three: #3E4C59;
+    --grey-four: #52606D;
+    --grey-five: #616E7C;
+    --grey-six: #7B8794;
+    --grey-seven: #9AA5B1;
+    --grey-eight: #CBD2D9;
+    --grey-nine: #E4E7EB;
+    --grey-ten: #F5F7FA;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
