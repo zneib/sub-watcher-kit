@@ -17,7 +17,6 @@ export type TeamType = {
 }
 
 export type GameType = {
-  id: number;
   name: string;
   players: PlayerType[],
   date: string

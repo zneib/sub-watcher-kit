@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+	import type { GameType } from '../global-types';
   import { handleClickOutside } from '../helpers';
   let gameName: string = '';
   let hasError = false;
@@ -13,9 +14,25 @@
     saveGameDialog.close()
   }
 
+  const postNewGame = async (gameData: GameType) => {
+    await fetch(`https://zneib-sub-watcher-api.deno.dev/api/games`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(gameData)
+    })
+  }
+
   const saveGame = () => {
-    const game = {};
+    const players = JSON.parse(localStorage.getItem('players') || '[]');
+    const game: GameType = {
+      name: gameName,
+      players,
+      date: new Date().toString()
+    };
     if (Object.keys(game).length > 0) {
+      postNewGame(game);
       localStorage.setItem(`${gameName}-game`, JSON.stringify(game));
       saveGameDialog.close();
     } else {
