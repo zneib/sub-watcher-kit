@@ -28,8 +28,6 @@ export type OptionsType = {
   isActiveOpen: boolean,
   playTimeLimit: string,
   maxActivePlayers: number,
-  numOfQuarters: number,
-  mode: string,
   playerToEdit: PlayerType,
   showEditDialog: boolean,
   showDeleteDialog: boolean,

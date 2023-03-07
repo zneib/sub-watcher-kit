@@ -15,7 +15,7 @@
 
   const saveGame = () => {
     const game = {};
-    if (gameName !== '') {
+    if (Object.keys(game).length > 0) {
       localStorage.setItem(`${gameName}-game`, JSON.stringify(game));
       saveGameDialog.close();
     } else {

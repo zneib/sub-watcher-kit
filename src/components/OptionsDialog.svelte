@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
+	import { dataset_dev } from 'svelte/internal';
   import { optionsStore, teamStore } from '../global-store';
 	import type { OptionsType, TeamType } from '../global-types';
   import { handleClickOutside } from '../helpers';
@@ -44,7 +45,7 @@
     optionsStore.update((data) => { 
       return { ...data, maxActivePlayers: +target?.value }
     });
-    localStorage.setItem('maxPlayers', target?.value);
+    localStorage.setItem('options', JSON.stringify({ ...optionsData, maxActivePlayers: +target?.value }));
   }
 
   const handlePlayTimeChange = (event: Event) => {
@@ -52,15 +53,7 @@
     optionsStore.update((data) => {
       return { ...data, playTimeLimit: target?.value }
     });
-    localStorage.setItem('maxPlayTime', target?.value);
-  }
-
-  const handleQuarterChange = (event: Event) => {
-    const target = event.target as HTMLSelectElement;
-    optionsStore.update((data) => {
-      return { ...data, numOfQuarters: +target?.value }
-    });
-    localStorage.setItem('quarterTime', target?.value);
+    localStorage.setItem('options', JSON.stringify({ ...optionsData, playTimeLimit: target?.value }));
   }
 
   onDestroy(() => {
@@ -103,15 +96,6 @@
           <option value="20:00">20:00</option>
           <option value="25:00">25:00</option>
           <option value="30:00">30:00</option>
-        </select>
-      </div>
-      <div>
-        <label for="numOfQuarters">Number Of Quarters</label>
-        <select name="numOfQuarters" on:change={handleQuarterChange} value={optionsData.numOfQuarters}>
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4} selected>4</option>
         </select>
       </div>
       <div class="button-wrapper">
