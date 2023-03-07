@@ -11,6 +11,7 @@
 	import PlayersContainer from '../components/PlayersContainer.svelte';
   import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 	import EditPlayerDialog from '../components/EditPlayerDialog.svelte';
+	import SaveGameDialog from '../components/SaveGameDialog.svelte';
 
   async function getTeamInfo() {
     const res = await fetch(`https://zneib-sub-watcher-api.deno.dev/api/getTeams`);
@@ -58,12 +59,7 @@
   </div>
 </header>
 <hr>
-<button class="saveGame">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0l-3-3m3 3l3-3m-8.25 6a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-  </svg>   
-  <span>Save Game</span>
-</button>
+<SaveGameDialog />
 <button class="saveGame">
   <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
