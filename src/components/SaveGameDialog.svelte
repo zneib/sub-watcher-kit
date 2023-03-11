@@ -26,14 +26,15 @@
 
   const saveGame = () => {
     const players = JSON.parse(localStorage.getItem('players') || '[]');
+    const activePlayers = JSON.parse(localStorage.getItem('activePlayers') || '[]');
     const game: GameType = {
       name: gameName,
-      players,
+      players: [...players, ...activePlayers],
       date: new Date().toString()
     };
     if (Object.keys(game).length > 0) {
       postNewGame(game);
-      localStorage.setItem(`${gameName}-game`, JSON.stringify(game));
+      // localStorage.setItem(`${gameName}-game`, JSON.stringify(game));
       saveGameDialog.close();
     } else {
       hasError = true;
