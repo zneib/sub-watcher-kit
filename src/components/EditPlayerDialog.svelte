@@ -20,11 +20,11 @@
     if (appStateData.showEditDialog && !editPlayerDialog.open) {
       editPlayerDialog.showModal();
     }
-    playerId = data.playerToEdit.id;
-    playerName = data.playerToEdit.playerName;
-    playerNumber = data.playerToEdit.playerNumber;
-    playerPoints = data.playerToEdit.points;
-    playerAssists = data.playerToEdit.assists;
+    playerId = 0;
+    playerName = '';
+    playerNumber = 0;
+    playerPoints = 0;
+    playerAssists = 0;
   });
 
   let playerData: PlayerType[] = [];

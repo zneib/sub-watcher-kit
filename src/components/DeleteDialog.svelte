@@ -23,7 +23,7 @@
   })
 
   const deletePerson = () => {
-    const people: PlayerType[] = playerData.filter(({id}) => id !== appStateData.playerToEdit.id);
+    const people: PlayerType[] = playerData.filter(({id}) => id !== appStateData?.playerToEdit?.id);
     playerStore.update(() => [...people])
     localStorage.setItem('players', JSON.stringify(people));
     deleteDialog.close();
@@ -42,7 +42,7 @@
 <dialog id="deleteDialog" on:click={(e) => handleClickOutside(e, deleteDialog)}>
   <div class="wrapper">
     <form method="dialog">
-      <p>Remove <span style="font-weight: bold">{appStateData.playerToEdit.playerName}</span> as a player?</p>
+      <p>Remove <span style="font-weight: bold">{appStateData?.playerToEdit?.playerName}</span> as a player?</p>
     </form>
     <div class="button-wrapper">
       <button value="cancel" on:click={closeDialog}>Cancel</button>
