@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import { playerStore, activePlayerStore, optionsStore } from '../global-store';
-  import type { OptionsType, PlayerType } from '../global-types';
+  import { playerStore, activePlayerStore, optionsStore, appStateStore } from '../global-store';
+  import type { AppStateType, OptionsType, PlayerType } from '../global-types';
   export let person: PlayerType;
   export let addActivePlayer: (player: PlayerType) => void;
   let isActivated = false;
@@ -21,6 +21,11 @@
     optionsData = data;
   });
 
+  let appStateData: AppStateType;
+  const appStateStoreSub = appStateStore.subscribe((data) => {
+    appStateData = data;
+  });
+
   const activatePlayer = (player: PlayerType) => {
     if (optionsData.maxActivePlayers - activePlayerData.length >= 0) {
       addActivePlayer(player);
@@ -31,13 +36,13 @@
   }
 
   const handleEditPlayer = (player: PlayerType) => {
-    optionsStore.update((data) => { 
+    appStateStore.update((data) => { 
       return { ...data, playerToEdit: player, showEditDialog: true }
     })
   }
 
   const handleDeletePlayer = (player: PlayerType) => {
-    optionsStore.update((data) => {
+    appStateStore.update((data) => {
       return { ...data, playerToEdit: player, showDeleteDialog: true}
     })
   }
@@ -46,6 +51,7 @@
     playerStoreSub();
     activePlayerStoreSub();
     optionsStoreSub();
+    appStateStoreSub();
   });
 </script>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { optionsStore, playerStore } from '../global-store';
-	import type { OptionsType, PlayerType } from '../global-types';
+  import { appStateStore, playerStore } from '../global-store';
+	import type { AppStateType, PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
 
   let deleteDialog: HTMLDialogElement;
@@ -14,16 +14,16 @@
     playerData = data;
   });
 
-  let optionsData: OptionsType;
-  const optionsStoreSub = optionsStore.subscribe((data) => {
-    optionsData = data;
-    if (optionsData.showDeleteDialog) {
+  let appStateData: AppStateType;
+  const appStateStoreSub = appStateStore.subscribe((data) => {
+    appStateData = data;
+    if (appStateData.showDeleteDialog) {
       deleteDialog.showModal();
     }
   })
 
   const deletePerson = () => {
-    const people: PlayerType[] = playerData.filter(({id}) => id !== optionsData.playerToEdit.id);
+    const people: PlayerType[] = playerData.filter(({id}) => id !== appStateData.playerToEdit.id);
     playerStore.update(() => [...people])
     localStorage.setItem('players', JSON.stringify(people));
     deleteDialog.close();
@@ -35,14 +35,14 @@
 
   onDestroy(() => {
     playerStoreSub();
-    optionsStoreSub();
+    appStateStoreSub();
   });
 </script>
 
 <dialog id="deleteDialog" on:click={(e) => handleClickOutside(e, deleteDialog)}>
   <div class="wrapper">
     <form method="dialog">
-      <p>Remove <span style="font-weight: bold">{optionsData.playerToEdit.playerName}</span> as a player?</p>
+      <p>Remove <span style="font-weight: bold">{appStateData.playerToEdit.playerName}</span> as a player?</p>
     </form>
     <div class="button-wrapper">
       <button value="cancel" on:click={closeDialog}>Cancel</button>

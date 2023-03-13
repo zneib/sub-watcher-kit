@@ -59,15 +59,6 @@
     width: 100%;
   }
 
-  label {
-    font-size: 12px;
-  }
-
-  input {
-    width: 100%;
-    margin-top: 2px;
-  }
-
   h3 {
     margin-top: 0;
     text-align: center;
@@ -97,11 +88,6 @@
     display: flex;
     justify-content: space-between;
   }
-
-  .error {
-    font-size: 10px;
-    color: var(--danger);
-  }
   @media (prefers-color-scheme: dark) {
 
     dialog {
@@ -125,18 +111,6 @@
     }
     form {
       background-color: var(--grey-four);
-    }
-
-    label {
-      color: var(--grey-nine);
-    }
-
-    input {
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-      padding: 5px 10px;
-      width: 100%;
     }
   }
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-	import { playerStore, optionsStore } from '../global-store';
-	import type { OptionsType, PlayerType } from '../global-types';
+	import { playerStore, appStateStore } from '../global-store';
+	import type { AppStateType, PlayerType } from '../global-types';
   import { handleClickOutside } from '../helpers';
 
   let editPlayerDialog: HTMLDialogElement;
@@ -9,15 +9,15 @@
     editPlayerDialog = document.getElementById('editPlayerDialog') as HTMLDialogElement;
   });
 
-  let optionsData: OptionsType;
+  let appStateData: AppStateType;
   let playerId: number;
   let playerName: string;
   let playerNumber: number;
   let playerPoints: number;
   let playerAssists: number;
-  const optionsStoreSub = optionsStore.subscribe((data) => {
-    optionsData = data;
-    if (optionsData.showEditDialog && !editPlayerDialog.open) {
+  const optionsStoreSub = appStateStore.subscribe((data) => {
+    appStateData = data;
+    if (appStateData.showEditDialog && !editPlayerDialog.open) {
       editPlayerDialog.showModal();
     }
     playerId = data.playerToEdit.id;

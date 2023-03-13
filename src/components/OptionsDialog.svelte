@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-	import { dataset_dev } from 'svelte/internal';
-  import { optionsStore, teamStore } from '../global-store';
-	import type { OptionsType, TeamType } from '../global-types';
+  import { optionsStore, teamStore, appStateStore } from '../global-store';
+	import type { AppStateType, OptionsType, TeamType } from '../global-types';
   import { handleClickOutside } from '../helpers';
   
   let optionsDialog: HTMLDialogElement;
@@ -16,6 +15,16 @@
 
     // Only try to open the modal again if it isn't already open
     if (optionsData.showOptionsDialog && !optionsDialog.open) {
+      optionsDialog.showModal();
+    }
+  });
+
+  let appStateData: AppStateType;
+  const appStateStoreSub = appStateStore.subscribe((data) => {
+    appStateData = { ...data }
+
+    // Only try to open the modal again if it isn't already open
+    if (appStateData.showOptionsDialog && !optionsDialog.open) {
       optionsDialog.showModal();
     }
   });
@@ -59,6 +68,7 @@
   onDestroy(() => {
     optionsStoreSub();
     teamStoreSub();
+    appStateStoreSub();
   });
 </script>
 

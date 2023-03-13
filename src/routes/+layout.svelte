@@ -3,6 +3,8 @@
   import { page } from '$app/stores';
   import { teamStore } from '../global-store';
   import pinPals from '$lib/assets/pin-pals.jpg';
+
+  console.log($page.route.id);
 </script>
 
 <header>
@@ -133,15 +135,6 @@
     color: #27ab83;
   }
 
-  button.saveGame {
-    display: flex;
-    align-items: center;
-  }
-
-  button.saveGame > span {
-    margin-left: 5px;
-  }
-
   button {
     color: black;
     font-weight: normal;
@@ -176,6 +169,9 @@
     }
     .headerItem {
       color: var(--grey-nine);
+    }
+    .active {
+      color: #27ab83;
     }
   }
 </style>

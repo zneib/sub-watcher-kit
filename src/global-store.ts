@@ -14,39 +14,20 @@ const teamInfo = {
   image: ''
 }
 const options = {
-  isInactiveOpen: true,
-  isActiveOpen: true,
   playTimeLimit: savedOptions.playTimeLimit ?? '05:00',
   maxActivePlayers: savedOptions.maxActivePlayers ?? 5,
-  playerToEdit: { 
-    id: 0, 
-    playerName: '', 
-    playerNumber: 0,
-    points: 0,
-    assists: 0,
-    fouls: 0
-  },
+}
+const appState = {
+  isInactiveOpen: true,
+  isActiveOpen: true,
+  playerToEdit: undefined,
   showEditDialog: false,
   showDeleteDialog: false,
   showOptionsDialog: false
 }
-// const appState = {
-//   isInactiveOpen: true,
-//   isActiveOpen: true,
-//   playerToEdit: { 
-//     id: 0, 
-//     playerName: '', 
-//     playerNumber: 0,
-//     points: 0,
-//     assists: 0,
-//     fouls: 0
-//   },
-//   showEditDialog: false,
-//   showDeleteDialog: false,
-//   showOptionsDialog: false
-// }
 
 export const playerStore = writable(players);
 export const activePlayerStore = writable(activePlayers);
 export const optionsStore = writable(options);
 export const teamStore = writable(teamInfo);
+export const appStateStore = writable(appState);

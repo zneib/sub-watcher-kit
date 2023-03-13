@@ -23,11 +23,14 @@ export type GameType = {
 }
 
 export type OptionsType = {
-  isInactiveOpen: boolean,
-  isActiveOpen: boolean,
   playTimeLimit: string,
   maxActivePlayers: number,
-  playerToEdit: PlayerType,
+}
+
+export type AppStateType = {
+  isInactiveOpen: boolean,
+  isActiveOpen: boolean,
+  playerToEdit?: PlayerType | undefined,
   showEditDialog: boolean,
   showDeleteDialog: boolean,
   showOptionsDialog: boolean
