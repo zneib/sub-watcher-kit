@@ -1,38 +1,11 @@
-# create-svelte
+# Purpose
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+I needed an easier way to keep track of players during games. Specifically I wanted a place to keep track of various events and stats during any kind of game. Also, I really wanted to learn more about Svelte, and this seemed like a good project to try it out on.
 
-## Creating a project
+# Try It Out
 
-If you're seeing this, you've probably already done this step. Congrats!
+https://sub-watcher-kit.vercel.app/
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+# Disclaimer and Warning
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+The URL gives it away, but this is something is a big work in progress. Issues are a abundant, and a lot of the code will change over time.
