@@ -17,8 +17,8 @@
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
 </script>
-<SaveGameDialog />
-<NewGameDialog />
+  <SaveGameDialog />
+  <NewGameDialog />
 <main>
   <DeleteDialog />
   <AddPlayerDialog />
