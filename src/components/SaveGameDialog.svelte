@@ -40,6 +40,10 @@
       hasError = true;
     }
   }
+
+  const getGameDetails = () => {
+    // If the game has already been saved before. Inform the user that they can overwrite the existing game. Or they can edit the game details in the games page.
+  }
 </script>
 
 <button class="saveGame" on:click={() => saveGameDialog.showModal()}>

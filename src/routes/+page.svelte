@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { page } from '$app/stores';
 
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
@@ -17,7 +18,9 @@
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
 </script>
-  <SaveGameDialog />
+  {#if $page.data.session}
+    <SaveGameDialog />
+  {/if}
   <NewGameDialog />
 <main>
   <DeleteDialog />
