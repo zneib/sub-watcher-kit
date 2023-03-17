@@ -10,21 +10,21 @@
   });
 
   let appStateData: AppStateType;
-  let playerId: number;
-  let playerName: string;
-  let playerNumber: number;
-  let playerPoints: number;
-  let playerAssists: number;
-  const optionsStoreSub = appStateStore.subscribe((data) => {
+  let playerId: number | undefined;
+  let playerName: string | undefined;
+  let playerNumber: number | undefined;
+  let playerPoints: number | undefined;
+  let playerAssists: number | undefined;
+  const appStateStoreSub = appStateStore.subscribe((data) => {
     appStateData = data;
     if (appStateData.showEditDialog && !editPlayerDialog.open) {
       editPlayerDialog.showModal();
     }
-    playerId = 0;
-    playerName = '';
-    playerNumber = 0;
-    playerPoints = 0;
-    playerAssists = 0;
+    playerId = appStateData.playerToEdit?.id;
+    playerName = appStateData.playerToEdit?.playerName;
+    playerNumber = appStateData.playerToEdit?.playerNumber;
+    playerPoints = appStateData.playerToEdit?.points ?? 0;
+    playerAssists = appStateData.playerToEdit?.assists ?? 0;
   });
 
   let playerData: PlayerType[] = [];
@@ -50,7 +50,7 @@
 
   onDestroy(() => {
     playerStoreSub();
-    optionsStoreSub();
+    appStateStoreSub();
   });
 </script>
 

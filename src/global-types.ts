@@ -1,7 +1,7 @@
 export type PlayerType = {
-  id: number;
-  playerName: string,
-  playerNumber: number,
+  id: number | undefined;
+  playerName: string | undefined,
+  playerNumber: number | undefined,
   points?: number | undefined,
   assists?: number | undefined,
   fouls?: number | undefined
