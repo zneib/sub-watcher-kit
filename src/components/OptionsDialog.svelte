@@ -12,11 +12,6 @@
   let optionsData: OptionsType;
   const optionsStoreSub = optionsStore.subscribe((data) => {
     optionsData = { ...data }
-
-    // Only try to open the modal again if it isn't already open
-    if (optionsData.showOptionsDialog && !optionsDialog.open) {
-      optionsDialog.showModal();
-    }
   });
 
   let appStateData: AppStateType;
