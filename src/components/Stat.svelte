@@ -45,7 +45,7 @@
   });
 </script>
 
-<div class="track">
+<div class="stat">
   <p class="total">{total}</p>
   <p>{text.toUpperCase()}</p>
   {#if isActivated}
@@ -66,7 +66,7 @@
   div {
     height: 45px;
   }
-  div.track {
+  div.stat {
     display: inline-block;
     place-items: center;
     font-size: 9px;
@@ -74,10 +74,10 @@
     text-align: center;
     position: relative;
   }
-  div.track > p {
+  div.stat > p {
     margin: 0;
   }
-  div.track > p.total {
+  div.stat > p.total {
     font-size: 18px;
   }
   button.minusSign {
