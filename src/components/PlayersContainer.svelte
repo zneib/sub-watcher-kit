@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
-  import { playerStore, activePlayerStore, optionsStore } from "../global-store";
-	import type { OptionsType, PlayerType } from '../global-types';
+  import { playerStore, activePlayerStore, optionsStore, appStateStore } from "../global-store";
+	import type { OptionsType, PlayerType, AppStateType } from '../global-types';
   import Collapse from "./Collapse.svelte";
   // import DeleteAll from "./DeleteAll.svelte";
   import Helper from "./Helper.svelte";
@@ -34,9 +34,9 @@
     activePlayerData = data;
   });
 
-  let optionsData: OptionsType;
-  const optionsStoreSub = optionsStore.subscribe((data) => {
-    optionsData = data;
+  let appStateData: AppStateType;
+  const appStateStoreSub = appStateStore.subscribe((data) => {
+    appStateData = data;
   })
 
   const addActivePlayer = (player: PlayerType) => {
@@ -51,7 +51,7 @@
   }
 
   const handleOptionsClick = () => {
-    optionsStore.update((data) => { 
+    appStateStore.update((data) => { 
       return {...data, showOptionsDialog: true }
     });
   }
@@ -59,7 +59,7 @@
   onDestroy(() => {
     playerStoreSub();
     activePlayerStoreSub();
-    optionsStoreSub();
+    appStateStoreSub();
   });
 </script>
 
@@ -83,9 +83,9 @@
   <button class="options" on:click={handleOptionsClick}>
     Options
   </button>
-  {#if optionsData.maxActivePlayers - activePlayerData?.length <= 0}
+  <!-- {#if optionsData.maxActivePlayers - activePlayerData?.length <= 0}
     <p class="limit-message">Active Player Limit Reached</p>
-  {/if}
+  {/if} -->
   <button class="add" on:click={() => addPlayerDialog.showModal()}>
     Add Player
   </button>
