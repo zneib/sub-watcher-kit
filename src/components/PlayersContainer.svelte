@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
-  import { playerStore, activePlayerStore, optionsStore, appStateStore } from "../global-store";
-	import type { OptionsType, PlayerType, AppStateType } from '../global-types';
+  import { playerStore, activePlayerStore, appStateStore } from "../global-store";
+	import type { PlayerType } from '../global-types';
   import Collapse from "./Collapse.svelte";
   // import DeleteAll from "./DeleteAll.svelte";
   import Helper from "./Helper.svelte";
@@ -34,11 +34,6 @@
     activePlayerData = data;
   });
 
-  let appStateData: AppStateType;
-  const appStateStoreSub = appStateStore.subscribe((data) => {
-    appStateData = data;
-  })
-
   const addActivePlayer = (player: PlayerType) => {
     activePlayerStore.update((data) => [...data, player]);
 
@@ -59,7 +54,6 @@
   onDestroy(() => {
     playerStoreSub();
     activePlayerStoreSub();
-    appStateStoreSub();
   });
 </script>
 
@@ -80,12 +74,6 @@
       {/each}
     {/if}
   </div>
-  <button class="options" on:click={handleOptionsClick}>
-    Options
-  </button>
-  <!-- {#if optionsData.maxActivePlayers - activePlayerData?.length <= 0}
-    <p class="limit-message">Active Player Limit Reached</p>
-  {/if} -->
   <button class="add" on:click={() => addPlayerDialog.showModal()}>
     Add Player
   </button>
@@ -106,24 +94,13 @@
   }
   div.collapsed {
     display: none;
-  }            
-  p.limit-message {
-    text-align: center; 
-    font-size: 12px; 
-    margin: 2px auto
-  }       
-
-  .options {
-    width: 100px;
-    position: absolute;
-    left: 35px;
-    bottom: -15px;
   }
 
   .add {
     width: 100px;
     position: absolute;
-    right: 35px;
+    right: 0;
+    left: 0;
     bottom: -15px;
     margin: auto;
   }
@@ -156,9 +133,6 @@
 
   @media (prefers-color-scheme: dark) {
     h2 {
-      color: var(--grey-nine);
-    }
-    p.limit-message {
       color: var(--grey-nine);
     }
     button {
