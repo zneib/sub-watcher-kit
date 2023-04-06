@@ -10,6 +10,7 @@ export type PlayerType = {
 export type TeamType = {
   id: number;
   teamName: string,
+  teamPicture: string,
   players: PlayerType[],
   rosterSize: number,
   sport: string,

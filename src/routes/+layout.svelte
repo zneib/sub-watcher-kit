@@ -14,8 +14,12 @@
 
 <header>
   <div>
-    <img src={pinPals} alt="Avatar">
-    <h1>{$teamStore.teamName}</h1>
+    {#if $page.data.session}
+      <img src={pinPals} alt="Avatar">
+      <h1>{$teamStore.teamName}</h1>
+    {:else}
+      <h1>Guest</h1>
+    {/if}
   </div>
   <div>
     <div class="headerItem" on:click={() => console.log('Do the thing')}>

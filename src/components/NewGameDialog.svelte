@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { playerStore, activePlayerStore } from "../global-store";
   import { handleClickOutside } from '../helpers';
 
   let newGameDialog: HTMLDialogElement;
@@ -12,7 +13,10 @@
   }
 
   const handleNewGame = () => {
-    console.log('Removing all data...');
+    localStorage.clear();
+    newGameDialog.close();
+    playerStore.update(() => []);
+    activePlayerStore.update(() => []);
   }
 </script>
 
@@ -28,7 +32,7 @@
       <h3>New Game</h3>
       <p>All current game data will be lost if not saved</p>
       <div class="button-wrapper">
-        <button type="submit">Start</button>
+        <button type="submit">Continue</button>
         <button value="cancel" on:click={closeDialog}>Close</button>
       </div>
     </form>

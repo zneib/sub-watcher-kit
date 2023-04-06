@@ -8,6 +8,7 @@ const savedOptions: OptionsType = browser && JSON.parse(localStorage.getItem('op
 const teamInfo = {
   id: 0,
   teamName: browser && localStorage.getItem('team') || '',
+  teamPicture: '',
   players,
   rosterSize: 7,
   sport: '',

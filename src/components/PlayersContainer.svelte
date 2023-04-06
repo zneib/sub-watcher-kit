@@ -45,12 +45,6 @@
     localStorage.setItem('players', JSON.stringify(people));
   }
 
-  const handleOptionsClick = () => {
-    appStateStore.update((data) => { 
-      return {...data, showOptionsDialog: true }
-    });
-  }
-
   onDestroy(() => {
     playerStoreSub();
     activePlayerStoreSub();
