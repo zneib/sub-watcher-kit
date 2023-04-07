@@ -7,7 +7,7 @@ const activePlayers: PlayerType[] = browser && JSON.parse(localStorage.getItem('
 const savedOptions: OptionsType = browser && JSON.parse(localStorage.getItem('options') || '[]');
 const teamInfo = {
   id: 0,
-  teamName: browser && localStorage.getItem('team') || '',
+  teamName: browser && localStorage.getItem('team') || 'New Team',
   teamPicture: '',
   players,
   rosterSize: 7,

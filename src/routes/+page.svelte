@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  import { playerStore } from "../global-store";
   import { page } from '$app/stores';
 
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
@@ -10,6 +11,7 @@
 	import EditPlayerDialog from '../components/EditPlayerDialog.svelte';
 	import SaveGameDialog from '../components/SaveGameDialog.svelte';
 	import NewGameDialog from '../components/NewGameDialog.svelte';
+	import type { PlayerType } from '../global-types';
 
   let saveTeamDialog: HTMLDialogElement;
   let loadTeamDialog: HTMLDialogElement;
@@ -17,11 +19,24 @@
     saveTeamDialog = document.getElementById('saveTeamDialog') as HTMLDialogElement;
     loadTeamDialog = document.getElementById('loadTeamDialog') as HTMLDialogElement;
   })
+
+  let playerData: PlayerType[] = [];
+  const playerStoreSub = playerStore.subscribe((data) => {
+    playerData = data;
+  });
+
+  onDestroy(() => {
+    playerStoreSub();
+  });
 </script>
-  {#if $page.data.session}
-    <SaveGameDialog />
-  {/if}
-  <NewGameDialog />
+  <div class="gameActionsRow">
+    {#if $page.data.session && playerData.length > 0}
+      <SaveGameDialog />
+    {/if}
+    {#if playerData.length > 0}
+      <NewGameDialog />
+    {/if}
+  </div>
 <main>
   <DeleteDialog />
   <AddPlayerDialog />
@@ -59,6 +74,11 @@
   main {
     display: flex;
     align-items: baseline;
+  }
+
+  .gameActionsRow {
+    display: flex;
+    justify-content: center;
   }
 
   @media (max-width: 768px) {

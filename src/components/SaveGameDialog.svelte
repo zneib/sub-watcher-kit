@@ -72,6 +72,9 @@
 </dialog>
 
 <style>
+  button {
+    margin: 0 5px;
+  }
   dialog {
     border: 2px solid rgb(175, 175, 175);
     border-radius: 5px;

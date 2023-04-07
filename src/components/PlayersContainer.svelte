@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
-  import { playerStore, activePlayerStore, appStateStore } from "../global-store";
+  import { playerStore, activePlayerStore } from "../global-store";
 	import type { PlayerType } from '../global-types';
   import Collapse from "./Collapse.svelte";
   // import DeleteAll from "./DeleteAll.svelte";

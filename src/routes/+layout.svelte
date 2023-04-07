@@ -3,7 +3,6 @@
   import { page } from '$app/stores';
   import { teamStore, appStateStore } from '../global-store';
   import pinPals from '$lib/assets/pin-pals.jpg';
-	import type { AppStateType } from '../global-types';
 
   const handleOptionsClick = () => {
     appStateStore.update((data) => { 
