@@ -9,12 +9,15 @@
       return {...data, showOptionsDialog: true }
     });
   }
+  const handleTeamImageChange = () => {
+    console.log('Show preselected team image icons')
+  }
 </script>
 
 <header>
   <div>
     {#if $page.data.session}
-      <img src={pinPals} alt="Avatar">
+      <img src={pinPals} alt="Avatar" on:click={handleTeamImageChange} on:keyup={handleTeamImageChange}>
       <h1>{$teamStore.teamName}</h1>
     {:else}
       <h1>Guest</h1>
@@ -101,6 +104,10 @@
     width: 75px;
     height: 75px;
     border-radius: 50%;
+  }
+  header > div > img:hover {
+    opacity: 0.5;
+    cursor: pointer;
   }
   header > div > h1 {
     display: inline-block;
