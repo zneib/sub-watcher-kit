@@ -24,7 +24,8 @@ const appState = {
   playerToEdit: undefined,
   showEditDialog: false,
   showDeleteDialog: false,
-  showOptionsDialog: false
+  showOptionsDialog: false,
+  showTeamImageDialog: false,
 }
 
 export const playerStore = writable(players);

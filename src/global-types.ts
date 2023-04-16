@@ -34,5 +34,6 @@ export type AppStateType = {
   playerToEdit?: PlayerType | undefined,
   showEditDialog: boolean,
   showDeleteDialog: boolean,
-  showOptionsDialog: boolean
+  showOptionsDialog: boolean,
+  showTeamImageDialog: boolean
 }

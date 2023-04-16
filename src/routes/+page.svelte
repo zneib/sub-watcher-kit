@@ -6,6 +6,7 @@
   import AddPlayerDialog from '../components/AddPlayerDialog.svelte';
   import DeleteDialog from '../components/DeleteDialog.svelte';
   import OptionsDialog from '../components/OptionsDialog.svelte';
+	import TeamImageDialog from '../components/TeamImageDialog.svelte';
 	import PlayersContainer from '../components/PlayersContainer.svelte';
   import ActivePlayersContainer from '../components/ActivePlayersContainer.svelte';
 	import EditPlayerDialog from '../components/EditPlayerDialog.svelte';
@@ -41,6 +42,7 @@
   <DeleteDialog />
   <AddPlayerDialog />
   <OptionsDialog />
+  <TeamImageDialog />
   <EditPlayerDialog />
   <PlayersContainer />
   <ActivePlayersContainer />

@@ -10,7 +10,9 @@
     });
   }
   const handleTeamImageChange = () => {
-    console.log('Show preselected team image icons')
+    appStateStore.update((data) => { 
+      return {...data, showTeamImageDialog: true }
+    });
   }
 </script>
 
