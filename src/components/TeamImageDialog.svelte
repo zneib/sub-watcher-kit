@@ -3,7 +3,6 @@
   import { appStateStore } from '../global-store';
 	import type { AppStateType } from '../global-types';
   import { handleClickOutside } from '../helpers';
-  import triangles from '$lib/assets/triangles.svg';
 
   let teamImageDialog: HTMLDialogElement;
   onMount(() => {
@@ -36,7 +35,8 @@
 <dialog id="teamImageDialog" on:click={(e) => handleClickOutside(e, teamImageDialog)}>
   <div class="wrapper">
     <div class="image-grid">
-      <img src={triangles} alt="icon">
+      <div class="emoji-image">&#9917;</div>
+      <div class="emoji-image">&#127936;</div>
     </div>
     <div class="button-wrapper">
       <button value="cancel" on:click={closeDialog}>Cancel</button>
@@ -76,12 +76,8 @@
     border: 2px solid rgb(129, 129, 129);
   }
 
-  img {
-    border: 2px solid var(--grey-five);
-    border-radius: 50%;
-    width: 75px;
-    height: 75px;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+  .emoji-image {
+    font-size: 32px;
   }
   
   .button-wrapper {
