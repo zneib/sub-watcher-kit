@@ -142,6 +142,9 @@
     position: absolute;
     left: 50px;
   }
+  svg:hover {
+    cursor: pointer;
+  }
   h2 {
     margin-top: 0;
     text-align: center;
