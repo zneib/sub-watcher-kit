@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { playerStore, activePlayerStore, optionsStore } from "../global-store";
 	import type { PlayerType } from '../global-types';
   import Collapse from "./Collapse.svelte";
@@ -18,6 +18,11 @@
     "All players can be sent back to the inactive list by clicking on the Remove All Players button.",
     'Collapse and expland the card by clicking on the top left plus and minus buttons.'
   ]
+
+  let addPlayerDialog: HTMLDialogElement;
+  onMount(() => {
+    addPlayerDialog = document.getElementById('addPlayerDialog') as HTMLDialogElement;
+  })
   
   let playerData: PlayerType[] = [];
   const playerStoreSub = playerStore.subscribe((data) => {
@@ -51,7 +56,6 @@
     // Keep track of the time the player was active
     const timeInSeconds = convertToSeconds(time);
     const playerIndex = activePlayerData.findIndex((person) => person.id === player.id);
-    console.log(playerIndex)
     if (playerIndex !== -1) {
       activePlayerData[playerIndex] = { 
         ...player,
@@ -108,7 +112,7 @@
   {#if activePlayerData?.length > 0}
     <Collapse bind:isOpen />
   {/if}
-  <button class="addPlayer">
+  <button class="addPlayer" on:click={() => addPlayerDialog.showModal()}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
       <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
     </svg>
@@ -140,9 +144,6 @@
   {#if activePlayerData?.length === 0}
     <p class="message-text">No Players Selected</p>
   {/if}
-  <!-- <button class="add" on:click={() => addPlayerDialog.showModal()}>
-    Add Player
-  </button> -->
 </article>
 
 <style>
