@@ -44,7 +44,7 @@
   <OptionsDialog />
   <TeamImageDialog />
   <EditPlayerDialog />
-  <!-- <PlayersContainer /> -->
+  <PlayersContainer />
   <ActivePlayersContainer />
 </main>
 
