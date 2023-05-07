@@ -5,36 +5,36 @@
   export let player: PlayerType;
   export let selectedPlayer: PlayerType;
   export let removeActivePlayer: (player: PlayerType, time: string) => void;
-  export let playTimeLimit: string;
+  // export let playTimeLimit: string;
   export let updateActivePlayer: (player: PlayerType) => void;
-  let seconds: number = 0;
-  let minutes: number = 0;
+  // let seconds: number = 0;
+  // let minutes: number = 0;
   // let timesUp: boolean = false;
 
   $: isActivated = player.id === selectedPlayer.id;
 
-  const timerTracker = setInterval(() => {
-    if (seconds === 59) {
-      minutes += 1;
-      seconds = 0;
-    } else {
-      seconds += 1;
-    }
-  }, 1000);
+  // const timerTracker = setInterval(() => {
+  //   if (seconds === 59) {
+  //     minutes += 1;
+  //     seconds = 0;
+  //   } else {
+  //     seconds += 1;
+  //   }
+  // }, 1000);
 
-  $: timer = `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  // $: timer = `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 
-  afterUpdate(() => {
-    if (+timer.replace(':', '') > +playTimeLimit.replace(':', '')) {
-      clearInterval(timerTracker);
-      // timesUp = true;
-    }
-    // Prevent the timer from going forever.
-    if (timer === playTimeLimit) {
-      clearInterval(timerTracker);
-      // timesUp = true;
-    }
-  });
+  // afterUpdate(() => {
+  //   if (+timer.replace(':', '') > +playTimeLimit.replace(':', '')) {
+  //     clearInterval(timerTracker);
+  //     // timesUp = true;
+  //   }
+  //   // Prevent the timer from going forever.
+  //   if (timer === playTimeLimit) {
+  //     clearInterval(timerTracker);
+  //     // timesUp = true;
+  //   }
+  // });
 </script>
 
 <div class="name" class:isActivated on:click={() => updateActivePlayer(player)} on:keyup={() => console.log('Player')}>
@@ -54,7 +54,7 @@
     <Stat player={player} isActivated={isActivated} text="fouls" total={player.fouls ?? 0}/>
     <Stat player={player} isActivated={isActivated} text="blocks"/>
   </div>
-  <span class="timer">{timer}</span>
+  <!-- <span class="timer">{timer}</span> -->
 </div>
 
 <style>

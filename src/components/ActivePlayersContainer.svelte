@@ -34,32 +34,31 @@
     activePlayerData = data;
   });
 
-  const convertToSeconds = (time: string) => {
-    const [minutes, seconds] = time.split(":").map(Number);
+  // const convertToSeconds = (time: string) => {
+  //   const [minutes, seconds] = time.split(":").map(Number);
 
-    const totalSeconds = minutes * 60 + seconds;
-    return totalSeconds;
-  }
+  //   const totalSeconds = minutes * 60 + seconds;
+  //   return totalSeconds;
+  // }
 
-  const convertToTime = (seconds: number) => {
-    let mm: number | string = Math.floor(seconds / 60);
-    let ss: number | string = seconds - (mm * 60);
+  // const convertToTime = (seconds: number) => {
+  //   let mm: number | string = Math.floor(seconds / 60);
+  //   let ss: number | string = seconds - (mm * 60);
 
-    mm = mm < 10 ? '0' + mm : mm.toString();
-    ss = ss < 10 ? '0' + ss : ss.toString();
+  //   mm = mm < 10 ? '0' + mm : mm.toString();
+  //   ss = ss < 10 ? '0' + ss : ss.toString();
 
-    return `${mm}:${ss}`;
-  }
+  //   return `${mm}:${ss}`;
+  // }
 
   const removeActivePlayerFn = (player: PlayerType, time: string) => {
     console.log(activePlayerData);
     // Keep track of the time the player was active
-    const timeInSeconds = convertToSeconds(time);
+    // const timeInSeconds = convertToSeconds(time);
     const playerIndex = activePlayerData.findIndex((person) => person.id === player.id);
     if (playerIndex !== -1) {
       activePlayerData[playerIndex] = { 
-        ...player,
-        time: timeInSeconds
+        ...player
       }
       activePlayerStore.update(() => {
         return [...activePlayerData];
