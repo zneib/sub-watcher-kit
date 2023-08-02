@@ -34,11 +34,7 @@
     activePlayerData = data;
   });
 
-  const removeActivePlayerFn = (player: PlayerType, time: string) => {
-    console.log(activePlayerData);
-    console.log(player);
-    // Keep track of the time the player was active
-    // const timeInSeconds = convertToSeconds(time);
+  const removeActivePlayerFn = (player: PlayerType) => {
     const playerIndex = activePlayerData.findIndex((person) => person.id === player.id);
     if (playerIndex !== -1) {
       activePlayerData[playerIndex] = { 
@@ -82,7 +78,12 @@
   }
 
   const updateActivePlayer = (player: PlayerType) => {
-    selectedPlayer = player;
+    selectedPlayer.id = player.id
+    selectedPlayer.playerName = player.playerName
+    selectedPlayer.playerNumber = player.playerNumber
+    selectedPlayer.assists = player.assists
+    selectedPlayer.fouls = player.fouls
+    selectedPlayer.points = player.points
   }
 
   onDestroy(() => {
@@ -97,16 +98,15 @@
   {/if}
   <h2>Active Players</h2>
   <Helper text="active" title="Active Players Features" features={helperFeaturesTwo} />
-  {#if activePlayerData?.length > 0 && $optionsStore.isActiveOpen}
+  {#if activePlayerData?.length > 0}
     <div class="labels">
       <span>Name</span>
-      <span>({$optionsStore.playTimeLimit}) MM:SS</span>
     </div>
   {/if}
   <div class:collapsed={!isOpen}>
     {#if activePlayerData.length > 0}
       {#each activePlayerData as player}
-        <Player player={player} selectedPlayer={selectedPlayer} removeActivePlayer={removeActivePlayerFn} playTimeLimit={$optionsStore.playTimeLimit} updateActivePlayer={updateActivePlayer} />
+        <Player player={player} selectedPlayer={selectedPlayer} removeActivePlayer={removeActivePlayerFn} updateActivePlayer={updateActivePlayer} />
       {/each}
     {/if}
   </div>
@@ -115,7 +115,7 @@
       <span>{$optionsStore.maxActivePlayers - activePlayerData?.length}</span> spots open
     </p>
   {/if}
-  {#if activePlayerData?.length > 1 && $optionsStore.isActiveOpen}
+  {#if activePlayerData?.length > 1}
     <button class="remove-all" on:click={removeAllActivePlayersFn}>Remove All Players</button>
   {/if}
   {#if activePlayerData?.length === 0}

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { afterUpdate } from "svelte";
 	import type { PlayerType } from "../global-types";
 	import Stat from "./Stat.svelte";
   export let player: PlayerType;
