@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { signIn, signOut } from '@auth/sveltekit/client';
+  // import { signIn, signOut } from '@auth/sveltekit/client';
   import { page } from '$app/stores';
   import { teamStore, appStateStore } from '../global-store';
   import pinPals from '$lib/assets/pin-pals.jpg';
@@ -69,7 +69,7 @@
         </a>  
       </div>
     {/if}
-    <div class="auth-area">
+    <!-- <div class="auth-area">
       {#if $page.data.session}
         {#if $page.data.session.user?.image}
           <div style="display: flex; align-items: center; margin-bottom: 5px">
@@ -85,7 +85,7 @@
           <span class="notSignedInText">You are not signed in</span>
           <button class="notSignedInBtn" on:click={() => signIn("github")}>Sign In with GitHub</button>
       {/if}
-    </div>
+    </div> -->
   </div>
 </header>
 <hr>
